@@ -11,7 +11,6 @@ import grossary.cyron.com.grossary.R;
 public class SigninActivity extends AppCompatActivity {
 
 
-    private Button
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
