@@ -5,7 +5,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical">
 
-   <!-- <RelativeLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="133dp">
 
@@ -14,7 +14,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
 
-        <test.cyron.nmschool.nmschool.custom.CirclePageIndicator
+        <grossary.cyron.com.grossary.custom.CirclePageIndicator
             android:id="@+id/indicator"
             app:centered="true"
             app:fillColor="#ffffff"
@@ -26,6 +26,6 @@
             android:layout_centerHorizontal="true"
             android:gravity="bottom"
             android:padding="10dip" />
-    </RelativeLayout>-->
+    </RelativeLayout>
 
 </LinearLayout>

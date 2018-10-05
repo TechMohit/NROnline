@@ -17,7 +17,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import grossary.cyron.com.grossary.drawer.DrawerFragment;
-import grossary.cyron.com.grossary.tabs.HomeFragment;
+import grossary.cyron.com.grossary.home.HomeFragment;
 import grossary.cyron.com.grossary.tabs.OneFragment;
 import grossary.cyron.com.grossary.utility.FragmentHelper;
 
