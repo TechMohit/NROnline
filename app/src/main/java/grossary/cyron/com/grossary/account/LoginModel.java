@@ -1,180 +1,210 @@
 package grossary.cyron.com.grossary.account;
 
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
+
 public class LoginModel {
 
-    private float UserId;
-    private String LoginId;
-    private String FullName;
-    private String Mobile;
-    private String Email;
-    private String Address;
-    private String City;
-    private String State;
-    private String ZipCode;
-    private String StoreId;
-    private String GstNumber;
-    private String RoleCode;
-    private String OTP;
-    private String Status;
-    private String StatusMessage = null;
-    private Response Response;
 
+    
+    @SerializedName("Response")
+    private ResponseEntity response;
+    
+    @SerializedName("StatusMessage")
+    private String statusmessage;
+    
+    @SerializedName("Status")
+    private String status;
+    
+    @SerializedName("OTP")
+    private String otp;
+    
+    @SerializedName("RoleCode")
+    private String rolecode;
+    
+    @SerializedName("GstNumber")
+    private String gstnumber;
+    
+    @SerializedName("StoreId")
+    private String storeid;
+    
+    @SerializedName("ZipCode")
+    private String zipcode;
+    
+    @SerializedName("State")
+    private String state;
+    
+    @SerializedName("City")
+    private String city;
+    
+    @SerializedName("Address")
+    private String address;
+    
+    @SerializedName("Email")
+    private String email;
+    
+    @SerializedName("Mobile")
+    private String mobile;
+    
+    @SerializedName("FullName")
+    private String fullname;
+    
+    @SerializedName("LoginId")
+    private String loginid;
+    
+    @SerializedName("UserId")
+    private int userid;
 
-    // Getter Methods
-
-    public float getUserId() {
-        return UserId;
+    public ResponseEntity getResponse() {
+        return response;
     }
 
-    public String getLoginId() {
-        return LoginId;
+    public void setResponse(ResponseEntity response) {
+        this.response = response;
     }
 
-    public String getFullName() {
-        return FullName;
+    public String getStatusmessage() {
+        return statusmessage;
     }
 
-    public String getMobile() {
-        return Mobile;
-    }
-
-    public String getEmail() {
-        return Email;
-    }
-
-    public String getAddress() {
-        return Address;
-    }
-
-    public String getCity() {
-        return City;
-    }
-
-    public String getState() {
-        return State;
-    }
-
-    public String getZipCode() {
-        return ZipCode;
-    }
-
-    public String getStoreId() {
-        return StoreId;
-    }
-
-    public String getGstNumber() {
-        return GstNumber;
-    }
-
-    public String getRoleCode() {
-        return RoleCode;
-    }
-
-    public String getOTP() {
-        return OTP;
+    public void setStatusmessage(String statusmessage) {
+        this.statusmessage = statusmessage;
     }
 
     public String getStatus() {
-        return Status;
+        return status;
     }
 
-    public String getStatusMessage() {
-        return StatusMessage;
+    public void setStatus(String status) {
+        this.status = status;
     }
 
-    public Response getResponse() {
-        return Response;
+    public String getOtp() {
+        return otp;
     }
 
-    // Setter Methods
-
-    public void setUserId(float UserId) {
-        this.UserId = UserId;
+    public void setOtp(String otp) {
+        this.otp = otp;
     }
 
-    public void setLoginId(String LoginId) {
-        this.LoginId = LoginId;
+    public String getRolecode() {
+        return rolecode;
     }
 
-    public void setFullName(String FullName) {
-        this.FullName = FullName;
+    public void setRolecode(String rolecode) {
+        this.rolecode = rolecode;
     }
 
-    public void setMobile(String Mobile) {
-        this.Mobile = Mobile;
+    public String getGstnumber() {
+        return gstnumber;
     }
 
-    public void setEmail(String Email) {
-        this.Email = Email;
+    public void setGstnumber(String gstnumber) {
+        this.gstnumber = gstnumber;
     }
 
-    public void setAddress(String Address) {
-        this.Address = Address;
+    public String getStoreid() {
+        return storeid;
     }
 
-    public void setCity(String City) {
-        this.City = City;
+    public void setStoreid(String storeid) {
+        this.storeid = storeid;
     }
 
-    public void setState(String State) {
-        this.State = State;
+    public String getZipcode() {
+        return zipcode;
     }
 
-    public void setZipCode(String ZipCode) {
-        this.ZipCode = ZipCode;
+    public void setZipcode(String zipcode) {
+        this.zipcode = zipcode;
     }
 
-    public void setStoreId(String StoreId) {
-        this.StoreId = StoreId;
+    public String getState() {
+        return state;
     }
 
-    public void setGstNumber(String GstNumber) {
-        this.GstNumber = GstNumber;
+    public void setState(String state) {
+        this.state = state;
     }
 
-    public void setRoleCode(String RoleCode) {
-        this.RoleCode = RoleCode;
+    public String getCity() {
+        return city;
     }
 
-    public void setOTP(String OTP) {
-        this.OTP = OTP;
+    public void setCity(String city) {
+        this.city = city;
     }
 
-    public void setStatus(String Status) {
-        this.Status = Status;
+    public String getAddress() {
+        return address;
     }
 
-    public void setStatusMessage(String StatusMessage) {
-        this.StatusMessage = StatusMessage;
+    public void setAddress(String address) {
+        this.address = address;
     }
 
-    public void setResponse(Response Response) {
-        this.Response = Response;
-    }
-}
-
-class Response {
-    private boolean ResponseVal;
-    private String Reason = null;
-
-
-    // Getter Methods
-
-    public boolean getResponseVal() {
-        return ResponseVal;
+    public String getEmail() {
+        return email;
     }
 
-    public String getReason() {
-        return Reason;
+    public void setEmail(String email) {
+        this.email = email;
     }
 
-    // Setter Methods
-
-    public void setResponseVal(boolean ResponseVal) {
-        this.ResponseVal = ResponseVal;
+    public String getMobile() {
+        return mobile;
     }
 
-    public void setReason(String Reason) {
-        this.Reason = Reason;
+    public void setMobile(String mobile) {
+        this.mobile = mobile;
+    }
+
+    public String getFullname() {
+        return fullname;
+    }
+
+    public void setFullname(String fullname) {
+        this.fullname = fullname;
+    }
+
+    public String getLoginid() {
+        return loginid;
+    }
+
+    public void setLoginid(String loginid) {
+        this.loginid = loginid;
+    }
+
+    public int getUserid() {
+        return userid;
+    }
+
+    public void setUserid(int userid) {
+        this.userid = userid;
+    }
+
+    public static class ResponseEntity {
+        
+        @SerializedName("Reason")
+        private String reason;
+        
+        @SerializedName("ResponseVal")
+        private boolean responseval;
+
+        public String getReason() {
+            return reason;
+        }
+
+        public void setReason(String reason) {
+            this.reason = reason;
+        }
+
+        public boolean getResponseval() {
+            return responseval;
+        }
+
+        public void setResponseval(boolean responseval) {
+            this.responseval = responseval;
+        }
     }
 }
