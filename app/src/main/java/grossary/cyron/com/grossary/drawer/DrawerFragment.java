@@ -14,7 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import grossary.cyron.com.grossary.R;
-import grossary.cyron.com.grossary.utility.callbacks.OnItemClickListener;
+import grossary.cyron.com.grossary.utility.callback.OnItemClickListener;
 
 public class DrawerFragment extends Fragment implements OnItemClickListener {
 

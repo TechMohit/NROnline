@@ -29,18 +29,19 @@
     </android.support.design.widget.TextInputLayout>
 
     <TextView
-        android:id="@+id/textView"
+        android:id="@+id/txt_register"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="New User Register"
         android:textColor="@color/colorAccent"
         android:textSize="15sp"
+        android:padding="20dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
     <Button
-        android:id="@+id/button"
+        android:id="@+id/btn_login"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/btn_round_corner_red"
@@ -56,6 +57,16 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/etPhoneLay" />
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="30dp"
+        app:layout_constraintBottom_toTopOf="@+id/etPhoneLay"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:srcCompat="@drawable/logo_long" />
 
 
 </android.support.constraint.ConstraintLayout>
