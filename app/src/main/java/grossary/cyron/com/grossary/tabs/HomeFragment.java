@@ -23,9 +23,6 @@ public class HomeFragment extends Fragment {
 
     }
 
-    Integer[] imageId = {R.drawable.logo_long, R.drawable.logo_long, R.drawable.logo_long, R.drawable.logo_long};
-    String[] imagesName = {"image1","image2","image3","image4"};
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {

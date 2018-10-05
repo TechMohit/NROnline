@@ -9,7 +9,7 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import grossary.cyron.com.grossary.home.HomeActivity;
+import grossary.cyron.com.grossary.HomeActivity;
 import grossary.cyron.com.grossary.R;
 import grossary.cyron.com.grossary.utility.LoadingView;
 import grossary.cyron.com.grossary.utility.retrofit.RetrofitClient;
@@ -68,6 +68,8 @@ public class SigninActivity extends AppCompatActivity {
             public void onResponse(int code, LoginModel response, Headers headers) {
                 load.dismissLoading();
                 Toast.makeText(SigninActivity.this, ""+response, Toast.LENGTH_SHORT).show();
+                startActivity(new Intent(SigninActivity.this,HomeActivity.class));
+                finish();
 
             }
 
