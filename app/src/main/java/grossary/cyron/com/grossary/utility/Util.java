@@ -9,6 +9,7 @@ import android.graphics.Bitmap;
 import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.provider.Settings;
+import android.support.annotation.NonNull;
 import android.text.TextUtils;
 import android.util.Log;
 import android.util.Patterns;
@@ -31,6 +32,8 @@ import java.io.IOException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import grossary.cyron.com.grossary.R;
 
@@ -66,6 +69,14 @@ public class Util {
         Calendar c = Calendar.getInstance();
         DateFormat df = new SimpleDateFormat(format);
         return df.format(c.getTime());
+    }
+
+    public static boolean validatePassword(@NonNull String password) {
+        String PASSWORD_PATTERN =
+                "((?=.*\\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%]).{6,20})";
+        Pattern pattern = Pattern.compile(PASSWORD_PATTERN);
+        Matcher matcher = pattern.matcher(password);
+        return matcher.matches();
     }
 
     /*****Intent to open file*****/

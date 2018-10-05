@@ -1,5 +1,6 @@
 package grossary.cyron.com.grossary.account;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
@@ -9,13 +10,19 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import grossary.cyron.com.grossary.HomeActivity;
 import grossary.cyron.com.grossary.R;
 import grossary.cyron.com.grossary.utility.LoadingView;
+import grossary.cyron.com.grossary.utility.retrofit.RetrofitClient;
+import grossary.cyron.com.grossary.utility.retrofit.RetrofitRequest;
+import grossary.cyron.com.grossary.utility.retrofit.callbacks.Request;
+import grossary.cyron.com.grossary.utility.retrofit.callbacks.ResponseListener;
 import okhttp3.Headers;
 import okhttp3.internal.Util;
 import retrofit2.Call;
 
 import static grossary.cyron.com.grossary.utility.Constant.URL.BASE_URL;
+import static grossary.cyron.com.grossary.utility.Util.validatePassword;
 
 public class SignupActivity extends AppCompatActivity {
 
@@ -40,17 +47,47 @@ public class SignupActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if (validation()) {
-                    Toast.makeText(SignupActivity.this, "Sucess", Toast.LENGTH_SHORT).show();
                     callApiRegister();
                 }
             }
         });
-//        startActivity(new Intent(SigninActivity.this, HomeActivity.class));
 
     }
 
     private void callApiRegister() {
 
+        load = new LoadingView(this);
+        load.setCancalabe(false);
+        load.showLoading();
+        String url = BASE_URL + "/Login/Register";
+
+        Log.e("URl", "*** " + url);
+        Call<RegisterModel> call = RetrofitClient.getAPIInterface().register(url,etUserName.getText().toString(),etPassword.getText().toString(),
+                etAddress.getText().toString(),etMobile.getText().toString(),etEmail.getText().toString(),etGst.getText().toString());
+        Request request = new RetrofitRequest<>(call, new ResponseListener<RegisterModel>() {
+            @Override
+            public void onResponse(int code, RegisterModel response, Headers headers) {
+                load.dismissLoading();
+                Toast.makeText(SignupActivity.this, ""+response, Toast.LENGTH_SHORT).show();
+                if(response.getResponse().getResponseval()) {
+
+                }
+
+            }
+
+            @Override
+            public void onError(int error) {
+                load.dismissLoading();
+
+            }
+
+            @Override
+            public void onFailure(Throwable throwable) {
+                Log.e("respond", "failure ---->");
+                load.dismissLoading();
+            }
+        });
+        request.enqueue();
     }
 
     private boolean validation() {
@@ -62,6 +99,10 @@ public class SignupActivity extends AppCompatActivity {
         } else if (TextUtils.isEmpty(etPassword.getText().toString())) {
             Toast.makeText(this, "Please Enter Password", Toast.LENGTH_SHORT).show();
             etPassword.setError("Please Enter Password");
+            return false;
+        }else if(!validatePassword(etPassword.getText().toString())){
+            Toast.makeText(this, "Password must contain atleast 1 lower case, 1 upper case, 1 number & 1 special character", Toast.LENGTH_SHORT).show();
+            etPassword.setError("Password Pattern mismatch");
             return false;
         } else if (TextUtils.isEmpty(etMobile.getText().toString())) {
             Toast.makeText(this, "Please Enter Mobile Number", Toast.LENGTH_SHORT).show();
