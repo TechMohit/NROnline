@@ -3,6 +3,7 @@ package grossary.cyron.com.grossary.utility.retrofit;
 import java.util.List;
 
 import grossary.cyron.com.grossary.account.LoginModel;
+import grossary.cyron.com.grossary.account.RegisterModel;
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
 import retrofit2.Call;
@@ -23,6 +24,12 @@ public interface APIInterface {
     @POST()
     @FormUrlEncoded
     Call<LoginModel> authenticate(@Url String url,@Field("MobileNumber") String MobileNumber);
+
+    @POST()
+    @FormUrlEncoded
+    Call<RegisterModel> register(@Url String url, @Field("PortalLoginName") String PortalLoginName, @Field("Password") String Password,
+                                 @Field("Address") String Address, @Field("MobileNumber") String MobileNumber, @Field("EmailId") String EmailId,
+                                 @Field("GSTNumber") String GSTNumber);
 
 
     interface Header {

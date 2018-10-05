@@ -3,9 +3,11 @@ package grossary.cyron.com.grossary.account;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -27,12 +29,14 @@ public class SigninActivity extends AppCompatActivity {
     private TextView txt_register;
     private Button btn_login;
     private LoadingView load;
+    private EditText etPhone;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_signin);
         txt_register=findViewById(R.id.txt_register);
+        etPhone=findViewById(R.id.etPhone);
         btn_login=findViewById(R.id.btn_login);
 
         btn_login.setOnClickListener(new View.OnClickListener() {
@@ -41,8 +45,6 @@ public class SigninActivity extends AppCompatActivity {
                 if(validate()){
                     callApiAuthenticate();
                 }
-
-               // startActivity(new Intent(SigninActivity.this, HomeActivity.class));
             }
         });
         txt_register.setOnClickListener(new View.OnClickListener() {
@@ -62,14 +64,16 @@ public class SigninActivity extends AppCompatActivity {
 
         Log.e("URl", "*** " + url);
         Call<LoginModel> call = RetrofitClient.getAPIInterface().authenticate(url,
-                "9844332677");
+                etPhone.getText().toString());
         Request request = new RetrofitRequest<>(call, new ResponseListener<LoginModel>() {
             @Override
             public void onResponse(int code, LoginModel response, Headers headers) {
                 load.dismissLoading();
                 Toast.makeText(SigninActivity.this, ""+response, Toast.LENGTH_SHORT).show();
-                startActivity(new Intent(SigninActivity.this,HomeActivity.class));
-                finish();
+                if(response.getResponse().getResponseval()) {
+                    startActivity(new Intent(SigninActivity.this, HomeActivity.class));
+                    finish();
+                }
 
             }
 
@@ -89,6 +93,12 @@ public class SigninActivity extends AppCompatActivity {
     }
 
     private boolean validate() {
+
+        if (TextUtils.isEmpty(etPhone.getText().toString())) {
+            Toast.makeText(this, "Please Enter Mobile Number", Toast.LENGTH_SHORT).show();
+            etPhone.setError("Please Enter Mobile Number");
+            return false;
+        }
         return true;
     }
 }
