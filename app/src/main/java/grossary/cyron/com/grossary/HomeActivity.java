@@ -16,8 +16,11 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.List;
 
+import grossary.cyron.com.grossary.brands.BrandsFragment;
 import grossary.cyron.com.grossary.drawer.DrawerFragment;
 import grossary.cyron.com.grossary.home.HomeFragment;
+import grossary.cyron.com.grossary.offers.OffersFragment;
+import grossary.cyron.com.grossary.sellers.SellerFragment;
 import grossary.cyron.com.grossary.tabs.OneFragment;
 import grossary.cyron.com.grossary.utility.FragmentHelper;
 
@@ -90,9 +93,9 @@ public class HomeActivity extends AppCompatActivity implements FragmentManager.O
     private void setupViewPager(ViewPager viewPager) {
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
         adapter.addFrag(new HomeFragment(), "Home");
-        adapter.addFrag(new OneFragment(), "Offers");
-        adapter.addFrag(new OneFragment(), "Seller");
-        adapter.addFrag(new OneFragment(), "Brands");
+        adapter.addFrag(new OffersFragment(), "Offers");
+        adapter.addFrag(new SellerFragment(), "Seller");
+        adapter.addFrag(new BrandsFragment(), "Brands");
         viewPager.setAdapter(adapter);
     }
 

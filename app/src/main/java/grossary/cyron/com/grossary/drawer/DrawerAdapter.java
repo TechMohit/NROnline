@@ -1,8 +1,6 @@
 package grossary.cyron.com.grossary.drawer;
 
 import android.content.Context;
-import android.graphics.Color;
-import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -43,12 +41,12 @@ public class DrawerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, final int position) {
         final DrawerItem object = list.get(position);
-//        ((ImageTypeViewHolder) holder).linItem.setText("" + object);
+        ((ImageTypeViewHolder) holder).tv_text.setText("" + object.getText());
         ((ImageTypeViewHolder) holder).linItem.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
-                    onItemClickListener.onItemClick(object, view,position);
+                onItemClickListener.onItemClick(object, view, position);
             }
         });
     }
@@ -67,14 +65,16 @@ public class DrawerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
     public int getItemViewType(int position) {
         return position;
     }
+
     public static class ImageTypeViewHolder extends RecyclerView.ViewHolder {
 
-       private LinearLayout linItem;
+        private LinearLayout linItem;
+        private TextView tv_text;
 
         public ImageTypeViewHolder(View itemView) {
             super(itemView);
-
             this.linItem = itemView.findViewById(R.id.lin_item);
+            this.tv_text = itemView.findViewById(R.id.tv_text);
         }
     }
 
