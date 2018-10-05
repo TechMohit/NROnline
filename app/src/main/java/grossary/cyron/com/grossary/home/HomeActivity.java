@@ -18,6 +18,7 @@ import java.util.List;
 
 import grossary.cyron.com.grossary.R;
 import grossary.cyron.com.grossary.drawer.DrawerFragment;
+import grossary.cyron.com.grossary.tabs.HomeFragment;
 import grossary.cyron.com.grossary.tabs.OneFragment;
 import grossary.cyron.com.grossary.utility.FragmentHelper;
 
@@ -27,9 +28,10 @@ public class HomeActivity extends AppCompatActivity implements FragmentManager.O
     private TabLayout tabLayout;
     private ViewPager viewPager;
     private int[] tabIcons = {
-            R.drawable.ic_launcher_foreground,
-            R.drawable.ic_launcher_foreground,
-            R.drawable.ic_launcher_foreground
+            R.drawable.tb_home,
+            R.drawable.tb_offer,
+            R.drawable.tb_seller,
+            R.drawable.tb_brand
     };
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,26 +68,32 @@ public class HomeActivity extends AppCompatActivity implements FragmentManager.O
     private void setupTabIcons() {
 
         TextView tabOne = (TextView) LayoutInflater.from(this).inflate(R.layout.custom_tab, null);
-        tabOne.setText("ONE");
-        tabOne.setCompoundDrawablesWithIntrinsicBounds(0, R.drawable.ic_launcher_background, 0, 0);
+        tabOne.setText("Home");
+        tabOne.setCompoundDrawablesWithIntrinsicBounds(0, tabIcons[0], 0, 0);
         tabLayout.getTabAt(0).setCustomView(tabOne);
 
         TextView tabTwo = (TextView) LayoutInflater.from(this).inflate(R.layout.custom_tab, null);
-        tabTwo.setText("TWO");
-        tabTwo.setCompoundDrawablesWithIntrinsicBounds(0, R.drawable.ic_launcher_background, 0, 0);
+        tabTwo.setText("Offers");
+        tabTwo.setCompoundDrawablesWithIntrinsicBounds(0, tabIcons[1], 0, 0);
         tabLayout.getTabAt(1).setCustomView(tabTwo);
 
         TextView tabThree = (TextView) LayoutInflater.from(this).inflate(R.layout.custom_tab, null);
-        tabThree.setText("THREE");
-        tabThree.setCompoundDrawablesWithIntrinsicBounds(0, R.drawable.ic_launcher_background, 0, 0);
+        tabThree.setText("Seller");
+        tabThree.setCompoundDrawablesWithIntrinsicBounds(0, tabIcons[2], 0, 0);
         tabLayout.getTabAt(2).setCustomView(tabThree);
+
+        TextView tabFour = (TextView) LayoutInflater.from(this).inflate(R.layout.custom_tab, null);
+        tabFour.setText("Brands");
+        tabFour.setCompoundDrawablesWithIntrinsicBounds(0, tabIcons[3], 0, 0);
+        tabLayout.getTabAt(3).setCustomView(tabFour);
     }
 
     private void setupViewPager(ViewPager viewPager) {
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
-        adapter.addFrag(new OneFragment(), "ONE");
-        adapter.addFrag(new OneFragment(), "TWO");
-        adapter.addFrag(new OneFragment(), "THREE");
+        adapter.addFrag(new HomeFragment(), "Home");
+        adapter.addFrag(new OneFragment(), "Offers");
+        adapter.addFrag(new OneFragment(), "Seller");
+        adapter.addFrag(new OneFragment(), "Brands");
         viewPager.setAdapter(adapter);
     }
 

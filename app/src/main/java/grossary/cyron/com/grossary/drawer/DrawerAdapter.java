@@ -13,7 +13,7 @@ import android.widget.TextView;
 import java.util.List;
 
 import grossary.cyron.com.grossary.R;
-import grossary.cyron.com.grossary.utility.callbacks.OnItemClickListener;
+import grossary.cyron.com.grossary.utility.callback.OnItemClickListener;
 
 
 /**

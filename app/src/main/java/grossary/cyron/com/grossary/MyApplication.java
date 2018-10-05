@@ -2,10 +2,11 @@ package grossary.cyron.com.grossary;
 
 import android.app.Application;
 
+import grossary.cyron.com.grossary.utility.retrofit.RetrofitClient;
 
 
 public class MyApplication extends Application {
-    private static MyApplication singleton;
+    private static final MyApplication singleton=new MyApplication();
 
 
     public static MyApplication getInstance() {
@@ -15,8 +16,7 @@ public class MyApplication extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
-        singleton = this;
-//        RetrofitClient.create(getCacheDir());
+        RetrofitClient.create(getCacheDir());
     }
 
 

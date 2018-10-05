@@ -1,4 +1,4 @@
-package grossary.cyron.com.grossary.utility.callbacks;
+package grossary.cyron.com.grossary.utility.retrofit.callbacks;
 
 
 
