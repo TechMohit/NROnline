@@ -1,6 +1,8 @@
 package grossary.cyron.com.grossary.drawer;
 
+import android.app.Activity;
 import android.content.Context;
+import android.graphics.Color;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -24,11 +26,13 @@ public class DrawerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
     private final List<DrawerItem> list;
     private final OnItemClickListener onItemClickListener;
     public int selectedPosition = 0;
+    private Activity activity;
 
-    public DrawerAdapter(Context context, List<DrawerItem> list, OnItemClickListener onItemClickListener) {
-        layoutInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+    public DrawerAdapter(Activity activity, List<DrawerItem> list, OnItemClickListener onItemClickListener) {
+        layoutInflater = (LayoutInflater) activity.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         this.list = list;
         this.onItemClickListener = onItemClickListener;
+        this.activity=activity;
     }
 
     @Override
@@ -41,6 +45,15 @@ public class DrawerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, final int position) {
         final DrawerItem object = list.get(position);
+        if(position==selectedPosition){
+            ((ImageTypeViewHolder) holder).linItem.setBackground(activity.getResources().getDrawable(R.drawable.gradient_corner));
+            ((ImageTypeViewHolder) holder).tv_text.setTextColor(Color.parseColor("#ffffff"));
+        }else {
+            ((ImageTypeViewHolder) holder).linItem.setBackground(null);
+            ((ImageTypeViewHolder) holder).tv_text.setTextColor(Color.parseColor("#000000"));
+
+        }
+
         ((ImageTypeViewHolder) holder).tv_text.setText("" + object.getText());
         ((ImageTypeViewHolder) holder).linItem.setOnClickListener(new View.OnClickListener() {
             @Override

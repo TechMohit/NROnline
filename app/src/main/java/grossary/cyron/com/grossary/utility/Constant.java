@@ -10,4 +10,8 @@ public class Constant {
 
 
     }
+
+    public interface NAV_DRAWER{
+        String MY_PROFILE="MY_PROFILE";
+    }
 }

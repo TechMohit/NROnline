@@ -1,5 +1,6 @@
 package grossary.cyron.com.grossary;
 
+import android.content.Intent;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -20,8 +21,10 @@ import grossary.cyron.com.grossary.brands.BrandsFragment;
 import grossary.cyron.com.grossary.drawer.DrawerFragment;
 import grossary.cyron.com.grossary.home.HomeFragment;
 import grossary.cyron.com.grossary.offers.OffersFragment;
+import grossary.cyron.com.grossary.profile.ProfileActivity;
 import grossary.cyron.com.grossary.sellers.SellerFragment;
 import grossary.cyron.com.grossary.tabs.OneFragment;
+import grossary.cyron.com.grossary.utility.Constant;
 import grossary.cyron.com.grossary.utility.FragmentHelper;
 
 public class HomeActivity extends AppCompatActivity implements FragmentManager.OnBackStackChangedListener,DrawerFragment.DrawerListener, android.app.FragmentManager.OnBackStackChangedListener {
@@ -139,5 +142,16 @@ public class HomeActivity extends AppCompatActivity implements FragmentManager.O
     @Override
     public void drawerOnItemClicked(String tag) {
 
+        switch (tag){
+
+            case Constant.NAV_DRAWER.MY_PROFILE:
+
+               startActivity(new Intent(this,ProfileActivity.class));
+
+                break;
+
+        }
+
     }
+
 }
