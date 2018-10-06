@@ -6,22 +6,27 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
 
 import java.util.ArrayList;
 
 import grossary.cyron.com.grossary.R;
+import grossary.cyron.com.grossary.home.HomeModel;
+import grossary.cyron.com.grossary.utility.GlideApp;
 import grossary.cyron.com.grossary.utility.callback.OnItemClickListener;
 
 
 public class SellersListAdapter extends RecyclerView.Adapter {
 
-    private ArrayList<SellersModel> dataSet;
+    private ArrayList<HomeModel.Objstoredetailslist> dataSet;
     private Activity activity;
-    private OnItemClickListener<SellersModel> clickListener;
+    private OnItemClickListener<HomeModel.Objstoredetailslist> clickListener;
 
-    public SellersListAdapter(ArrayList<SellersModel> data, Activity activity, OnItemClickListener<SellersModel> clickListener) {
-        this.dataSet = data;
+    public SellersListAdapter(Activity activity, OnItemClickListener<HomeModel.Objstoredetailslist> clickListener) {
         this.activity = activity;
         this.clickListener = clickListener;
     }
@@ -29,8 +34,20 @@ public class SellersListAdapter extends RecyclerView.Adapter {
     @Override
     public void onBindViewHolder(final RecyclerView.ViewHolder holder, final int listPosition) {
 
-        final SellersModel object = dataSet.get(listPosition);
-        ((ImageTypeViewHolder) holder).title.setText(String.format("%s", object.tittle));
+        final HomeModel.Objstoredetailslist object = dataSet.get(listPosition);
+        ((ImageTypeViewHolder) holder).title.setText(String.format("%s", object.storename));
+
+        GlideApp.with(activity)
+                .load(object.storeimage)
+                .centerCrop()
+                .transition(DrawableTransitionOptions.withCrossFade())
+                .placeholder(R.drawable.logo_long)
+                .error(R.drawable.ic_launcher_background)
+                .skipMemoryCache(true)
+                .diskCacheStrategy(DiskCacheStrategy.NONE)
+                .into(((ImageTypeViewHolder) holder).imgView);
+
+
         ((ImageTypeViewHolder) holder).card_parent.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -50,7 +67,15 @@ public class SellersListAdapter extends RecyclerView.Adapter {
 
     @Override
     public int getItemCount() {
+        if (dataSet == null)
+            return 0;
         return dataSet.size();
+    }
+
+    public void setAdapterData(ArrayList<HomeModel.Objstoredetailslist> sellerList) {
+        dataSet = sellerList;
+        notifyDataSetChanged();
+
     }
 
 
@@ -58,12 +83,14 @@ public class SellersListAdapter extends RecyclerView.Adapter {
 
         private TextView title;
         private CardView card_parent;
+        private ImageView imgView;
 
 
         public ImageTypeViewHolder(View itemView) {
             super(itemView);
             this.title = itemView.findViewById(R.id.textView);
             this.card_parent = itemView.findViewById(R.id.card_parent);
+            this.imgView = itemView.findViewById(R.id.imgView);
         }
     }
 
