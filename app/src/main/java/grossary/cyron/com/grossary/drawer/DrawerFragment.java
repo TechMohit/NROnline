@@ -14,6 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import grossary.cyron.com.grossary.R;
+import grossary.cyron.com.grossary.utility.Constant;
 import grossary.cyron.com.grossary.utility.callback.OnItemClickListener;
 
 public class DrawerFragment extends Fragment implements OnItemClickListener {
@@ -62,7 +63,7 @@ public class DrawerFragment extends Fragment implements OnItemClickListener {
 
         DrawerItem drawerItem1 = new DrawerItem();
         drawerItem1.setText("My Profile");
-        drawerItem1.setTag("MY_PROFILE");
+        drawerItem1.setTag(Constant.NAV_DRAWER.MY_PROFILE);
         drawerItem1.setIcon(R.drawable.ic_launcher_background);
         newsList.add(drawerItem1);
 

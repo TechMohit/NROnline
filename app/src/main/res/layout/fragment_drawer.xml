@@ -45,7 +45,7 @@
         android:layout_below="@+id/header"
         android:orientation="vertical"
         android:paddingTop="10dp"
-        app:layoutManager="LinearLayoutManager"
+        app:layoutManager="android.support.v7.widget.LinearLayoutManager"
         android:layout_above="@+id/tv_supp_txt"
         app:layout_behavior="@string/appbar_scrolling_view_behavior"
         app:spanCount="1" />
