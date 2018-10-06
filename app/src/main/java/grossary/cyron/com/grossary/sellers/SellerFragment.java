@@ -10,17 +10,20 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import grossary.cyron.com.grossary.R;
+import grossary.cyron.com.grossary.home.HomeModel;
 import grossary.cyron.com.grossary.utility.callback.OnItemClickListener;
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class SellerFragment extends Fragment implements OnItemClickListener<SellersModel> {
+public class SellerFragment extends Fragment implements OnItemClickListener<HomeModel.Objstoredetailslist> {
 
     private RecyclerView recyclerView;
-    private ArrayList<SellersModel> sellerList = new ArrayList<>();
+    private ArrayList<HomeModel.Objstoredetailslist> sellerList = new ArrayList<>();
+    private SellersListAdapter adapter;
 
     public SellerFragment() {
         // Required empty public constructor
@@ -31,19 +34,18 @@ public class SellerFragment extends Fragment implements OnItemClickListener<Sell
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view= inflater.inflate(R.layout.fragment_seller, container, false);
+        View view = inflater.inflate(R.layout.fragment_seller, container, false);
         initView(view);
 
-        SellersModel obj = new SellersModel();
-        obj.tittle = "test";
-        sellerList.add(obj);
-        sellerList.add(obj);
-        sellerList.add(obj);
-        sellerList.add(obj);
-        sellerList.add(obj);
         recyclerView.setLayoutManager(new GridLayoutManager(getActivity(), 2));
-        recyclerView.setAdapter(new SellersListAdapter(sellerList, getActivity(), this));
+        setAdapter();
+
         return view;
+    }
+
+    private void setAdapter() {
+        adapter = new SellersListAdapter(getActivity(), this);
+        recyclerView.setAdapter(adapter);
     }
 
     private void initView(View view) {
@@ -51,7 +53,30 @@ public class SellerFragment extends Fragment implements OnItemClickListener<Sell
     }
 
     @Override
-    public void onItemClick(SellersModel sellersModel, View view, int position) {
+    public void onItemClick(HomeModel.Objstoredetailslist sellersModel, View view, int position) {
 
+    }
+
+    @Override
+    public void setMenuVisibility(final boolean visible) {
+        super.setMenuVisibility(visible);
+        if (visible) {
+
+            if (adapter == null)
+                setAdapter();
+            adapter.setAdapterData(sellerList);
+        }
+    }
+
+    public void setData(List<HomeModel.Objstoredetailslist> sellerList) {
+
+        if (this.sellerList.size() > 0)
+            this.sellerList.clear();
+
+        this.sellerList.addAll(sellerList);
+    }
+
+    public List<HomeModel.Objstoredetailslist> getData() {
+        return sellerList;
     }
 }

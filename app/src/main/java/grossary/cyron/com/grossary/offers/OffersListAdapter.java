@@ -1,26 +1,33 @@
 package grossary.cyron.com.grossary.offers;
 
 import android.app.Activity;
+import android.graphics.drawable.Drawable;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
+import com.bumptech.glide.request.RequestListener;
 
 import java.util.ArrayList;
 
 import grossary.cyron.com.grossary.R;
+import grossary.cyron.com.grossary.home.HomeModel;
+import grossary.cyron.com.grossary.utility.GlideApp;
 import grossary.cyron.com.grossary.utility.callback.OnItemClickListener;
 
 
 public class OffersListAdapter extends RecyclerView.Adapter {
 
-    private ArrayList<OffersModel> dataSet;
+    private ArrayList<HomeModel.Objofferdetailslist> dataSet;
     private Activity activity;
-    private OnItemClickListener<OffersModel> clickListener;
+    private OnItemClickListener<HomeModel.Objofferdetailslist> clickListener;
 
-    public OffersListAdapter(ArrayList<OffersModel> data, Activity activity, OnItemClickListener<OffersModel> clickListener) {
-        this.dataSet = data;
+    public OffersListAdapter( Activity activity, OnItemClickListener<HomeModel.Objofferdetailslist> clickListener) {
         this.activity = activity;
         this.clickListener = clickListener;
     }
@@ -28,7 +35,20 @@ public class OffersListAdapter extends RecyclerView.Adapter {
     @Override
     public void onBindViewHolder(final RecyclerView.ViewHolder holder, final int listPosition) {
 
-        final OffersModel object = dataSet.get(listPosition);
+        final HomeModel.Objofferdetailslist object = dataSet.get(listPosition);
+
+
+
+                GlideApp.with(activity)
+                .load(object.productimage)
+                .centerCrop()
+                .transition(DrawableTransitionOptions.withCrossFade())
+                .placeholder(R.drawable.logo_long)
+                .error(R.drawable.ic_launcher_background)
+                .skipMemoryCache(true)
+                .diskCacheStrategy(DiskCacheStrategy.NONE)
+                .into(((ImageTypeViewHolder) holder).imgView);
+
         ((ImageTypeViewHolder) holder).card_parent.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -48,18 +68,30 @@ public class OffersListAdapter extends RecyclerView.Adapter {
 
     @Override
     public int getItemCount() {
+        if(dataSet==null)
+            return 0;
+
         return dataSet.size();
+    }
+
+    public void setAdapterData(ArrayList<HomeModel.Objofferdetailslist> offersList) {
+
+        dataSet=offersList;
+        notifyDataSetChanged();
+
     }
 
 
     public static class ImageTypeViewHolder extends RecyclerView.ViewHolder {
 
         private CardView card_parent;
+        private ImageView imgView;
 
 
         public ImageTypeViewHolder(View itemView) {
             super(itemView);
             this.card_parent = itemView.findViewById(R.id.card_parent);
+            this.imgView = itemView.findViewById(R.id.imgView);
         }
     }
 

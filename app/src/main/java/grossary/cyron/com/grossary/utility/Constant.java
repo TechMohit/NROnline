@@ -14,4 +14,12 @@ public class Constant {
     public interface NAV_DRAWER{
         String MY_PROFILE="MY_PROFILE";
     }
+
+    public interface TABS{
+        String HOME="HOME";
+        String OFFER="OFFER";
+        String SELLER="SELLER";
+        String BRANDS="BRANDS";
+    }
+
 }
