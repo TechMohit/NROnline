@@ -175,7 +175,7 @@ public class HomeActivity extends AppCompatActivity implements FragmentManager.O
             homeModel=new HomeModel();
         homeModel=response;
         if(homeModel.objTotalCartItemCount!=null)
-        tvCartCount.setText(""+homeModel.objTotalCartItemCount);
+        tvCartCount.setText(""+homeModel.objTotalCartItemCount.totalItemCount);
         ViewPagerAdapter fa = (ViewPagerAdapter)viewPager.getAdapter();
         HomeFragment homeFragment = (HomeFragment)fa.getItem(0);
         OffersFragment theFragment = (OffersFragment)fa.getItem(1);
