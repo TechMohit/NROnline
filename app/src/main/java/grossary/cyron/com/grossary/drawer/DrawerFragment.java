@@ -93,7 +93,7 @@ public class DrawerFragment extends Fragment implements OnItemClickListener {
 
         DrawerItem drawerItem6 = new DrawerItem();
         drawerItem6.setText("Log Out");
-        drawerItem6.setTag("LOG_OUT");
+        drawerItem6.setTag(Constant.NAV_DRAWER.LOG_OUT);
         drawerItem6.setIcon(R.drawable.ic_launcher_background);
         newsList.add(drawerItem6);
         

@@ -1,8 +1,8 @@
 package grossary.cyron.com.grossary.account;
 
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
@@ -14,6 +14,7 @@ import android.widget.Toast;
 import grossary.cyron.com.grossary.HomeActivity;
 import grossary.cyron.com.grossary.R;
 import grossary.cyron.com.grossary.utility.LoadingView;
+import grossary.cyron.com.grossary.utility.PreferenceManager;
 import grossary.cyron.com.grossary.utility.retrofit.RetrofitClient;
 import grossary.cyron.com.grossary.utility.retrofit.RetrofitRequest;
 import grossary.cyron.com.grossary.utility.retrofit.callbacks.Request;
@@ -35,14 +36,14 @@ public class SigninActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_signin);
-        txt_register=findViewById(R.id.txt_register);
-        etPhone=findViewById(R.id.etPhone);
-        btn_login=findViewById(R.id.btn_login);
+        txt_register = findViewById(R.id.txt_register);
+        etPhone = findViewById(R.id.etPhone);
+        btn_login = findViewById(R.id.btn_login);
 
         btn_login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(validate()){
+                if (validate()) {
                     callApiAuthenticate();
                 }
             }
@@ -53,6 +54,11 @@ public class SigninActivity extends AppCompatActivity {
                 startActivity(new Intent(SigninActivity.this, SignupActivity.class));
             }
         });
+
+        if (new PreferenceManager(SigninActivity.this).getAutoLogin()) {
+            startActivity(new Intent(SigninActivity.this, HomeActivity.class));
+            finish();
+        }
 
     }
 
@@ -69,10 +75,13 @@ public class SigninActivity extends AppCompatActivity {
             @Override
             public void onResponse(int code, LoginModel response, Headers headers) {
                 load.dismissLoading();
-                Toast.makeText(SigninActivity.this, ""+response, Toast.LENGTH_SHORT).show();
-                if(response.getResponse().getResponseval()) {
+                if (response.getResponse().getResponseval()) {
+                    new PreferenceManager(SigninActivity.this).setLoginModel(response);
+                    new PreferenceManager(SigninActivity.this).setAutoLogin(true);
                     startActivity(new Intent(SigninActivity.this, HomeActivity.class));
                     finish();
+                } else {
+                    Toast.makeText(SigninActivity.this, "" + response.getResponse().getReason(), Toast.LENGTH_SHORT).show();
                 }
 
             }

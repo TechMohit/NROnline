@@ -13,6 +13,7 @@ public class Constant {
 
     public interface NAV_DRAWER{
         String MY_PROFILE="MY_PROFILE";
+        String LOG_OUT = "LOG_OUT";
     }
 
     public interface TABS{

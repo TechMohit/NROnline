@@ -13,6 +13,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.alimuzaffar.lib.pin.PinEntryEditText;
+
 import grossary.cyron.com.grossary.R;
 import grossary.cyron.com.grossary.utility.LoadingView;
 import grossary.cyron.com.grossary.utility.retrofit.RetrofitClient;
@@ -31,7 +33,7 @@ public class SignupActivity extends AppCompatActivity {
     private Button btn_register;
     private EditText etUserName, etPassword, etMobile, etEmail, etAddress, etGst;
     private LoadingView load;
-
+    private Dialog dialog;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -48,22 +50,20 @@ public class SignupActivity extends AppCompatActivity {
         btn_register.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                if (validation()) {
-//                    callApiRegister();
-
-                    openDilogOtp();
-//                }
+                if (validation()) {
+                    callApiRegister();
+                }
             }
         });
 
     }
 
     private void openDilogOtp() {
-        final Dialog dialog = new Dialog(SignupActivity.this);
+        dialog = new Dialog(SignupActivity.this);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
         dialog.setContentView(R.layout.dilog_otp);
-        dialog.setCancelable(true);
+        dialog.setCancelable(false);
         WindowManager.LayoutParams lp = new WindowManager.LayoutParams();
         Window window = dialog.getWindow();
         lp.copyFrom(window.getAttributes());
@@ -72,23 +72,103 @@ public class SignupActivity extends AppCompatActivity {
         lp.height = WindowManager.LayoutParams.WRAP_CONTENT;
         window.setAttributes(lp);
         dialog.show();
+        final PinEntryEditText pin=dialog.findViewById(R.id.pin);
 
-//        Button btn_later = dialog.findViewById(R.id.btn_later);
-//        btn_later.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                dialog.dismiss();
-//            }
-//        });
+        Button btn_cancel = dialog.findViewById(R.id.btn_cancel);
+        btn_cancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dialog.dismiss();
+            }
+        });
+        Button btn_retry = dialog.findViewById(R.id.btn_retry);
+        btn_retry.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                pin.setText("");
+                callApiRetry();
+            }
+        });
+        pin.setOnPinEnteredListener(new PinEntryEditText.OnPinEnteredListener() {
+            @Override
+            public void onPinEntered(CharSequence str) {
+                if(str!=null && str.length()==6){
+                    callApiOtpVerify(str.toString());
+                }
+            }
+        });
 
-//        Button btn_subscribe = dialog.findViewById(R.id.btn_subscribe);
-//        btn_subscribe.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                dialog.dismiss();
-//                ((HomeActivity) context).loadSubscription(HOME_LOCATION);
-//            }
-//        });
+    }
+
+    private void callApiRetry() {
+
+        load = new LoadingView(this);
+        load.setCancalabe(false);
+        load.showLoading();
+        String url = BASE_URL + "/Login/ResendOTP";
+
+        Log.e("URl", "*** " + url);
+        Call<ResendOTPModel> call = RetrofitClient.getAPIInterface().resendOTP(url, etMobile.getText().toString());
+        Request request = new RetrofitRequest<>(call, new ResponseListener<ResendOTPModel>() {
+            @Override
+            public void onResponse(int code, ResendOTPModel response, Headers headers) {
+                load.dismissLoading();
+                if (response.response.responseval) {
+                    Toast.makeText(SignupActivity.this, "OTP send" , Toast.LENGTH_SHORT).show();
+                }else{
+                    Toast.makeText(SignupActivity.this, ""+response.response.reason , Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onError(int error) {
+                load.dismissLoading();
+
+            }
+
+            @Override
+            public void onFailure(Throwable throwable) {
+                Log.e("respond", "failure ---->");
+                load.dismissLoading();
+            }
+        });
+        request.enqueue();
+    }
+
+    private void callApiOtpVerify(String otp) {
+        load = new LoadingView(this);
+        load.setCancalabe(false);
+        load.showLoading();
+        String url = BASE_URL + "/Login/VerifyRegisterOTP";
+
+        Log.e("URl", "*** " + url);
+        Call<VerifyRegisterOTPModel> call = RetrofitClient.getAPIInterface().verifyRegisterOTP(url, etMobile.getText().toString(),otp);
+        Request request = new RetrofitRequest<>(call, new ResponseListener<VerifyRegisterOTPModel>() {
+            @Override
+            public void onResponse(int code, VerifyRegisterOTPModel response, Headers headers) {
+                load.dismissLoading();
+                Toast.makeText(SignupActivity.this, "" + response, Toast.LENGTH_SHORT).show();
+                if (response.getResponse().isResponseval()) {
+                    dialog.dismiss();
+                    finish();
+                }else{
+                    Toast.makeText(SignupActivity.this, ""+response.response.reason , Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onError(int error) {
+                load.dismissLoading();
+
+            }
+
+            @Override
+            public void onFailure(Throwable throwable) {
+                Log.e("respond", "failure ---->");
+                load.dismissLoading();
+            }
+        });
+        request.enqueue();
     }
 
     private void callApiRegister() {
@@ -105,9 +185,10 @@ public class SignupActivity extends AppCompatActivity {
             @Override
             public void onResponse(int code, RegisterModel response, Headers headers) {
                 load.dismissLoading();
-                Toast.makeText(SignupActivity.this, "" + response, Toast.LENGTH_SHORT).show();
-                if (response.getResponse().getResponseval()) {
-
+                if (response.getResponse().isResponseval()) {
+                    openDilogOtp();
+                }else{
+                    Toast.makeText(SignupActivity.this, "" + response.getResponse().getReason(), Toast.LENGTH_SHORT).show();
                 }
             }
 

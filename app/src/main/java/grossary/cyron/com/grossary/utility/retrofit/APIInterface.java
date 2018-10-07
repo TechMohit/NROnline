@@ -4,6 +4,8 @@ import java.util.List;
 
 import grossary.cyron.com.grossary.account.LoginModel;
 import grossary.cyron.com.grossary.account.RegisterModel;
+import grossary.cyron.com.grossary.account.ResendOTPModel;
+import grossary.cyron.com.grossary.account.VerifyRegisterOTPModel;
 import grossary.cyron.com.grossary.home.HomeModel;
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
@@ -25,6 +27,14 @@ public interface APIInterface {
     @POST()
     @FormUrlEncoded
     Call<LoginModel> authenticate(@Url String url,@Field("MobileNumber") String MobileNumber);
+
+    @POST()
+    @FormUrlEncoded
+    Call<ResendOTPModel> resendOTP(@Url String url, @Field("MobileNumber") String MobileNumber);
+
+    @POST()
+    @FormUrlEncoded
+    Call<VerifyRegisterOTPModel> verifyRegisterOTP(@Url String url, @Field("MobileNumber") String MobileNumber, @Field("OTP") String otp);
 
     @POST()
     @FormUrlEncoded

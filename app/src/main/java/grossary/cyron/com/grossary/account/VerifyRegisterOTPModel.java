@@ -2,8 +2,11 @@ package grossary.cyron.com.grossary.account;
 
 import com.google.gson.annotations.SerializedName;
 
-public class RegisterModel {
+/**
+ * Created by subham_naik on 07-Oct-18.
+ */
 
+public class VerifyRegisterOTPModel {
 
     @SerializedName("MobileNumber")
     public String mobilenumber;
@@ -11,33 +14,6 @@ public class RegisterModel {
     public String otp;
     @SerializedName("Response")
     public Response response;
-
-    public String getMobilenumber() {
-        return mobilenumber;
-    }
-
-    public RegisterModel setMobilenumber(String mobilenumber) {
-        this.mobilenumber = mobilenumber;
-        return this;
-    }
-
-    public String getOtp() {
-        return otp;
-    }
-
-    public RegisterModel setOtp(String otp) {
-        this.otp = otp;
-        return this;
-    }
-
-    public Response getResponse() {
-        return response;
-    }
-
-    public RegisterModel setResponse(Response response) {
-        this.response = response;
-        return this;
-    }
 
     public static class Response {
         @SerializedName("ResponseVal")
@@ -62,5 +38,32 @@ public class RegisterModel {
             this.reason = reason;
             return this;
         }
+    }
+
+    public String getMobilenumber() {
+        return mobilenumber;
+    }
+
+    public VerifyRegisterOTPModel setMobilenumber(String mobilenumber) {
+        this.mobilenumber = mobilenumber;
+        return this;
+    }
+
+    public String getOtp() {
+        return otp;
+    }
+
+    public VerifyRegisterOTPModel setOtp(String otp) {
+        this.otp = otp;
+        return this;
+    }
+
+    public Response getResponse() {
+        return response;
+    }
+
+    public VerifyRegisterOTPModel setResponse(Response response) {
+        this.response = response;
+        return this;
     }
 }

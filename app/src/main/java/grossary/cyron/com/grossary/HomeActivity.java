@@ -34,6 +34,7 @@ import grossary.cyron.com.grossary.tabs.OneFragment;
 import grossary.cyron.com.grossary.utility.Constant;
 import grossary.cyron.com.grossary.utility.FragmentHelper;
 import grossary.cyron.com.grossary.utility.LoadingView;
+import grossary.cyron.com.grossary.utility.PreferenceManager;
 import grossary.cyron.com.grossary.utility.retrofit.RetrofitClient;
 import grossary.cyron.com.grossary.utility.retrofit.RetrofitRequest;
 import grossary.cyron.com.grossary.utility.retrofit.callbacks.Request;
@@ -237,8 +238,15 @@ public class HomeActivity extends AppCompatActivity implements FragmentManager.O
         switch (tag){
 
             case Constant.NAV_DRAWER.MY_PROFILE:
-
                startActivity(new Intent(this,ProfileActivity.class));
+                break;
+            case Constant.NAV_DRAWER.LOG_OUT:
+                new PreferenceManager(HomeActivity.this).setAutoLogin(false);
+                Intent intent = new Intent(HomeActivity.this, SigninActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                startActivity(intent);
 
                 break;
 
