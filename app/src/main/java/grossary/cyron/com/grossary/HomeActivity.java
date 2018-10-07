@@ -18,6 +18,8 @@ import android.widget.FrameLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.gson.JsonObject;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -111,6 +113,7 @@ public class HomeActivity extends AppCompatActivity implements FragmentManager.O
         layConnection.setVisibility(View.GONE);
 
         Log.e("URl", "*** " + url);
+
         Call<HomeModel> call = RetrofitClient.getAPIInterface().homeDetailsAPI(url,
                 "9844332677");
         Request request = new RetrofitRequest<>(call, new ResponseListener<HomeModel>() {
