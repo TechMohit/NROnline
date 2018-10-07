@@ -38,13 +38,14 @@
 
 
                 <TextView
+                    android:id="@+id/tvCartCount"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="8dp"
                     android:background="@color/colorPrimaryDark"
                     android:padding="5dp"
                     android:layout_marginTop="5dp"
-                    android:text="1"
+                    android:text=""
                     android:textSize="12sp"
                     android:textStyle="bold"
                     android:layout_alignParentRight="true"
@@ -75,6 +76,15 @@
             android:layout_height="match_parent"
             app:layout_behavior="@string/appbar_scrolling_view_behavior" />
     </LinearLayout>
+    <FrameLayout
+        android:id="@+id/layConnection"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <include
+            layout="@layout/layout_connection_error"
+            android:visibility="visible"></include>
+
+    </FrameLayout>
 
 
     <FrameLayout

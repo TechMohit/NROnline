@@ -13,6 +13,8 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.Button;
+import android.widget.FrameLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -48,6 +50,9 @@ public class HomeActivity extends AppCompatActivity implements FragmentManager.O
     private ViewPager viewPager;
     private LoadingView load;
     private HomeModel homeModel;
+    private FrameLayout layConnection;
+    private Button btnRetry;
+    private TextView tvCartCount;
 
     private int[] tabIcons = {
             R.drawable.tb_home,
@@ -86,6 +91,12 @@ public class HomeActivity extends AppCompatActivity implements FragmentManager.O
         tabLayout.setupWithViewPager(viewPager);
         setupTabIcons();
         callHomeApi();
+        btnRetry.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                callHomeApi();
+            }
+        });
 
 
     }
@@ -96,6 +107,7 @@ public class HomeActivity extends AppCompatActivity implements FragmentManager.O
         load.setCancalabe(false);
         load.showLoading();
         String url = BASE_URL + "/Home/HomeDetails";
+        layConnection.setVisibility(View.GONE);
 
         Log.e("URl", "*** " + url);
         Call<HomeModel> call = RetrofitClient.getAPIInterface().homeDetailsAPI(url,
@@ -104,14 +116,14 @@ public class HomeActivity extends AppCompatActivity implements FragmentManager.O
             @Override
             public void onResponse(int code, HomeModel response, Headers headers) {
                 load.dismissLoading();
-
                 setHomeModel(response);
-
+                layConnection.setVisibility(View.GONE);
             }
 
             @Override
             public void onError(int error) {
                 load.dismissLoading();
+                layConnection.setVisibility(View.VISIBLE);
 
             }
 
@@ -119,6 +131,7 @@ public class HomeActivity extends AppCompatActivity implements FragmentManager.O
             public void onFailure(Throwable throwable) {
                 Log.e("HomeActivity", "failure ---->");
                 load.dismissLoading();
+                layConnection.setVisibility(View.VISIBLE);
             }
         });
         request.enqueue();
@@ -161,11 +174,17 @@ public class HomeActivity extends AppCompatActivity implements FragmentManager.O
         if(homeModel!=null)
             homeModel=new HomeModel();
         homeModel=response;
+        if(homeModel.objTotalCartItemCount!=null)
+        tvCartCount.setText(""+homeModel.objTotalCartItemCount);
         ViewPagerAdapter fa = (ViewPagerAdapter)viewPager.getAdapter();
+        HomeFragment homeFragment = (HomeFragment)fa.getItem(0);
         OffersFragment theFragment = (OffersFragment)fa.getItem(1);
         SellerFragment sellerFragment = (SellerFragment)fa.getItem(2);
+        BrandsFragment brandsFragment = (BrandsFragment)fa.getItem(3);
+        homeFragment.setData(homeModel.objcategorylist);
         theFragment.setData(homeModel.objofferdetailslist);
         sellerFragment.setData(response.objstoredetailslist);
+        brandsFragment.setData(response.brandslist);
     }
 
     public HomeModel getHomeModel() {
@@ -202,6 +221,9 @@ public class HomeActivity extends AppCompatActivity implements FragmentManager.O
     }
     private void initView() {
         drawer=findViewById(R.id.drawer);
+        layConnection=findViewById(R.id.layConnection);
+        tvCartCount=findViewById(R.id.tvCartCount);
+        btnRetry=findViewById(R.id.btnRetry);
     }
 
     @Override

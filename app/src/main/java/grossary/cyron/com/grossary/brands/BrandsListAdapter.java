@@ -30,7 +30,7 @@ public class BrandsListAdapter extends RecyclerView.Adapter {
     public void onBindViewHolder(final RecyclerView.ViewHolder holder, final int listPosition) {
 
         final BrandsModel object = dataSet.get(listPosition);
-        ((ImageTypeViewHolder) holder).title.setText(String.format("%s", object.tittle));
+//        ((ImageTypeViewHolder) holder).title.setText(String.format("%s", object.tittle));
         ((ImageTypeViewHolder) holder).card_parent.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

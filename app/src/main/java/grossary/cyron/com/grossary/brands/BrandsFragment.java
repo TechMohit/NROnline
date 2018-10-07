@@ -9,8 +9,10 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import grossary.cyron.com.grossary.R;
+import grossary.cyron.com.grossary.home.HomeModel;
 import grossary.cyron.com.grossary.utility.callback.OnItemClickListener;
 
 /**
@@ -20,6 +22,7 @@ public class BrandsFragment extends Fragment implements OnItemClickListener<Bran
 
     private RecyclerView recyclerView;
     private ArrayList<BrandsModel> brandsList = new ArrayList<>();
+    private List<HomeModel.ObjOfferImageList> data;
 
     public BrandsFragment() {
         // Required empty public constructor
@@ -33,13 +36,6 @@ public class BrandsFragment extends Fragment implements OnItemClickListener<Bran
         View view = inflater.inflate(R.layout.fragment_brands, container, false);
         initView(view);
 
-        BrandsModel obj = new BrandsModel();
-        obj.tittle = "test";
-        brandsList.add(obj);
-        brandsList.add(obj);
-        brandsList.add(obj);
-        brandsList.add(obj);
-        brandsList.add(obj);
         recyclerView.setAdapter(new BrandsListAdapter(brandsList, getActivity(), this));
         return view;
     }
@@ -51,5 +47,13 @@ public class BrandsFragment extends Fragment implements OnItemClickListener<Bran
     @Override
     public void onItemClick(BrandsModel brandsModel, View view, int position) {
 
+    }
+
+    public void setData(List<HomeModel.ObjOfferImageList> data) {
+        this.data = data;
+    }
+
+    public List<HomeModel.ObjOfferImageList> getData() {
+        return data;
     }
 }

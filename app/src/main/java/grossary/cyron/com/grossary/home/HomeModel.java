@@ -12,12 +12,17 @@ public class HomeModel {
     public List<Objstoredetailslist> objstoredetailslist;
     @SerializedName("objOfferDetailsList")
     public List<Objofferdetailslist> objofferdetailslist;
+    @SerializedName("objOfferImageList")
+    public List<ObjOfferImageList> brandslist;
     @SerializedName("StatusMessage")
     public String statusmessage;
     @SerializedName("Status")
     public String status;
     @SerializedName("Response")
     public Response response;
+
+    @SerializedName("objTotalCartItemCount")
+    public ObjTotalCartItemCount objTotalCartItemCount;
 
     public static class Objcategorylist {
         @SerializedName("CatergoryId")
@@ -60,4 +65,14 @@ public class HomeModel {
     }
 
 
+    public class ObjOfferImageList {
+        @SerializedName("OfferId")
+        public int offerId;
+        @SerializedName("OfferImage")
+        public String offerImage;
+    }
+    public class ObjTotalCartItemCount {
+        @SerializedName("TotalItemCount")
+        public int totalItemCount;
+    }
 }
