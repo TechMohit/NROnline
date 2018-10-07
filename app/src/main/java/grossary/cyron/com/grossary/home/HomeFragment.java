@@ -1,29 +1,38 @@
 package grossary.cyron.com.grossary.home;
 
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
+import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import java.lang.reflect.Field;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import grossary.cyron.com.grossary.HomeActivity;
 import grossary.cyron.com.grossary.R;
 import grossary.cyron.com.grossary.custom.CirclePageIndicator;
+import grossary.cyron.com.grossary.utility.callback.OnItemClickListener;
 
 
-public class HomeFragment extends Fragment {
+public class HomeFragment extends Fragment implements OnItemClickListener<HomeModel.Objcategorylist> {
 
     private CirclePageIndicator indicator;
     private ViewPager pager;
     private static final Integer[] IMAGES = {R.drawable.logo_long, R.drawable.ic_launcher_background, R.drawable.logo_long,
             R.drawable.logo_long};
     private ArrayList<Integer> ImagesArray = new ArrayList<>();
+    private ArrayList<HomeModel.Objcategorylist> homeList = new ArrayList<>();
     private Timer timer;
+    private HomeListAdapter adapter;
+    private RecyclerView recyclerView;
 
     public HomeFragment() {
         // Required empty public constructor
@@ -43,19 +52,39 @@ public class HomeFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_home, container, false);
         initView(view);
         setViewPagerTimer();
-
+        recyclerView.setLayoutManager(new GridLayoutManager(getActivity(), 2));
+        setAdapter();
 
         return view;
     }
 
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        if(adapter.getItemCount()<=0)
+        {
+            if(((HomeActivity)getActivity()).getHomeModel()!=null)
+            setData(((HomeActivity)getActivity()).getHomeModel().objcategorylist);
+        }
+    }
+
+    private void setAdapter() {
+        adapter = new HomeListAdapter(getActivity(), this);
+        recyclerView.setAdapter(adapter);
+    }
+
     private void initView(View view) {
 
+        recyclerView = view.findViewById(R.id.recycle_view);
         indicator = view.findViewById(R.id.indicator);
         pager = view.findViewById(R.id.pager);
 
     }
 
     private void setViewPagerTimer() {
+        if (ImagesArray.size() > 0)
+            ImagesArray.clear();
+
         for (int i = 0; i < IMAGES.length; i++)
             ImagesArray.add(IMAGES[i]);
         pager.setAdapter(new SlidingImage_Adapter(getActivity(), ImagesArray));
@@ -76,9 +105,11 @@ public class HomeFragment extends Fragment {
                 });
             }
         };
+        if(timer==null)
         timer = new Timer();
         timer.schedule(timerTask, 3000, 3000);
     }
+
 
     private void changePagerScroller() {
         try {
@@ -89,5 +120,25 @@ public class HomeFragment extends Fragment {
             mScroller.set(pager, scroller);
         } catch (Exception e) {
         }
+    }
+
+    public void setData(List<HomeModel.Objcategorylist> data) {
+        if(adapter==null || data==null)
+            return;
+
+        if(homeList.size()>0)
+            homeList.clear();
+        homeList.addAll(data);
+        adapter.setAdapterData(homeList);
+
+    }
+
+    public List<HomeModel.Objcategorylist> getData() {
+        return homeList;
+    }
+
+    @Override
+    public void onItemClick(HomeModel.Objcategorylist objstoredetailslist, View view, int position) {
+
     }
 }

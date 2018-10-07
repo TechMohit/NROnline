@@ -2,6 +2,7 @@ package grossary.cyron.com.grossary.sellers;
 
 
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -12,6 +13,7 @@ import android.view.ViewGroup;
 import java.util.ArrayList;
 import java.util.List;
 
+import grossary.cyron.com.grossary.HomeActivity;
 import grossary.cyron.com.grossary.R;
 import grossary.cyron.com.grossary.home.HomeModel;
 import grossary.cyron.com.grossary.utility.callback.OnItemClickListener;
@@ -43,6 +45,16 @@ public class SellerFragment extends Fragment implements OnItemClickListener<Home
         return view;
     }
 
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        if(adapter.getItemCount()<=0)
+        {
+            if(((HomeActivity)getActivity()).getHomeModel()!=null)
+            setData(((HomeActivity)getActivity()).getHomeModel().objstoredetailslist);
+        }
+    }
+
     private void setAdapter() {
         adapter = new SellersListAdapter(getActivity(), this);
         recyclerView.setAdapter(adapter);
@@ -57,23 +69,14 @@ public class SellerFragment extends Fragment implements OnItemClickListener<Home
 
     }
 
-    @Override
-    public void setMenuVisibility(final boolean visible) {
-        super.setMenuVisibility(visible);
-        if (visible) {
-
-            if (adapter == null)
-                setAdapter();
-            adapter.setAdapterData(sellerList);
-        }
-    }
 
     public void setData(List<HomeModel.Objstoredetailslist> sellerList) {
-
+        if(adapter==null || sellerList==null)
+            return;
         if (this.sellerList.size() > 0)
             this.sellerList.clear();
-
         this.sellerList.addAll(sellerList);
+        adapter.setAdapterData(this.sellerList);
     }
 
     public List<HomeModel.Objstoredetailslist> getData() {
