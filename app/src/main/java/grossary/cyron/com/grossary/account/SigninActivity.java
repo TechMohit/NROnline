@@ -75,6 +75,7 @@ public class SigninActivity extends AppCompatActivity {
             @Override
             public void onResponse(int code, LoginModel response, Headers headers) {
                 load.dismissLoading();
+
                 if (response.getResponse().getResponseval()) {
                     new PreferenceManager(SigninActivity.this).setLoginModel(response);
                     new PreferenceManager(SigninActivity.this).setAutoLogin(true);

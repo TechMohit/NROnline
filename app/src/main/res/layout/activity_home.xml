@@ -31,8 +31,8 @@
                 android:layout_centerVertical="true"
                 android:layout_marginStart="20dp"
                 android:layout_toEndOf="@+id/tv_hamburger"
-                android:text="Benaka"
-                android:textColor="@android:color/white"
+                android:text=""
+                android:background="@drawable/logo_white"
                 android:textSize="15sp"
                 android:textStyle="bold" />
 

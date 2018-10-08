@@ -1,6 +1,9 @@
 package grossary.cyron.com.grossary.utility.retrofit;
 
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+
 import java.io.File;
 import java.io.IOException;
 
@@ -37,6 +40,11 @@ public class RetrofitClient {
 
     private RetrofitClient(File cacheDir) {
         this();
+
+        Gson gson = new GsonBuilder()
+                .setLenient()
+                .create();
+
         OkHttpClient.Builder httpClient = new OkHttpClient.Builder();
         HttpLoggingInterceptor logging = new HttpLoggingInterceptor();
         logging.setLevel(HttpLoggingInterceptor.Level.BODY);
