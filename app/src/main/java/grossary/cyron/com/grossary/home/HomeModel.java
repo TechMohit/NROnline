@@ -13,7 +13,7 @@ public class HomeModel {
     @SerializedName("objOfferDetailsList")
     public List<Objofferdetailslist> objofferdetailslist;
     @SerializedName("objOfferImageList")
-    public List<ObjOfferImageList> brandslist;
+    public List<ObjOfferImageList> homeOfferList;
     @SerializedName("StatusMessage")
     public String statusmessage;
     @SerializedName("Status")

@@ -54,8 +54,7 @@ public class BrandsFragment extends Fragment implements OnItemClickListener<Home
         super.onActivityCreated(savedInstanceState);
         if(adapter.getItemCount()<=0)
         {
-            if(((HomeActivity)getActivity()).getHomeModel()!=null)
-                setData(((HomeActivity)getActivity()).getHomeModel().brandslist);
+
         }
     }
 
@@ -69,14 +68,8 @@ public class BrandsFragment extends Fragment implements OnItemClickListener<Home
 
     }
 
-    public void setData(List<HomeModel.ObjOfferImageList> brandsList) {
+    public void setData() {
 
-        if(adapter==null || brandsList==null)
-            return;
-        if (this.brandsList.size() > 0)
-            this.brandsList.clear();
-        this.brandsList.addAll(brandsList);
-        adapter.setAdapterData(this.brandsList);
 
     }
 

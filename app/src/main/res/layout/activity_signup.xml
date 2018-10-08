@@ -25,7 +25,6 @@
             android:id="@+id/etUserNameLay"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textColorHint="#000000"
             android:layout_marginTop="20dp"
             app:layout_constraintTop_toBottomOf="@+id/imageView">
 
@@ -43,7 +42,6 @@
             android:id="@+id/etPasswordLay"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textColorHint="#000000"
             android:layout_marginTop="20dp"
             app:layout_constraintTop_toBottomOf="@+id/etUserNameLay">
 
@@ -61,7 +59,6 @@
             android:id="@+id/etMobileLay"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textColorHint="#000000"
             android:layout_marginTop="20dp"
             app:layout_constraintTop_toBottomOf="@+id/etPasswordLay">
 
@@ -80,7 +77,6 @@
             android:id="@+id/etEmailLay"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textColorHint="#000000"
             android:layout_marginTop="20dp"
             app:layout_constraintTop_toBottomOf="@+id/etMobileLay">
 
@@ -98,7 +94,6 @@
             android:id="@+id/etAddressLay"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textColorHint="#000000"
             android:layout_marginTop="20dp"
             app:layout_constraintTop_toBottomOf="@+id/etEmailLay">
 
@@ -117,7 +112,6 @@
             android:id="@+id/etGstLay"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textColorHint="#000000"
             android:layout_marginTop="20dp"
             app:layout_constraintTop_toBottomOf="@+id/etAddressLay">
 

@@ -1,17 +1,17 @@
 package grossary.cyron.com.grossary.offers;
 
 import android.app.Activity;
-import android.graphics.drawable.Drawable;
+import android.graphics.Paint;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
-import com.bumptech.glide.request.RequestListener;
 
 import java.util.ArrayList;
 
@@ -38,6 +38,12 @@ public class OffersListAdapter extends RecyclerView.Adapter {
         final HomeModel.Objofferdetailslist object = dataSet.get(listPosition);
 
 
+        ((ImageTypeViewHolder) holder).tvName.setText(""+object.productname);
+        ((ImageTypeViewHolder) holder).tvMrpPrice.setText("\u20B9"+object.mrpprice);
+
+        ((ImageTypeViewHolder) holder).tvMrpPrice.setPaintFlags(((ImageTypeViewHolder) holder).tvMrpPrice.getPaintFlags()
+                | Paint.STRIKE_THRU_TEXT_FLAG);
+        ((ImageTypeViewHolder) holder).tvSellerPrice.setText("\u20B9"+object.sellingprice);
 
                 GlideApp.with(activity)
                 .load(object.productimage)
@@ -86,12 +92,16 @@ public class OffersListAdapter extends RecyclerView.Adapter {
 
         private CardView card_parent;
         private ImageView imgView;
+        private TextView tvSellerPrice,tvMrpPrice,tvName;
 
 
         public ImageTypeViewHolder(View itemView) {
             super(itemView);
             this.card_parent = itemView.findViewById(R.id.card_parent);
             this.imgView = itemView.findViewById(R.id.imgView);
+            this.tvName = itemView.findViewById(R.id.tvName);
+            this.tvMrpPrice = itemView.findViewById(R.id.tvMrpPrice);
+            this.tvSellerPrice = itemView.findViewById(R.id.tvSellerPrice);
         }
     }
 

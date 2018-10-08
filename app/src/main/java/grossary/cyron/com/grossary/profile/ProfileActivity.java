@@ -150,8 +150,8 @@ public class ProfileActivity extends AppCompatActivity {
         } else if (TextUtils.isEmpty(etEmail.getText().toString())) {
             Toast.makeText(this, "Please Enter Emal-id", Toast.LENGTH_SHORT).show();
             return false;
-        } else if (!validatePassword(etAddress.getText().toString())) {
-            Toast.makeText(this, "Password Enter address", Toast.LENGTH_SHORT).show();
+        } else if (TextUtils.isEmpty(etAddress.getText().toString())) {
+            Toast.makeText(this, "Please Enter address", Toast.LENGTH_SHORT).show();
             return false;
         } else if (TextUtils.isEmpty(etMobile.getText().toString())) {
             Toast.makeText(this, "Please Enter Mobile Number", Toast.LENGTH_SHORT).show();
@@ -161,9 +161,6 @@ public class ProfileActivity extends AppCompatActivity {
             return false;
         } else if (!android.util.Patterns.EMAIL_ADDRESS.matcher(etEmail.getText().toString().trim()).matches()) {
             Toast.makeText(this, "Invalid email Id", Toast.LENGTH_SHORT).show();
-            return false;
-        } else if (TextUtils.isEmpty(etAddress.getText().toString())) {
-            Toast.makeText(this, "Please Enter Address", Toast.LENGTH_SHORT).show();
             return false;
         } else if (TextUtils.isEmpty(etGst.getText().toString())) {
             Toast.makeText(this, "Please Enter GST Number", Toast.LENGTH_SHORT).show();

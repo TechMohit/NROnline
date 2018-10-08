@@ -10,7 +10,6 @@
             android:id="@+id/img_icon"
             android:layout_width="24dp"
             android:layout_height="24dp"
-            android:background="@mipmap/ic_launcher"
             android:layout_gravity="center_vertical"
             android:layout_marginLeft="20dp"
             />

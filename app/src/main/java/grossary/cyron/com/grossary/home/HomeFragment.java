@@ -26,9 +26,8 @@ public class HomeFragment extends Fragment implements OnItemClickListener<HomeMo
 
     private CirclePageIndicator indicator;
     private ViewPager pager;
-    private static final Integer[] IMAGES = {R.drawable.logo_long, R.drawable.ic_launcher_background, R.drawable.logo_long,
-            R.drawable.logo_long};
-    private ArrayList<Integer> ImagesArray = new ArrayList<>();
+
+    private List<HomeModel.ObjOfferImageList> homeOfferList = new ArrayList<>();
     private ArrayList<HomeModel.Objcategorylist> homeList = new ArrayList<>();
     private Timer timer;
     private HomeListAdapter adapter;
@@ -51,7 +50,7 @@ public class HomeFragment extends Fragment implements OnItemClickListener<HomeMo
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_home, container, false);
         initView(view);
-        setViewPagerTimer();
+
         recyclerView.setLayoutManager(new GridLayoutManager(getActivity(), 2));
         setAdapter();
 
@@ -64,7 +63,7 @@ public class HomeFragment extends Fragment implements OnItemClickListener<HomeMo
         if(adapter.getItemCount()<=0)
         {
             if(((HomeActivity)getActivity()).getHomeModel()!=null)
-            setData(((HomeActivity)getActivity()).getHomeModel().objcategorylist);
+            setData(((HomeActivity)getActivity()).getHomeModel().objcategorylist, ((HomeActivity)getActivity()).getHomeModel().homeOfferList);
         }
     }
 
@@ -81,13 +80,9 @@ public class HomeFragment extends Fragment implements OnItemClickListener<HomeMo
 
     }
 
-    private void setViewPagerTimer() {
-        if (ImagesArray.size() > 0)
-            ImagesArray.clear();
+    private void setViewPagerTimer(final List<HomeModel.ObjOfferImageList> homeOfferList) {
 
-        for (int i = 0; i < IMAGES.length; i++)
-            ImagesArray.add(IMAGES[i]);
-        pager.setAdapter(new SlidingImage_Adapter(getActivity(), ImagesArray));
+        pager.setAdapter(new SlidingImage_Adapter(getActivity(), homeOfferList));
         indicator.setViewPager(pager);
         changePagerScroller();
         final float density = getResources().getDisplayMetrics().density;
@@ -100,7 +95,7 @@ public class HomeFragment extends Fragment implements OnItemClickListener<HomeMo
 
                     @Override
                     public void run() {
-                        pager.setCurrentItem((pager.getCurrentItem() + 1) % ImagesArray.size(), true);
+                        pager.setCurrentItem((pager.getCurrentItem() + 1) % homeOfferList.size(), true);
                     }
                 });
             }
@@ -122,14 +117,21 @@ public class HomeFragment extends Fragment implements OnItemClickListener<HomeMo
         }
     }
 
-    public void setData(List<HomeModel.Objcategorylist> data) {
-        if(adapter==null || data==null)
+    public void setData(List<HomeModel.Objcategorylist> data, List<HomeModel.ObjOfferImageList> homeOfferList) {
+
+
+        if(adapter==null || data==null || homeOfferList==null)
             return;
+        if(this.homeOfferList.size()>0)
+            this.homeOfferList.clear();
+        this.homeOfferList.addAll(homeOfferList);
 
         if(homeList.size()>0)
             homeList.clear();
         homeList.addAll(data);
         adapter.setAdapterData(homeList);
+
+        setViewPagerTimer(this.homeOfferList);
 
     }
 

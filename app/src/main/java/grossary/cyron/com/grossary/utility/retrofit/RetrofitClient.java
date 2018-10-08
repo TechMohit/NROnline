@@ -93,8 +93,8 @@ public class RetrofitClient {
         public Response intercept(Chain chain) throws IOException {
             Request original = chain.request();
             Request.Builder requestBuilder = original.newBuilder();
-            String authToken = "";
-            requestBuilder.header(APIInterface.Header.AUTHORIZATION, authToken).build();
+//            String authToken = "";
+//            requestBuilder.header(APIInterface.Header.AUTHORIZATION, authToken).build();
 //            requestBuilder.header(APIInterface.Header.CONTENT_TYPE, "application/json").build();
             requestBuilder.header(APIInterface.Header.CONTENT_TYPE, "application/x-www-form-urlencoded").build();
 //
