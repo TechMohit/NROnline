@@ -8,22 +8,26 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
+
 import java.util.ArrayList;
+import java.util.List;
 
 import grossary.cyron.com.grossary.R;
+import grossary.cyron.com.grossary.offers.OffersListAdapter;
+import grossary.cyron.com.grossary.utility.GlideApp;
 
-/**
- * Created by IFLYTECHSOFT on 5/2/2017.
- */
+
 
 public class SlidingImage_Adapter extends PagerAdapter {
 
 
-    private ArrayList<Integer> IMAGES;
+    private List<HomeModel.ObjOfferImageList> IMAGES;
     private LayoutInflater inflater;
 
 
-    public SlidingImage_Adapter(Context context, ArrayList<Integer> IMAGES) {
+    public SlidingImage_Adapter(Context context, List<HomeModel.ObjOfferImageList> IMAGES) {
         Context context1 = context;
         this.IMAGES=IMAGES;
         inflater = LayoutInflater.from(context);
@@ -48,7 +52,15 @@ public class SlidingImage_Adapter extends PagerAdapter {
                 .findViewById(R.id.image);
 
 
-        imageView.setImageResource(IMAGES.get(position));
+        GlideApp.with(imageView.getContext())
+                .load(IMAGES.get(position).offerImage)
+                .centerCrop()
+                .transition(DrawableTransitionOptions.withCrossFade())
+                .placeholder(R.drawable.logo_long)
+                .error(R.drawable.ic_launcher_background)
+                .skipMemoryCache(true)
+                .diskCacheStrategy(DiskCacheStrategy.NONE)
+                .into(imageView);
 
         view.addView(imageLayout, 0);
 

@@ -64,37 +64,37 @@ public class DrawerFragment extends Fragment implements OnItemClickListener {
         DrawerItem drawerItem1 = new DrawerItem();
         drawerItem1.setText("My Profile");
         drawerItem1.setTag(Constant.NAV_DRAWER.MY_PROFILE);
-        drawerItem1.setIcon(R.drawable.ic_launcher_background);
+        drawerItem1.setIcon(R.drawable.ham_profile);
         newsList.add(drawerItem1);
 
         DrawerItem drawerItem2 = new DrawerItem();
         drawerItem2.setText("My Orders");
         drawerItem2.setTag("MY_ORDERS");
-        drawerItem2.setIcon(R.drawable.ic_launcher_background);
+        drawerItem2.setIcon(R.drawable.ham_my_order);
         newsList.add(drawerItem2);
 
         DrawerItem drawerItem3 = new DrawerItem();
         drawerItem3.setText("Terms & Condition");
         drawerItem3.setTag("TERMS_&_CONDITION");
-        drawerItem3.setIcon(R.drawable.ic_launcher_background);
+        drawerItem3.setIcon(R.drawable.ham_term);
         newsList.add(drawerItem3);
 
         DrawerItem drawerItem4 = new DrawerItem();
         drawerItem4.setText("Privacy Policy");
         drawerItem4.setTag("PRIVACY_POLICY");
-        drawerItem4.setIcon(R.drawable.ic_launcher_background);
+        drawerItem4.setIcon(R.drawable.ham_privicy);
         newsList.add(drawerItem4);
 
         DrawerItem drawerItem5 = new DrawerItem();
         drawerItem5.setText("About Us");
         drawerItem5.setTag("ABOUT_US");
-        drawerItem5.setIcon(R.drawable.ic_launcher_background);
+        drawerItem5.setIcon(R.drawable.ham_about);
         newsList.add(drawerItem5);
 
         DrawerItem drawerItem6 = new DrawerItem();
         drawerItem6.setText("Log Out");
         drawerItem6.setTag(Constant.NAV_DRAWER.LOG_OUT);
-        drawerItem6.setIcon(R.drawable.ic_launcher_background);
+        drawerItem6.setIcon(R.drawable.ham_logout);
         newsList.add(drawerItem6);
         
         adapter = new DrawerAdapter(getActivity(), newsList, this);

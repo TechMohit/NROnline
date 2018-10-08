@@ -19,8 +19,9 @@
 
             <ImageView
                 android:id="@+id/tv_hamburger"
-                android:layout_width="38dp"
-                android:layout_height="38dp"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:background="@drawable/ham_logo"
                 android:layout_centerVertical="true"
                 android:layout_marginLeft="10dp" />
 

@@ -11,10 +11,12 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.FrameLayout;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -56,6 +58,7 @@ public class HomeActivity extends AppCompatActivity implements FragmentManager.O
     private FrameLayout layConnection;
     private Button btnRetry;
     private TextView tvCartCount;
+    private ImageView tv_hamburger;
 
     private int[] tabIcons = {
             R.drawable.tb_home,
@@ -101,6 +104,12 @@ public class HomeActivity extends AppCompatActivity implements FragmentManager.O
             }
         });
 
+        tv_hamburger.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                drawer.openDrawer(Gravity.LEFT);
+            }
+        });
 
     }
 
@@ -185,10 +194,10 @@ public class HomeActivity extends AppCompatActivity implements FragmentManager.O
         OffersFragment theFragment = (OffersFragment)fa.getItem(1);
         SellerFragment sellerFragment = (SellerFragment)fa.getItem(2);
         BrandsFragment brandsFragment = (BrandsFragment)fa.getItem(3);
-        homeFragment.setData(homeModel.objcategorylist);
+        homeFragment.setData(homeModel.objcategorylist,response.homeOfferList);
         theFragment.setData(homeModel.objofferdetailslist);
         sellerFragment.setData(response.objstoredetailslist);
-        brandsFragment.setData(response.brandslist);
+        brandsFragment.setData();
     }
 
     public HomeModel getHomeModel() {
@@ -228,6 +237,7 @@ public class HomeActivity extends AppCompatActivity implements FragmentManager.O
         layConnection=findViewById(R.id.layConnection);
         tvCartCount=findViewById(R.id.tvCartCount);
         btnRetry=findViewById(R.id.btnRetry);
+        tv_hamburger=findViewById(R.id.tv_hamburger);
     }
 
     @Override

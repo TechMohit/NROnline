@@ -20,20 +20,25 @@
             android:layout_height="70dp"
             android:layout_gravity="center"
             android:layout_marginTop="10dp"
-            android:background="@mipmap/ic_launcher"
+            android:background="@drawable/profile"
             android:scaleType="fitXY" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="10dp"
+            android:layout_marginTop="10dp"
             android:text="Promod"
-            android:textSize="16sp" />
+            android:textStyle="bold"
+            android:layout_marginBottom="5dp"
+            android:textColor="@android:color/white"
+            android:textSize="15sp" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="10dp"
+            android:layout_marginBottom="20dp"
+            android:textSize="15sp"
+            android:textColor="@android:color/white"
             android:text="Promod123@gmail.com" />
 
     </LinearLayout>
@@ -58,7 +63,7 @@
         android:layout_above="@+id/tv_ph"
         android:textColor="@android:color/darker_gray"
         android:layout_marginTop="10dp"
-        android:layout_marginBottom="10dp"/>
+        android:layout_marginBottom="5dp"/>
 
     <TextView
         android:id="@+id/tv_ph"

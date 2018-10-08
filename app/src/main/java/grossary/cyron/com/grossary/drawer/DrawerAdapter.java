@@ -3,10 +3,12 @@ package grossary.cyron.com.grossary.drawer;
 import android.app.Activity;
 import android.content.Context;
 import android.graphics.Color;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -46,7 +48,7 @@ public class DrawerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
     public void onBindViewHolder(RecyclerView.ViewHolder holder, final int position) {
         final DrawerItem object = list.get(position);
         if(position==selectedPosition){
-            ((ImageTypeViewHolder) holder).linItem.setBackground(activity.getResources().getDrawable(R.drawable.gradient_corner));
+            ((ImageTypeViewHolder) holder).linItem.setBackgroundColor(activity.getResources().getColor(R.color.colorAccent));
             ((ImageTypeViewHolder) holder).tv_text.setTextColor(Color.parseColor("#ffffff"));
         }else {
             ((ImageTypeViewHolder) holder).linItem.setBackground(null);
@@ -55,6 +57,8 @@ public class DrawerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
         }
 
         ((ImageTypeViewHolder) holder).tv_text.setText("" + object.getText());
+        ((ImageTypeViewHolder) holder).img_icon.setImageDrawable(ContextCompat.getDrawable(activity,object.getIcon()));
+
         ((ImageTypeViewHolder) holder).linItem.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -83,11 +87,13 @@ public class DrawerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
 
         private LinearLayout linItem;
         private TextView tv_text;
+        private ImageView img_icon;
 
         public ImageTypeViewHolder(View itemView) {
             super(itemView);
             this.linItem = itemView.findViewById(R.id.lin_item);
             this.tv_text = itemView.findViewById(R.id.tv_text);
+            this.img_icon=itemView.findViewById(R.id.img_icon);
         }
     }
 
