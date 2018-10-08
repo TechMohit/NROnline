@@ -147,7 +147,6 @@ public class SignupActivity extends AppCompatActivity {
             @Override
             public void onResponse(int code, VerifyRegisterOTPModel response, Headers headers) {
                 load.dismissLoading();
-                Toast.makeText(SignupActivity.this, "" + response, Toast.LENGTH_SHORT).show();
                 if (response.getResponse().isResponseval()) {
                     dialog.dismiss();
                     finish();
@@ -211,39 +210,39 @@ public class SignupActivity extends AppCompatActivity {
 
         if (TextUtils.isEmpty(etUserName.getText().toString())) {
             Toast.makeText(this, "Please Enter User Name", Toast.LENGTH_SHORT).show();
-            etUserName.setError("Please Enter Name");
+//            etUserName.setError("Please Enter Name");
             return false;
         } else if (TextUtils.isEmpty(etPassword.getText().toString())) {
             Toast.makeText(this, "Please Enter Password", Toast.LENGTH_SHORT).show();
-            etPassword.setError("Please Enter Password");
+//            etPassword.setError("Please Enter Password");
             return false;
         } else if (!validatePassword(etPassword.getText().toString())) {
             Toast.makeText(this, "Password must contain atleast 1 lower case, 1 upper case, 1 number & 1 special character", Toast.LENGTH_SHORT).show();
-            etPassword.setError("Password Pattern mismatch");
+//            etPassword.setError("Password Pattern mismatch");
             return false;
         } else if (TextUtils.isEmpty(etMobile.getText().toString())) {
             Toast.makeText(this, "Please Enter Mobile Number", Toast.LENGTH_SHORT).show();
-            etMobile.setError("Please Enter Mobile Number");
+//            etMobile.setError("Please Enter Mobile Number");
             return false;
         } else if (etMobile.getText().toString().length() < 10) {
             Toast.makeText(this, "Please Enter Valid Mobile Number", Toast.LENGTH_SHORT).show();
-            etMobile.setError("Please Enter Valid Mobile Number");
+//            etMobile.setError("Please Enter Valid Mobile Number");
             return false;
         } else if (TextUtils.isEmpty(etEmail.getText().toString())) {
             Toast.makeText(this, "Please Enter Email ID", Toast.LENGTH_SHORT).show();
-            etEmail.setError("Please Enter Email ID");
+//            etEmail.setError("Please Enter Email ID");
             return false;
         } else if (!android.util.Patterns.EMAIL_ADDRESS.matcher(etEmail.getText().toString().trim()).matches()) {
             Toast.makeText(this, "Invalid email Id", Toast.LENGTH_SHORT).show();
-            etEmail.setError("Please Enter Email ID");
+//            etEmail.setError("Please Enter Email ID");
             return false;
         } else if (TextUtils.isEmpty(etAddress.getText().toString())) {
             Toast.makeText(this, "Please Enter Address", Toast.LENGTH_SHORT).show();
-            etAddress.setError("Please Enter Address");
+//            etAddress.setError("Please Enter Address");
             return false;
         } else if (TextUtils.isEmpty(etGst.getText().toString())) {
             Toast.makeText(this, "Please Enter GST Number", Toast.LENGTH_SHORT).show();
-            etGst.setError("Please Enter GST Number");
+//            etGst.setError("Please Enter GST Number");
             return false;
         }
         return true;
