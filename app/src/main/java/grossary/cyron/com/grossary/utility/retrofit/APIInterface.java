@@ -7,6 +7,8 @@ import grossary.cyron.com.grossary.account.RegisterModel;
 import grossary.cyron.com.grossary.account.ResendOTPModel;
 import grossary.cyron.com.grossary.account.VerifyRegisterOTPModel;
 import grossary.cyron.com.grossary.home.HomeModel;
+import grossary.cyron.com.grossary.profile.GetUserProfileModel;
+import grossary.cyron.com.grossary.profile.GetUserProfileUpdateModel;
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
 import retrofit2.Call;
@@ -27,6 +29,16 @@ public interface APIInterface {
     @POST()
     @FormUrlEncoded
     Call<LoginModel> authenticate(@Url String url,@Field("MobileNumber") String MobileNumber);
+
+    @POST()
+    @FormUrlEncoded
+    Call<GetUserProfileUpdateModel> getUserProfileUpdate(@Url String url, @Field("userId") String UserId, @Field("LoginId") String LoginId
+    ,@Field("FullName") String FullName, @Field("MobileNo") String MobileNo,@Field("Email") String Email, @Field("Address") String Address
+    ,@Field("GSTNumber") String GSTNumber,@Field("City") String City, @Field("State") String State,@Field("ZipCode") String ZipCode);
+
+    @POST()
+    @FormUrlEncoded
+    Call<GetUserProfileModel> getUserProfile(@Url String url, @Field("UserId") String UserId);
 
     @POST()
     @FormUrlEncoded
