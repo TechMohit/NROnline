@@ -23,4 +23,8 @@ public class Constant {
         String BRANDS="BRANDS";
     }
 
+    public interface CATEGORY{
+        String LIST="Category_list";
+    }
+
 }

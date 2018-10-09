@@ -1,5 +1,6 @@
 package grossary.cyron.com.grossary.home;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -18,6 +19,7 @@ import java.util.TimerTask;
 
 import grossary.cyron.com.grossary.HomeActivity;
 import grossary.cyron.com.grossary.R;
+import grossary.cyron.com.grossary.category.CategoryActivity;
 import grossary.cyron.com.grossary.custom.CirclePageIndicator;
 import grossary.cyron.com.grossary.utility.callback.OnItemClickListener;
 
@@ -141,6 +143,8 @@ public class HomeFragment extends Fragment implements OnItemClickListener<HomeMo
 
     @Override
     public void onItemClick(HomeModel.Objcategorylist objstoredetailslist, View view, int position) {
+
+        startActivity(new Intent(getActivity(),CategoryActivity.class));
 
     }
 }
