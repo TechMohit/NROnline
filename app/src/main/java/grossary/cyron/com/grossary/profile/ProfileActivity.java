@@ -27,7 +27,7 @@ public class ProfileActivity extends AppCompatActivity {
 
     private Button btnUpdate;
     private LoadingView load;
-    private TextInputEditText etName, etMobile, etEmail, etAddress, etGst, etCity, etState, etZip;
+    private TextInputEditText etName, etMobile, etEmail, etAddress, etGst;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,9 +39,6 @@ public class ProfileActivity extends AppCompatActivity {
         etEmail = findViewById(R.id.etEmail);
         etAddress = findViewById(R.id.etAddress);
         etGst = findViewById(R.id.etGst);
-        etCity = findViewById(R.id.etCity);
-        etState = findViewById(R.id.etState);
-        etZip = findViewById(R.id.etZip);
         btnUpdate = findViewById(R.id.btnUpdate);
 
         btnUpdate.setOnClickListener(new View.OnClickListener() {
@@ -66,8 +63,7 @@ public class ProfileActivity extends AppCompatActivity {
 
         Call<GetUserProfileUpdateModel> call = RetrofitClient.getAPIInterface().getUserProfileUpdate(url,
                 "" + res.getUserid(), "" + res.getLoginid(), etAddress.getText().toString(), etMobile.getText().toString(),
-                etEmail.getText().toString(), etAddress.getText().toString(), etGst.getText().toString(), etCity.getText().toString(),
-                etState.getText().toString(), etZip.getText().toString());
+                etEmail.getText().toString(), etAddress.getText().toString(), etGst.getText().toString());
         Request request = new RetrofitRequest<>(call, new ResponseListener<GetUserProfileUpdateModel>() {
             @Override
             public void onResponse(int code, GetUserProfileUpdateModel response, Headers headers) {
@@ -117,9 +113,6 @@ public class ProfileActivity extends AppCompatActivity {
                     etEmail.setText("" + response.getEmail());
                     etAddress.setText("" + response.getAddress());
                     etGst.setText("" + response.getGstnumber());
-                    etCity.setText("" + response.getState());
-                    etState.setText("" + response.getState());
-                    etZip.setText("" + response.getZipcode());
 
                 } else {
                     Toast.makeText(ProfileActivity.this, "" + response.getResponse().getReason(), Toast.LENGTH_SHORT).show();

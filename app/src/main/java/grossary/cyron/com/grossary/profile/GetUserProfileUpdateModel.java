@@ -15,7 +15,7 @@ public class GetUserProfileUpdateModel {
     @SerializedName("Response")
     public Response response;
 
-    public static class Response {
+    public  class Response {
         @SerializedName("ResponseVal")
         public boolean responseval;
         @SerializedName("Reason")
