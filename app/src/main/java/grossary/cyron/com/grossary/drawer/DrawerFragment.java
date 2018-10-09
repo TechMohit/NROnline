@@ -58,7 +58,7 @@ public class DrawerFragment extends Fragment implements OnItemClickListener {
         DrawerItem drawerItem = new DrawerItem();
         drawerItem.setText("Home");
         drawerItem.setTag("HOME");
-        drawerItem.setIcon(R.drawable.ic_launcher_background);
+        drawerItem.setIcon(R.drawable.ham_home);
         newsList.add(drawerItem);
 
         DrawerItem drawerItem1 = new DrawerItem();
