@@ -21,8 +21,6 @@ public class GetUserProfileModel {
     public String email;
     @SerializedName("Address")
     public String address;
-    @SerializedName("City")
-    public String city;
 
     public int getUserid() {
         return userid;
@@ -78,33 +76,6 @@ public class GetUserProfileModel {
         return this;
     }
 
-    public String getCity() {
-        return city;
-    }
-
-    public GetUserProfileModel setCity(String city) {
-        this.city = city;
-        return this;
-    }
-
-    public String getState() {
-        return state;
-    }
-
-    public GetUserProfileModel setState(String state) {
-        this.state = state;
-        return this;
-    }
-
-    public String getZipcode() {
-        return zipcode;
-    }
-
-    public GetUserProfileModel setZipcode(String zipcode) {
-        this.zipcode = zipcode;
-        return this;
-    }
-
     public String getGstnumber() {
         return gstnumber;
     }
@@ -132,10 +103,7 @@ public class GetUserProfileModel {
         return this;
     }
 
-    @SerializedName("State")
-    public String state;
-    @SerializedName("ZipCode")
-    public String zipcode;
+
     @SerializedName("GSTNumber")
     public String gstnumber;
     @SerializedName("RoleCode")
@@ -143,7 +111,7 @@ public class GetUserProfileModel {
     @SerializedName("Response")
     public Response response;
 
-    public static class Response {
+    public  class Response {
         @SerializedName("ResponseVal")
         public boolean responseval;
 

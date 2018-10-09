@@ -34,7 +34,7 @@ public interface APIInterface {
     @FormUrlEncoded
     Call<GetUserProfileUpdateModel> getUserProfileUpdate(@Url String url, @Field("userId") String UserId, @Field("LoginId") String LoginId
     ,@Field("FullName") String FullName, @Field("MobileNo") String MobileNo,@Field("Email") String Email, @Field("Address") String Address
-    ,@Field("GSTNumber") String GSTNumber,@Field("City") String City, @Field("State") String State,@Field("ZipCode") String ZipCode);
+    ,@Field("GSTNumber") String GSTNumber);
 
     @POST()
     @FormUrlEncoded
