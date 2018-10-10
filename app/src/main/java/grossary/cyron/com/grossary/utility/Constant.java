@@ -10,6 +10,11 @@ public class Constant {
 
 
     }
+    public interface KEY_NAME{
+        String FRAG_PARAMETER="FRAG_PARAMETER";
+        String ACT_HOME_PARAMETER="ACT_HOME_PARAMETER";
+
+    }
 
     public interface NAV_DRAWER{
         String MY_PROFILE="MY_PROFILE";
@@ -25,6 +30,8 @@ public class Constant {
 
     public interface CATEGORY{
         String LIST="Category_list";
+        String LIST_DETAILS="Category_list_details";
+
     }
 
 }

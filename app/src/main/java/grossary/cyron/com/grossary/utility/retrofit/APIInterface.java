@@ -7,6 +7,7 @@ import grossary.cyron.com.grossary.account.RegisterModel;
 import grossary.cyron.com.grossary.account.ResendOTPModel;
 import grossary.cyron.com.grossary.account.VerifyRegisterOTPModel;
 import grossary.cyron.com.grossary.category.CategoryModel;
+import grossary.cyron.com.grossary.category.ProductdDescDetailsModel;
 import grossary.cyron.com.grossary.home.HomeModel;
 import grossary.cyron.com.grossary.profile.GetUserProfileModel;
 import grossary.cyron.com.grossary.profile.GetUserProfileUpdateModel;
@@ -49,6 +50,10 @@ public interface APIInterface {
     @FormUrlEncoded
     Call<VerifyRegisterOTPModel> verifyRegisterOTP(@Url String url, @Field("MobileNumber") String MobileNumber, @Field("OTP") String otp);
 
+
+    @POST()
+    @FormUrlEncoded
+    Call<ProductdDescDetailsModel> ProductdDescDetails(@Url String url, @Field("ProductDescId") String ProductDescId);
 
     @POST()
     @FormUrlEncoded

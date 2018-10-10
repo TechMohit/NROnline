@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/trackBack"
     tools:context=".category.CategoryListFragment">
 
     <android.support.v7.widget.RecyclerView
@@ -10,12 +11,6 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:scrollbars="none"
-        android:layout_above="@+id/revBottom"
         />
-    <RelativeLayout
-        android:id="@+id/revBottom"
-        android:layout_alignParentBottom="true"
-        android:layout_width="match_parent"
-        android:layout_height="70dp"></RelativeLayout>
 
 </RelativeLayout>

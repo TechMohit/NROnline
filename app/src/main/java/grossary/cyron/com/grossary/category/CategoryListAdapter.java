@@ -38,14 +38,14 @@ public class CategoryListAdapter extends RecyclerView.Adapter {
         final CategoryModel.Projectlist object = dataSet.get(listPosition);
         ((ImageTypeViewHolder) holder).tvProductName.setText(String.format("%s", object.productName));
         ((ImageTypeViewHolder) holder).tvDesc.setText(String.format("%s", object.subProductQTY));
-        ((ImageTypeViewHolder) holder).tvSellingPrice.setText(String.format("%s", object.sellingPrice));
+        ((ImageTypeViewHolder) holder).tvSellingPrice.setText("$"+String.format("%s", object.sellingPrice));
         ((ImageTypeViewHolder) holder).tvMrpPrice.setText(String.format("%s", "("+object.mRPPrice+")"));
         ((ImageTypeViewHolder) holder).tvMrpPrice.setPaintFlags(((ImageTypeViewHolder) holder).tvMrpPrice.getPaintFlags()
                 | Paint.STRIKE_THRU_TEXT_FLAG);
 
         GlideApp.with(activity)
                 .load(object.productImage)
-                .centerCrop()
+                .centerInside()
                 .transition(DrawableTransitionOptions.withCrossFade())
                 .placeholder(R.drawable.logo_long)
                 .error(R.drawable.ic_launcher_background)
@@ -87,7 +87,7 @@ public class CategoryListAdapter extends RecyclerView.Adapter {
 
     public static class ImageTypeViewHolder extends RecyclerView.ViewHolder {
 
-        private TextView tvProductName,tvDesc,tvSellingPrice,tvMrpPrice,tvDiscount;
+        private TextView tvProductName,tvDesc,tvSellingPrice,tvMrpPrice;
         private CardView card_parent;
         private ImageView imgView;
 
@@ -100,7 +100,6 @@ public class CategoryListAdapter extends RecyclerView.Adapter {
             this.tvDesc = itemView.findViewById(R.id.tvDesc);
             this.tvSellingPrice = itemView.findViewById(R.id.tvSellingPrice);
             this.tvMrpPrice = itemView.findViewById(R.id.tvMrpPrice);
-            this.tvDiscount = itemView.findViewById(R.id.tvDiscount);
         }
     }
 

@@ -1,6 +1,7 @@
 package grossary.cyron.com.grossary.category;
 
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -13,10 +14,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import com.google.gson.Gson;
+
 import grossary.cyron.com.grossary.HomeActivity;
 import grossary.cyron.com.grossary.R;
 import grossary.cyron.com.grossary.account.SigninActivity;
 import grossary.cyron.com.grossary.account.VerifyRegisterOTPModel;
+import grossary.cyron.com.grossary.home.HomeModel;
 import grossary.cyron.com.grossary.sellers.SellersListAdapter;
 import grossary.cyron.com.grossary.utility.LoadingView;
 import grossary.cyron.com.grossary.utility.PreferenceManager;
@@ -28,6 +32,8 @@ import grossary.cyron.com.grossary.utility.retrofit.callbacks.ResponseListener;
 import okhttp3.Headers;
 import retrofit2.Call;
 
+import static grossary.cyron.com.grossary.utility.Constant.CATEGORY.LIST_DETAILS;
+import static grossary.cyron.com.grossary.utility.Constant.KEY_NAME.FRAG_PARAMETER;
 import static grossary.cyron.com.grossary.utility.Constant.URL.BASE_URL;
 
 /**
@@ -38,10 +44,16 @@ public class CategoryListFragment extends Fragment implements OnItemClickListene
     private RecyclerView recyclerView;
     private CategoryListAdapter adapter;
     private LoadingView load;
+    private Context context;
     public CategoryListFragment() {
         // Required empty public constructor
     }
 
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        this.context=context;
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -70,7 +82,9 @@ public class CategoryListFragment extends Fragment implements OnItemClickListene
         String url = BASE_URL + "/Home/ProductDetails";
 
         Log.e("URl", "*** " + url);
-        Call<CategoryModel> call = RetrofitClient.getAPIInterface().productDetails(url, "0","1");
+        HomeModel.Objcategorylist product=new Gson().fromJson((getArguments().getString(FRAG_PARAMETER)),HomeModel.Objcategorylist.class);
+
+        Call<CategoryModel> call = RetrofitClient.getAPIInterface().productDetails(url, "0",""+product.catergoryid);
         Request request = new RetrofitRequest<>(call, new ResponseListener<CategoryModel>() {
             @Override
             public void onResponse(int code, CategoryModel response, Headers headers) {
@@ -112,6 +126,8 @@ public class CategoryListFragment extends Fragment implements OnItemClickListene
 
     @Override
     public void onItemClick(CategoryModel.Projectlist categoryModel, View view, int position) {
+
+        ((CategoryActivity)getActivity()).selectFrag(LIST_DETAILS,new Gson().toJson(categoryModel));
 
     }
 }
