@@ -1,5 +1,6 @@
 package grossary.cyron.com.grossary.home;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -10,6 +11,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.google.gson.Gson;
+
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
@@ -18,15 +21,17 @@ import java.util.TimerTask;
 
 import grossary.cyron.com.grossary.HomeActivity;
 import grossary.cyron.com.grossary.R;
+import grossary.cyron.com.grossary.category.CategoryActivity;
 import grossary.cyron.com.grossary.custom.CirclePageIndicator;
 import grossary.cyron.com.grossary.utility.callback.OnItemClickListener;
+
+import static grossary.cyron.com.grossary.utility.Constant.KEY_NAME.ACT_HOME_PARAMETER;
 
 
 public class HomeFragment extends Fragment implements OnItemClickListener<HomeModel.Objcategorylist> {
 
     private CirclePageIndicator indicator;
     private ViewPager pager;
-
     private List<HomeModel.ObjOfferImageList> homeOfferList = new ArrayList<>();
     private ArrayList<HomeModel.Objcategorylist> homeList = new ArrayList<>();
     private Timer timer;
@@ -141,6 +146,9 @@ public class HomeFragment extends Fragment implements OnItemClickListener<HomeMo
 
     @Override
     public void onItemClick(HomeModel.Objcategorylist objstoredetailslist, View view, int position) {
+        Intent intent=new Intent(getActivity(),CategoryActivity.class);
+        intent.putExtra(ACT_HOME_PARAMETER,new Gson().toJson(objstoredetailslist));
+        startActivity(intent);
 
     }
 }

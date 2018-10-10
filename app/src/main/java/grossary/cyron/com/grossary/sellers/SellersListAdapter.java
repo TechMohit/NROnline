@@ -88,7 +88,7 @@ public class SellersListAdapter extends RecyclerView.Adapter {
 
         public ImageTypeViewHolder(View itemView) {
             super(itemView);
-            this.title = itemView.findViewById(R.id.textView);
+            this.title = itemView.findViewById(R.id.tvProductName);
             this.card_parent = itemView.findViewById(R.id.card_parent);
             this.imgView = itemView.findViewById(R.id.imgView);
         }

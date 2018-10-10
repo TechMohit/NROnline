@@ -62,8 +62,9 @@ public class ProfileActivity extends AppCompatActivity {
         Log.e("URl", "*** " + url);
 
         Call<GetUserProfileUpdateModel> call = RetrofitClient.getAPIInterface().getUserProfileUpdate(url,
-                "" + res.getUserid(), "" + res.getLoginid(), etAddress.getText().toString(), etMobile.getText().toString(),
-                etEmail.getText().toString(), etAddress.getText().toString(), etGst.getText().toString());
+                "" + res.getUserid(), "" + res.getLoginid(), ""+etName.getText().toString(),
+                ""+etMobile.getText().toString(),""+etEmail.getText().toString(), ""+etAddress.getText().toString(),
+                etGst.getText().toString());
         Request request = new RetrofitRequest<>(call, new ResponseListener<GetUserProfileUpdateModel>() {
             @Override
             public void onResponse(int code, GetUserProfileUpdateModel response, Headers headers) {
