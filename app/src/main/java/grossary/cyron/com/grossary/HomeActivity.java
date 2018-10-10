@@ -28,6 +28,7 @@ import java.util.List;
 import grossary.cyron.com.grossary.account.LoginModel;
 import grossary.cyron.com.grossary.account.SigninActivity;
 import grossary.cyron.com.grossary.brands.BrandsFragment;
+import grossary.cyron.com.grossary.cart.ViewCartActivity;
 import grossary.cyron.com.grossary.drawer.DrawerFragment;
 import grossary.cyron.com.grossary.home.HomeFragment;
 import grossary.cyron.com.grossary.home.HomeModel;
@@ -58,7 +59,7 @@ public class HomeActivity extends AppCompatActivity implements FragmentManager.O
     private FrameLayout layConnection;
     private Button btnRetry;
     private TextView tvCartCount;
-    private ImageView tv_hamburger;
+    private ImageView tv_hamburger,img_cart;
 
     private int[] tabIcons = {
             R.drawable.tb_home,
@@ -71,7 +72,6 @@ public class HomeActivity extends AppCompatActivity implements FragmentManager.O
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
         initView();
-
 
         ActionBarDrawerToggle drawerToggle = new ActionBarDrawerToggle(this, drawer, null, R.string.app_name, R.string.app_name){
             @Override
@@ -108,6 +108,13 @@ public class HomeActivity extends AppCompatActivity implements FragmentManager.O
             @Override
             public void onClick(View v) {
                 drawer.openDrawer(Gravity.LEFT);
+            }
+        });
+        img_cart.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(HomeActivity.this,ViewCartActivity.class));
+
             }
         });
 
@@ -238,6 +245,7 @@ public class HomeActivity extends AppCompatActivity implements FragmentManager.O
         tvCartCount=findViewById(R.id.tvCartCount);
         btnRetry=findViewById(R.id.btnRetry);
         tv_hamburger=findViewById(R.id.tv_hamburger);
+        img_cart=findViewById(R.id.img_cart);
     }
 
     @Override
