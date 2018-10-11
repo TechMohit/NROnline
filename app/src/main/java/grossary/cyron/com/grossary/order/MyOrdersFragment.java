@@ -1,8 +1,7 @@
-package grossary.cyron.com.grossary.category;
+package grossary.cyron.com.grossary.order;
 
 
 import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -19,11 +18,10 @@ import com.google.gson.Gson;
 import grossary.cyron.com.grossary.HomeActivity;
 import grossary.cyron.com.grossary.R;
 import grossary.cyron.com.grossary.account.LoginModel;
-import grossary.cyron.com.grossary.account.SigninActivity;
-import grossary.cyron.com.grossary.account.VerifyRegisterOTPModel;
+import grossary.cyron.com.grossary.category.CategoryActivity;
+import grossary.cyron.com.grossary.category.CategoryListAdapter;
+import grossary.cyron.com.grossary.category.CategoryModel;
 import grossary.cyron.com.grossary.home.HomeModel;
-import grossary.cyron.com.grossary.profile.ProfileActivity;
-import grossary.cyron.com.grossary.sellers.SellersListAdapter;
 import grossary.cyron.com.grossary.utility.LoadingView;
 import grossary.cyron.com.grossary.utility.PreferenceManager;
 import grossary.cyron.com.grossary.utility.callback.OnItemClickListener;
@@ -39,9 +37,7 @@ import static grossary.cyron.com.grossary.utility.Constant.CATEGORY.LIST_DETAILS
 import static grossary.cyron.com.grossary.utility.Constant.CATEGORY.ONCLICK;
 import static grossary.cyron.com.grossary.utility.Constant.CURRENT_STATE.CATG_LIST_FRG;
 import static grossary.cyron.com.grossary.utility.Constant.CURRENT_STATE.HOME_FRG;
-import static grossary.cyron.com.grossary.utility.Constant.CURRENT_STATE.OFFER_FRG;
 import static grossary.cyron.com.grossary.utility.Constant.CURRENT_STATE.SELLER_FRG;
-import static grossary.cyron.com.grossary.utility.Constant.KEY_NAME.ACT_HOME_PARAMETER;
 import static grossary.cyron.com.grossary.utility.Constant.KEY_NAME.CURRENT_FRG;
 import static grossary.cyron.com.grossary.utility.Constant.KEY_NAME.FRAG_PARAMETER;
 import static grossary.cyron.com.grossary.utility.Constant.URL.BASE_URL;
@@ -49,13 +45,13 @@ import static grossary.cyron.com.grossary.utility.Constant.URL.BASE_URL;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class CategoryListFragment extends Fragment implements OnItemClickListener<CategoryModel.Projectlist> {
+public class MyOrdersFragment extends Fragment implements OnItemClickListener<ViewOrderListModel.OrderlistEntity> {
 
     private RecyclerView recyclerView;
-    private CategoryListAdapter adapter;
+    private MyOrdersAdapter adapter;
     private LoadingView load;
     private Context context;
-    public CategoryListFragment() {
+    public MyOrdersFragment() {
         // Required empty public constructor
     }
 
@@ -69,7 +65,7 @@ public class CategoryListFragment extends Fragment implements OnItemClickListene
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_category_list, container, false);
+        View view = inflater.inflate(R.layout.fragment_my_orders, container, false);
         initView(view);
 
         recyclerView.setLayoutManager(new GridLayoutManager(getActivity(), 1));
@@ -89,31 +85,21 @@ public class CategoryListFragment extends Fragment implements OnItemClickListene
         load = new LoadingView(getActivity());
         load.setCancalabe(false);
         load.showLoading();
-        String url = BASE_URL + "/Home/ProductDetails";
+        String url = BASE_URL + "/Order/ViewOrderList";
 
         Log.e("URl", "*** " + url);
-        String value=(getArguments().getString(FRAG_PARAMETER));
-        String current=(getArguments().getString(CURRENT_FRG));
+        LoginModel res = new PreferenceManager(getActivity()).getLoginModel();
 
-        String storeId="0",productId="0";
-
-        if(current.equalsIgnoreCase(HOME_FRG)) {
-            HomeModel.Objcategorylist product = new Gson().fromJson(value, HomeModel.Objcategorylist.class);
-            productId=""+product.catergoryid;
-        }else if(current.equalsIgnoreCase(SELLER_FRG)){
-            HomeModel.Objstoredetailslist store = new Gson().fromJson(value, HomeModel.Objstoredetailslist.class);
-            storeId=""+store.storeid;
-        }
-        Call<CategoryModel> call = RetrofitClient.getAPIInterface().productDetails(url, storeId,productId);
-        Request request = new RetrofitRequest<>(call, new ResponseListener<CategoryModel>() {
+        Call<ViewOrderListModel> call = RetrofitClient.getAPIInterface().viewOrderList(url,"1006");
+        Request request = new RetrofitRequest<>(call, new ResponseListener<ViewOrderListModel>() {
             @Override
-            public void onResponse(int code, CategoryModel response, Headers headers) {
+            public void onResponse(int code, ViewOrderListModel response, Headers headers) {
                 load.dismissLoading();
-                if (response.response.responseval) {
-                    adapter.setAdapterData(response.projectlists);
+                if (response.getResponse().getResponseval()) {
+                    adapter.setAdapterData(response.getOrderlist());
 
                 }else{
-                    Toast.makeText(getActivity(), ""+response.response.reason , Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getActivity(), ""+response.getResponse().getResponseval() , Toast.LENGTH_SHORT).show();
                 }
             }
 
@@ -135,7 +121,7 @@ public class CategoryListFragment extends Fragment implements OnItemClickListene
     }
 
     private void setAdapter() {
-        adapter = new CategoryListAdapter(getActivity(), this);
+        adapter = new MyOrdersAdapter(getActivity(), this);
         recyclerView.setAdapter(adapter);
     }
 
@@ -145,13 +131,8 @@ public class CategoryListFragment extends Fragment implements OnItemClickListene
     }
 
     @Override
-    public void onItemClick(CategoryModel.Projectlist categoryModel, View view, int position,String type) {
+    public void onItemClick(ViewOrderListModel.OrderlistEntity categoryModel, View view, int position,String type) {
 
-        if(type.equalsIgnoreCase(ONCLICK)) {
-            ((CategoryActivity) getActivity()).selectFrag(LIST_DETAILS, new Gson().toJson(categoryModel), CATG_LIST_FRG);
-        }else if(type.equalsIgnoreCase(ADD)){
-            ((CategoryActivity)getActivity()).callApiAddtoCart(""+categoryModel.productDescId,""+categoryModel.productId,""+categoryModel.stroeId,categoryModel.sellingPrice);
-        }
 
     }
 

@@ -17,6 +17,8 @@ import java.util.List;
 import grossary.cyron.com.grossary.R;
 import grossary.cyron.com.grossary.utility.callback.OnItemClickListener;
 
+import static grossary.cyron.com.grossary.utility.Constant.CATEGORY.ONCLICK;
+
 
 /**
  * Created by Satyam Kumar Naik on 1/11/2018.
@@ -63,7 +65,7 @@ public class DrawerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
             @Override
             public void onClick(View view) {
 
-                onItemClickListener.onItemClick(object, view, position);
+                onItemClickListener.onItemClick(object, view, position,ONCLICK);
             }
         });
     }

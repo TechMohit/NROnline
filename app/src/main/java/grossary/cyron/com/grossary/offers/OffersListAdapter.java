@@ -20,6 +20,8 @@ import grossary.cyron.com.grossary.home.HomeModel;
 import grossary.cyron.com.grossary.utility.GlideApp;
 import grossary.cyron.com.grossary.utility.callback.OnItemClickListener;
 
+import static grossary.cyron.com.grossary.utility.Constant.CATEGORY.ONCLICK;
+
 
 public class OffersListAdapter extends RecyclerView.Adapter {
 
@@ -58,7 +60,7 @@ public class OffersListAdapter extends RecyclerView.Adapter {
         ((ImageTypeViewHolder) holder).card_parent.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                clickListener.onItemClick(object, ((ImageTypeViewHolder) holder).card_parent, listPosition);
+                clickListener.onItemClick(object, ((ImageTypeViewHolder) holder).card_parent, listPosition,ONCLICK);
             }
         });
 

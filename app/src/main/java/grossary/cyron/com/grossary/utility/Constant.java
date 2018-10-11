@@ -13,11 +13,22 @@ public class Constant {
     public interface KEY_NAME{
         String FRAG_PARAMETER="FRAG_PARAMETER";
         String ACT_HOME_PARAMETER="ACT_HOME_PARAMETER";
+        String CURRENT_FRG="CURRENT_FRG";
 
     }
 
+    public interface CURRENT_STATE{
+        String HOME_FRG="HOME_FRG";
+        String OFFER_FRG="OFFER_FRG";
+        String SELLER_FRG="SELLER_FRG";
+        String CATG_LIST_FRG="CATG_LIST_FRG";
+        String VIEW_CART_FRG="VIEW_CART_FRG";
+        String MY_ORDER_FRG="MY_ORDER_FRG";
+
+    }
     public interface NAV_DRAWER{
         String MY_PROFILE="MY_PROFILE";
+        String MY_ORDER = "MY_ORDER";
         String LOG_OUT = "LOG_OUT";
     }
 
@@ -29,8 +40,13 @@ public class Constant {
     }
 
     public interface CATEGORY{
+        String VIEW_CART="VIEW_CART";
         String LIST="Category_list";
         String LIST_DETAILS="Category_list_details";
+        String ADD="ADD";
+        String ONCLICK="ONCLICK";
+        String DELETE="DELETE";
+        String ORDER="ORDER";
 
     }
 

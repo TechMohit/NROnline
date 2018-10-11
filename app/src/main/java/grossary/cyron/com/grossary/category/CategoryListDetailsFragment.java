@@ -20,6 +20,7 @@ import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
 import com.google.gson.Gson;
 
 import grossary.cyron.com.grossary.R;
+import grossary.cyron.com.grossary.home.HomeModel;
 import grossary.cyron.com.grossary.utility.GlideApp;
 import grossary.cyron.com.grossary.utility.LoadingView;
 import grossary.cyron.com.grossary.utility.retrofit.RetrofitClient;
@@ -29,6 +30,10 @@ import grossary.cyron.com.grossary.utility.retrofit.callbacks.ResponseListener;
 import okhttp3.Headers;
 import retrofit2.Call;
 
+import static grossary.cyron.com.grossary.utility.Constant.CURRENT_STATE.CATG_LIST_FRG;
+import static grossary.cyron.com.grossary.utility.Constant.CURRENT_STATE.HOME_FRG;
+import static grossary.cyron.com.grossary.utility.Constant.CURRENT_STATE.OFFER_FRG;
+import static grossary.cyron.com.grossary.utility.Constant.KEY_NAME.CURRENT_FRG;
 import static grossary.cyron.com.grossary.utility.Constant.KEY_NAME.FRAG_PARAMETER;
 import static grossary.cyron.com.grossary.utility.Constant.URL.BASE_URL;
 
@@ -44,6 +49,7 @@ public class CategoryListDetailsFragment extends Fragment {
     private int count = 0;
     private Button btnAddCart, btnMin, btnAdd;
     private ImageView imgProduct;
+    private ProductdDescDetailsModel responseMain;
 
     public CategoryListDetailsFragment() {
         // Required empty public constructor
@@ -79,6 +85,15 @@ public class CategoryListDetailsFragment extends Fragment {
 
             }
         });
+        btnAddCart.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                ((CategoryActivity) getActivity()).callApiAddtoCart("" + responseMain.productDescId,
+                        "" + responseMain.productId, "" + responseMain.storeId, responseMain.sellingPrice);
+
+            }
+        });
 
 
         return view;
@@ -111,13 +126,26 @@ public class CategoryListDetailsFragment extends Fragment {
         String url = BASE_URL + "/Home/ProductdDescDetails";
 
         Log.e("URl", "*** " + url);
-        CategoryModel.Projectlist product = new Gson().fromJson((getArguments().getString(FRAG_PARAMETER)), CategoryModel.Projectlist.class);
 
-        Call<ProductdDescDetailsModel> call = RetrofitClient.getAPIInterface().ProductdDescDetails(url, "" + product.productDescId);
+        String value = (getArguments().getString(FRAG_PARAMETER));
+        String current = (getArguments().getString(CURRENT_FRG));
+
+        String productId = "0";
+
+        if (current.equalsIgnoreCase(CATG_LIST_FRG)) {
+            CategoryModel.Projectlist product = new Gson().fromJson(value, CategoryModel.Projectlist.class);
+            productId = "" + product.productDescId;
+        } else if (current.equalsIgnoreCase(OFFER_FRG)) {
+            HomeModel.Objofferdetailslist product = new Gson().fromJson(value, HomeModel.Objofferdetailslist.class);
+            productId = "" + product.productdescid;
+        }
+
+        Call<ProductdDescDetailsModel> call = RetrofitClient.getAPIInterface().ProductdDescDetails(url, "" + productId);
         Request request = new RetrofitRequest<>(call, new ResponseListener<ProductdDescDetailsModel>() {
             @Override
             public void onResponse(int code, ProductdDescDetailsModel response, Headers headers) {
                 load.dismissLoading();
+                responseMain = response;
                 if (response.response.responseval) {
 
                     tvProductName.setText(String.format("%s", response.productName));

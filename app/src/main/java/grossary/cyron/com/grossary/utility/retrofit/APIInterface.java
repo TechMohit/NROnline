@@ -6,10 +6,13 @@ import grossary.cyron.com.grossary.account.LoginModel;
 import grossary.cyron.com.grossary.account.RegisterModel;
 import grossary.cyron.com.grossary.account.ResendOTPModel;
 import grossary.cyron.com.grossary.account.VerifyRegisterOTPModel;
+import grossary.cyron.com.grossary.cart.DeleteFromCartDetailsModel;
 import grossary.cyron.com.grossary.cart.ViewAddtoCartDetailsModel;
+import grossary.cyron.com.grossary.category.AddToCartDetailsModel;
 import grossary.cyron.com.grossary.category.CategoryModel;
 import grossary.cyron.com.grossary.category.ProductdDescDetailsModel;
 import grossary.cyron.com.grossary.home.HomeModel;
+import grossary.cyron.com.grossary.order.ViewOrderListModel;
 import grossary.cyron.com.grossary.profile.GetUserProfileModel;
 import grossary.cyron.com.grossary.profile.GetUserProfileUpdateModel;
 import okhttp3.MultipartBody;
@@ -45,6 +48,15 @@ public interface APIInterface {
 
     @POST()
     @FormUrlEncoded
+    Call<ViewOrderListModel> viewOrderList(@Url String url, @Field("UserId") String UserId);
+
+
+    @POST()
+    @FormUrlEncoded
+    Call<DeleteFromCartDetailsModel> deleteFromCartDetails(@Url String url, @Field("OrderId") String OrderId);
+
+    @POST()
+    @FormUrlEncoded
     Call<ViewAddtoCartDetailsModel> viewAddtoCartDetails(@Url String url, @Field("UserId") String UserId);
 
     @POST()
@@ -63,6 +75,12 @@ public interface APIInterface {
     @POST()
     @FormUrlEncoded
     Call<CategoryModel> productDetails(@Url String url, @Field("Storeid") String Storeid, @Field("CategoryId") String CategoryId);
+
+    @POST()
+    @FormUrlEncoded
+    Call<AddToCartDetailsModel> addToCartDetails(@Url String url, @Field("UserId") String UserId, @Field("ProductDescId") String ProductDescId,
+                                                 @Field("ProductId") String ProductId, @Field("StoreId") String StoreId,
+                                                 @Field("ShippingCharges") String ShippingCharges);
 
     @POST()
     @FormUrlEncoded

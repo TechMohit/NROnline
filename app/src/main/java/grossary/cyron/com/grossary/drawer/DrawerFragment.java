@@ -69,7 +69,7 @@ public class DrawerFragment extends Fragment implements OnItemClickListener {
 
         DrawerItem drawerItem2 = new DrawerItem();
         drawerItem2.setText("My Orders");
-        drawerItem2.setTag("MY_ORDERS");
+        drawerItem2.setTag(Constant.NAV_DRAWER.MY_ORDER);
         drawerItem2.setIcon(R.drawable.ham_my_order);
         newsList.add(drawerItem2);
 
@@ -102,7 +102,7 @@ public class DrawerFragment extends Fragment implements OnItemClickListener {
     }
 
     @Override
-    public void onItemClick(Object o, View view, int position) {
+    public void onItemClick(Object o, View view, int position,String type) {
         drawerListener.drawerOnItemClicked(((DrawerItem) o).getTag());
         adapter.selectedPosition(position);
     }

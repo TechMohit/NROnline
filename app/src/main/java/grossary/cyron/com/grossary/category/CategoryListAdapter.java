@@ -7,6 +7,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -19,6 +20,9 @@ import grossary.cyron.com.grossary.R;
 import grossary.cyron.com.grossary.offers.OffersListAdapter;
 import grossary.cyron.com.grossary.utility.GlideApp;
 import grossary.cyron.com.grossary.utility.callback.OnItemClickListener;
+
+import static grossary.cyron.com.grossary.utility.Constant.CATEGORY.ADD;
+import static grossary.cyron.com.grossary.utility.Constant.CATEGORY.ONCLICK;
 
 
 public class CategoryListAdapter extends RecyclerView.Adapter {
@@ -57,7 +61,14 @@ public class CategoryListAdapter extends RecyclerView.Adapter {
         ((ImageTypeViewHolder) holder).card_parent.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                clickListener.onItemClick(object, ((ImageTypeViewHolder) holder).card_parent, listPosition);
+                clickListener.onItemClick(object, ((ImageTypeViewHolder) holder).card_parent, listPosition,ONCLICK);
+            }
+        });
+
+        ((ImageTypeViewHolder) holder).btnAdd.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                clickListener.onItemClick(object, ((ImageTypeViewHolder) holder).card_parent, listPosition,ADD);
             }
         });
 
@@ -90,6 +101,7 @@ public class CategoryListAdapter extends RecyclerView.Adapter {
         private TextView tvProductName,tvDesc,tvSellingPrice,tvMrpPrice;
         private CardView card_parent;
         private ImageView imgView;
+        private Button btnAdd;
 
 
         public ImageTypeViewHolder(View itemView) {
@@ -100,6 +112,7 @@ public class CategoryListAdapter extends RecyclerView.Adapter {
             this.tvDesc = itemView.findViewById(R.id.tvDesc);
             this.tvSellingPrice = itemView.findViewById(R.id.tvSellingPrice);
             this.tvMrpPrice = itemView.findViewById(R.id.tvMrpPrice);
+            this.btnAdd=itemView.findViewById(R.id.btnAdd);
         }
     }
 

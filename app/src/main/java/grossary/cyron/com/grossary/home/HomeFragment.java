@@ -25,7 +25,9 @@ import grossary.cyron.com.grossary.category.CategoryActivity;
 import grossary.cyron.com.grossary.custom.CirclePageIndicator;
 import grossary.cyron.com.grossary.utility.callback.OnItemClickListener;
 
+import static grossary.cyron.com.grossary.utility.Constant.CURRENT_STATE.HOME_FRG;
 import static grossary.cyron.com.grossary.utility.Constant.KEY_NAME.ACT_HOME_PARAMETER;
+import static grossary.cyron.com.grossary.utility.Constant.KEY_NAME.CURRENT_FRG;
 
 
 public class HomeFragment extends Fragment implements OnItemClickListener<HomeModel.Objcategorylist> {
@@ -145,8 +147,9 @@ public class HomeFragment extends Fragment implements OnItemClickListener<HomeMo
     }
 
     @Override
-    public void onItemClick(HomeModel.Objcategorylist objstoredetailslist, View view, int position) {
+    public void onItemClick(HomeModel.Objcategorylist objstoredetailslist, View view, int position,String type) {
         Intent intent=new Intent(getActivity(),CategoryActivity.class);
+        intent.putExtra(CURRENT_FRG,HOME_FRG);
         intent.putExtra(ACT_HOME_PARAMETER,new Gson().toJson(objstoredetailslist));
         startActivity(intent);
 
