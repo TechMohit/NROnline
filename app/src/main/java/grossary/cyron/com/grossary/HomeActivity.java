@@ -18,9 +18,8 @@ import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.google.gson.JsonObject;
+import com.google.gson.Gson;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,14 +27,13 @@ import java.util.List;
 import grossary.cyron.com.grossary.account.LoginModel;
 import grossary.cyron.com.grossary.account.SigninActivity;
 import grossary.cyron.com.grossary.brands.BrandsFragment;
-import grossary.cyron.com.grossary.cart.ViewCartActivity;
+import grossary.cyron.com.grossary.category.CategoryActivity;
 import grossary.cyron.com.grossary.drawer.DrawerFragment;
 import grossary.cyron.com.grossary.home.HomeFragment;
 import grossary.cyron.com.grossary.home.HomeModel;
 import grossary.cyron.com.grossary.offers.OffersFragment;
 import grossary.cyron.com.grossary.profile.ProfileActivity;
 import grossary.cyron.com.grossary.sellers.SellerFragment;
-import grossary.cyron.com.grossary.tabs.OneFragment;
 import grossary.cyron.com.grossary.utility.Constant;
 import grossary.cyron.com.grossary.utility.FragmentHelper;
 import grossary.cyron.com.grossary.utility.LoadingView;
@@ -47,9 +45,14 @@ import grossary.cyron.com.grossary.utility.retrofit.callbacks.ResponseListener;
 import okhttp3.Headers;
 import retrofit2.Call;
 
+import static grossary.cyron.com.grossary.utility.Constant.CURRENT_STATE.HOME_FRG;
+import static grossary.cyron.com.grossary.utility.Constant.CURRENT_STATE.MY_ORDER_FRG;
+import static grossary.cyron.com.grossary.utility.Constant.CURRENT_STATE.VIEW_CART_FRG;
+import static grossary.cyron.com.grossary.utility.Constant.KEY_NAME.ACT_HOME_PARAMETER;
+import static grossary.cyron.com.grossary.utility.Constant.KEY_NAME.CURRENT_FRG;
 import static grossary.cyron.com.grossary.utility.Constant.URL.BASE_URL;
 
-public class HomeActivity extends AppCompatActivity implements FragmentManager.OnBackStackChangedListener,DrawerFragment.DrawerListener, android.app.FragmentManager.OnBackStackChangedListener {
+public class HomeActivity extends AppCompatActivity implements FragmentManager.OnBackStackChangedListener, DrawerFragment.DrawerListener, android.app.FragmentManager.OnBackStackChangedListener {
 
     private DrawerLayout drawer;
     private TabLayout tabLayout;
@@ -59,7 +62,7 @@ public class HomeActivity extends AppCompatActivity implements FragmentManager.O
     private FrameLayout layConnection;
     private Button btnRetry;
     private TextView tvCartCount;
-    private ImageView tv_hamburger,img_cart;
+    private ImageView tv_hamburger, img_cart;
 
     private int[] tabIcons = {
             R.drawable.tb_home,
@@ -67,13 +70,14 @@ public class HomeActivity extends AppCompatActivity implements FragmentManager.O
             R.drawable.tb_seller,
             R.drawable.tb_brand
     };
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
         initView();
 
-        ActionBarDrawerToggle drawerToggle = new ActionBarDrawerToggle(this, drawer, null, R.string.app_name, R.string.app_name){
+        ActionBarDrawerToggle drawerToggle = new ActionBarDrawerToggle(this, drawer, null, R.string.app_name, R.string.app_name) {
             @Override
             public void onDrawerOpened(View drawerView) {
                 super.onDrawerOpened(drawerView);
@@ -90,7 +94,7 @@ public class HomeActivity extends AppCompatActivity implements FragmentManager.O
         getFragmentManager().addOnBackStackChangedListener(this);
         FragmentHelper.addFragment(this, R.id.navigation_container, new DrawerFragment());
 
-        viewPager =findViewById(R.id.viewpager);
+        viewPager = findViewById(R.id.viewpager);
         setupViewPager(viewPager);
 
         tabLayout = findViewById(R.id.tabs);
@@ -113,7 +117,11 @@ public class HomeActivity extends AppCompatActivity implements FragmentManager.O
         img_cart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(HomeActivity.this,ViewCartActivity.class));
+
+                Intent intent = new Intent(HomeActivity.this, CategoryActivity.class);
+                intent.putExtra(CURRENT_FRG, VIEW_CART_FRG);
+                intent.putExtra(ACT_HOME_PARAMETER, "");
+                startActivity(intent);
 
             }
         });
@@ -129,9 +137,10 @@ public class HomeActivity extends AppCompatActivity implements FragmentManager.O
         layConnection.setVisibility(View.GONE);
 
         Log.e("URl", "*** " + url);
+        LoginModel res = new PreferenceManager(HomeActivity.this).getLoginModel();
 
         Call<HomeModel> call = RetrofitClient.getAPIInterface().homeDetailsAPI(url,
-                "9844332677");
+                res.getMobile());
         Request request = new RetrofitRequest<>(call, new ResponseListener<HomeModel>() {
             @Override
             public void onResponse(int code, HomeModel response, Headers headers) {
@@ -191,17 +200,17 @@ public class HomeActivity extends AppCompatActivity implements FragmentManager.O
     }
 
     public void setHomeModel(HomeModel response) {
-        if(homeModel!=null)
-            homeModel=new HomeModel();
-        homeModel=response;
-        if(homeModel.objTotalCartItemCount!=null)
-        tvCartCount.setText(""+homeModel.objTotalCartItemCount.totalItemCount);
-        ViewPagerAdapter fa = (ViewPagerAdapter)viewPager.getAdapter();
-        HomeFragment homeFragment = (HomeFragment)fa.getItem(0);
-        OffersFragment theFragment = (OffersFragment)fa.getItem(1);
-        SellerFragment sellerFragment = (SellerFragment)fa.getItem(2);
-        BrandsFragment brandsFragment = (BrandsFragment)fa.getItem(3);
-        homeFragment.setData(homeModel.objcategorylist,response.homeOfferList);
+        if (homeModel != null)
+            homeModel = new HomeModel();
+        homeModel = response;
+        if (homeModel.objTotalCartItemCount != null)
+            tvCartCount.setText("" + homeModel.objTotalCartItemCount.totalItemCount);
+        ViewPagerAdapter fa = (ViewPagerAdapter) viewPager.getAdapter();
+        HomeFragment homeFragment = (HomeFragment) fa.getItem(0);
+        OffersFragment theFragment = (OffersFragment) fa.getItem(1);
+        SellerFragment sellerFragment = (SellerFragment) fa.getItem(2);
+        BrandsFragment brandsFragment = (BrandsFragment) fa.getItem(3);
+        homeFragment.setData(homeModel.objcategorylist, response.homeOfferList);
         theFragment.setData(homeModel.objofferdetailslist);
         sellerFragment.setData(response.objstoredetailslist);
         brandsFragment.setData();
@@ -239,13 +248,14 @@ public class HomeActivity extends AppCompatActivity implements FragmentManager.O
             return mFragmentTitleList.get(position);
         }
     }
+
     private void initView() {
-        drawer=findViewById(R.id.drawer);
-        layConnection=findViewById(R.id.layConnection);
-        tvCartCount=findViewById(R.id.tvCartCount);
-        btnRetry=findViewById(R.id.btnRetry);
-        tv_hamburger=findViewById(R.id.tv_hamburger);
-        img_cart=findViewById(R.id.img_cart);
+        drawer = findViewById(R.id.drawer);
+        layConnection = findViewById(R.id.layConnection);
+        tvCartCount = findViewById(R.id.tvCartCount);
+        btnRetry = findViewById(R.id.btnRetry);
+        tv_hamburger = findViewById(R.id.tv_hamburger);
+        img_cart = findViewById(R.id.img_cart);
     }
 
     @Override
@@ -256,14 +266,21 @@ public class HomeActivity extends AppCompatActivity implements FragmentManager.O
     @Override
     public void drawerOnItemClicked(String tag) {
 
-        switch (tag){
+        Intent intent = null;
+        switch (tag) {
 
             case Constant.NAV_DRAWER.MY_PROFILE:
-               startActivity(new Intent(this,ProfileActivity.class));
+                startActivity(new Intent(this, ProfileActivity.class));
+                break;
+            case Constant.NAV_DRAWER.MY_ORDER:
+                intent = new Intent(HomeActivity.this, CategoryActivity.class);
+                intent.putExtra(CURRENT_FRG, MY_ORDER_FRG);
+                intent.putExtra(ACT_HOME_PARAMETER, "");
+                startActivity(intent);
                 break;
             case Constant.NAV_DRAWER.LOG_OUT:
                 new PreferenceManager(HomeActivity.this).setAutoLogin(false);
-                Intent intent = new Intent(HomeActivity.this, SigninActivity.class);
+                intent = new Intent(HomeActivity.this, SigninActivity.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);

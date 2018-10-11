@@ -64,7 +64,7 @@ public class BrandsFragment extends Fragment implements OnItemClickListener<Home
     }
 
     @Override
-    public void onItemClick(HomeModel.ObjOfferImageList brandsModel, View view, int position) {
+    public void onItemClick(HomeModel.ObjOfferImageList brandsModel, View view, int position,String type) {
 
     }
 

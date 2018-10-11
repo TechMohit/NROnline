@@ -1,6 +1,7 @@
 package grossary.cyron.com.grossary.sellers;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -10,13 +11,21 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.google.gson.Gson;
+
 import java.util.ArrayList;
 import java.util.List;
 
 import grossary.cyron.com.grossary.HomeActivity;
 import grossary.cyron.com.grossary.R;
+import grossary.cyron.com.grossary.category.CategoryActivity;
 import grossary.cyron.com.grossary.home.HomeModel;
 import grossary.cyron.com.grossary.utility.callback.OnItemClickListener;
+
+import static grossary.cyron.com.grossary.utility.Constant.CURRENT_STATE.HOME_FRG;
+import static grossary.cyron.com.grossary.utility.Constant.CURRENT_STATE.SELLER_FRG;
+import static grossary.cyron.com.grossary.utility.Constant.KEY_NAME.ACT_HOME_PARAMETER;
+import static grossary.cyron.com.grossary.utility.Constant.KEY_NAME.CURRENT_FRG;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -65,8 +74,12 @@ public class SellerFragment extends Fragment implements OnItemClickListener<Home
     }
 
     @Override
-    public void onItemClick(HomeModel.Objstoredetailslist sellersModel, View view, int position) {
+    public void onItemClick(HomeModel.Objstoredetailslist sellersModel, View view, int position,String type) {
 
+        Intent intent=new Intent(getActivity(),CategoryActivity.class);
+        intent.putExtra(CURRENT_FRG,SELLER_FRG);
+        intent.putExtra(ACT_HOME_PARAMETER,new Gson().toJson(sellersModel));
+        startActivity(intent);
     }
 
 

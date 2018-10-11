@@ -90,17 +90,17 @@
                     android:layout_height="30dp"
                     android:layout_centerVertical="true"
                     android:layout_marginRight="10dp"
-                    android:layout_toLeftOf="@+id/txt_checkout"
+                    android:layout_toLeftOf="@+id/txtCheckout"
                     android:background="@color/colorPrimaryDark"></View>
 
                 <TextView
-                    android:id="@+id/txt_checkout"
+                    android:id="@+id/txtCheckout"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
-                    android:layout_marginRight="10dp"
                     android:text="Checkout"
+                    android:padding="10dp"
                     android:textColor="@color/colorPrimaryDark"
                     android:textSize="18sp" />
             </RelativeLayout>
