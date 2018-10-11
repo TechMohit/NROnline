@@ -6,9 +6,6 @@ import android.graphics.Paint;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v4.view.ViewPager;
-import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -23,12 +20,8 @@ import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
 import com.google.gson.Gson;
 
 import grossary.cyron.com.grossary.R;
-import grossary.cyron.com.grossary.account.LoginModel;
-import grossary.cyron.com.grossary.custom.CirclePageIndicator;
-import grossary.cyron.com.grossary.home.HomeListAdapter;
 import grossary.cyron.com.grossary.utility.GlideApp;
 import grossary.cyron.com.grossary.utility.LoadingView;
-import grossary.cyron.com.grossary.utility.callback.OnItemClickListener;
 import grossary.cyron.com.grossary.utility.retrofit.RetrofitClient;
 import grossary.cyron.com.grossary.utility.retrofit.RetrofitRequest;
 import grossary.cyron.com.grossary.utility.retrofit.callbacks.Request;
@@ -36,7 +29,6 @@ import grossary.cyron.com.grossary.utility.retrofit.callbacks.ResponseListener;
 import okhttp3.Headers;
 import retrofit2.Call;
 
-import static grossary.cyron.com.grossary.utility.Constant.CATEGORY.LIST_DETAILS;
 import static grossary.cyron.com.grossary.utility.Constant.KEY_NAME.FRAG_PARAMETER;
 import static grossary.cyron.com.grossary.utility.Constant.URL.BASE_URL;
 
@@ -112,7 +104,6 @@ public class CategoryListDetailsFragment extends Fragment {
     }
 
 
-
     private void callApi() {
         load = new LoadingView(getActivity());
         load.setCancalabe(false);
@@ -120,9 +111,9 @@ public class CategoryListDetailsFragment extends Fragment {
         String url = BASE_URL + "/Home/ProductdDescDetails";
 
         Log.e("URl", "*** " + url);
-        CategoryModel.Projectlist product=new Gson().fromJson((getArguments().getString(FRAG_PARAMETER)),CategoryModel.Projectlist.class);
+        CategoryModel.Projectlist product = new Gson().fromJson((getArguments().getString(FRAG_PARAMETER)), CategoryModel.Projectlist.class);
 
-        Call<ProductdDescDetailsModel> call = RetrofitClient.getAPIInterface().ProductdDescDetails(url, ""+product.productDescId);
+        Call<ProductdDescDetailsModel> call = RetrofitClient.getAPIInterface().ProductdDescDetails(url, "" + product.productDescId);
         Request request = new RetrofitRequest<>(call, new ResponseListener<ProductdDescDetailsModel>() {
             @Override
             public void onResponse(int code, ProductdDescDetailsModel response, Headers headers) {
@@ -131,8 +122,8 @@ public class CategoryListDetailsFragment extends Fragment {
 
                     tvProductName.setText(String.format("%s", response.productName));
                     tvDesc.setText(String.format("%s", response.subProductQTY));
-                    tvSellingPrice.setText("$"+String.format("%s", response.sellingPrice));
-                    tvMrpPrice.setText(String.format("%s", "(" + response.mRPPrice + ")"));
+                    tvSellingPrice.setText("₹" + String.format("%s", response.sellingPrice));
+                    tvMrpPrice.setText(String.format("%s", "(₹" + response.mRPPrice + ")"));
                     tvMrpPrice.setPaintFlags(tvMrpPrice.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
 
                     GlideApp.with(getActivity())

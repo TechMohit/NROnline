@@ -38,8 +38,8 @@ public class CategoryListAdapter extends RecyclerView.Adapter {
         final CategoryModel.Projectlist object = dataSet.get(listPosition);
         ((ImageTypeViewHolder) holder).tvProductName.setText(String.format("%s", object.productName));
         ((ImageTypeViewHolder) holder).tvDesc.setText(String.format("%s", object.subProductQTY));
-        ((ImageTypeViewHolder) holder).tvSellingPrice.setText("$"+String.format("%s", object.sellingPrice));
-        ((ImageTypeViewHolder) holder).tvMrpPrice.setText(String.format("%s", "("+object.mRPPrice+")"));
+        ((ImageTypeViewHolder) holder).tvSellingPrice.setText("₹"+String.format("%s", object.sellingPrice));
+        ((ImageTypeViewHolder) holder).tvMrpPrice.setText(String.format("%s", "(₹"+object.mRPPrice+")"));
         ((ImageTypeViewHolder) holder).tvMrpPrice.setPaintFlags(((ImageTypeViewHolder) holder).tvMrpPrice.getPaintFlags()
                 | Paint.STRIKE_THRU_TEXT_FLAG);
 
