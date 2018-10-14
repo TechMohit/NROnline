@@ -38,6 +38,7 @@ import static grossary.cyron.com.grossary.utility.Constant.CATEGORY.ADD;
 import static grossary.cyron.com.grossary.utility.Constant.CATEGORY.DELETE;
 import static grossary.cyron.com.grossary.utility.Constant.CATEGORY.LIST_DETAILS;
 import static grossary.cyron.com.grossary.utility.Constant.CATEGORY.ONCLICK;
+import static grossary.cyron.com.grossary.utility.Constant.CONSTANT.PLACE_YOUR_ORDER;
 import static grossary.cyron.com.grossary.utility.Constant.CURRENT_STATE.CATG_LIST_FRG;
 import static grossary.cyron.com.grossary.utility.Constant.CURRENT_STATE.HOME_FRG;
 import static grossary.cyron.com.grossary.utility.Constant.CURRENT_STATE.SELLER_FRG;
@@ -73,7 +74,7 @@ public class ViewCartFragment extends Fragment implements OnItemClickListener<Vi
         View view = inflater.inflate(R.layout.fragment_view_cart, container, false);
         initView(view);
 
-
+        ((CategoryActivity)getActivity()).txtCheckout.setText(PLACE_YOUR_ORDER);
 
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         setAdapter();
@@ -112,7 +113,7 @@ public class ViewCartFragment extends Fragment implements OnItemClickListener<Vi
 
                 if (response.getResponse().getResponseval()) {
 
-                    adapter.setAdapterData(response.getObjviewaddcartlist());
+                    adapter.setAdapterData(response.getObjviewaddcartlist(),response);
                 } else {
                     Toast.makeText(getActivity(), "" + response.getResponse().getReason(), Toast.LENGTH_SHORT).show();
                 }

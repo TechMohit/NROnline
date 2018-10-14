@@ -2,7 +2,6 @@ package grossary.cyron.com.grossary.cart;
 
 import com.google.gson.annotations.SerializedName;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class ViewAddtoCartDetailsModel {
@@ -14,6 +13,14 @@ public class ViewAddtoCartDetailsModel {
     private String status;
     @SerializedName("StatusMessage")
     private String statusmessage;
+    @SerializedName("TotalItemCount")
+    private int totalitemcount;
+    @SerializedName("GrandToal")
+    private int grandtoal;
+    @SerializedName("TotalAmount")
+    private int totalamount;
+    @SerializedName("TotalShippingCharges")
+    private int totalshippingcharges;
     @SerializedName("objViewAddCartList")
     private List<ObjviewaddcartlistEntity> objviewaddcartlist;
 
@@ -41,6 +48,38 @@ public class ViewAddtoCartDetailsModel {
         this.statusmessage = statusmessage;
     }
 
+    public int getTotalitemcount() {
+        return totalitemcount;
+    }
+
+    public void setTotalitemcount(int totalitemcount) {
+        this.totalitemcount = totalitemcount;
+    }
+
+    public int getGrandtoal() {
+        return grandtoal;
+    }
+
+    public void setGrandtoal(int grandtoal) {
+        this.grandtoal = grandtoal;
+    }
+
+    public int getTotalamount() {
+        return totalamount;
+    }
+
+    public void setTotalamount(int totalamount) {
+        this.totalamount = totalamount;
+    }
+
+    public int getTotalshippingcharges() {
+        return totalshippingcharges;
+    }
+
+    public void setTotalshippingcharges(int totalshippingcharges) {
+        this.totalshippingcharges = totalshippingcharges;
+    }
+
     public List<ObjviewaddcartlistEntity> getObjviewaddcartlist() {
         return objviewaddcartlist;
     }
@@ -49,7 +88,7 @@ public class ViewAddtoCartDetailsModel {
         this.objviewaddcartlist = objviewaddcartlist;
     }
 
-    public  class ResponseEntity {
+    public static class ResponseEntity {
         @SerializedName("Reason")
         private String reason;
         @SerializedName("ResponseVal")
@@ -72,7 +111,7 @@ public class ViewAddtoCartDetailsModel {
         }
     }
 
-    public  class ObjviewaddcartlistEntity {
+    public static class ObjviewaddcartlistEntity {
         @SerializedName("ShippingCharges")
         private int shippingcharges;
         @SerializedName("TotalSellingPrice")

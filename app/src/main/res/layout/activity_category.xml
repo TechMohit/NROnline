@@ -54,16 +54,16 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentBottom="true"
                 android:background="@drawable/bg_card_view"
-                android:paddingTop="10dp"
-                android:paddingBottom="10dp">
+                android:paddingTop="5dp"
+                android:paddingBottom="5dp">
 
                 <ImageView
                     android:id="@+id/img_cart"
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
                     android:layout_centerVertical="true"
                     android:layout_marginLeft="20dp"
-                    android:background="@drawable/cart" />
+                    android:background="@drawable/shopping_cart" />
 
                 <View
                     android:id="@+id/view_left"
@@ -100,6 +100,9 @@
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
                     android:text="Checkout"
+                    android:layout_marginRight="10dp"
+                    android:drawablePadding="10dp"
+                    android:drawableRight="@drawable/right_arrow"
                     android:padding="10dp"
                     android:textColor="@color/colorPrimaryDark"
                     android:textSize="18sp" />

@@ -1,80 +1,214 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:card_view="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/card_parent"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    card_view:cardBackgroundColor="@android:color/white"
-    card_view:cardCornerRadius="5dp"
-    card_view:cardElevation="5dp"
-    card_view:cardUseCompatPadding="true">
-
-    <android.support.constraint.ConstraintLayout
+    android:background="@android:color/white"
+    android:paddingBottom="20dp">
+    <View
         android:layout_width="match_parent"
-        android:paddingLeft="10dp"
-        android:paddingBottom="20dp"
-        android:layout_height="wrap_content">
-
-        <TextView
-            android:id="@+id/tvProductName"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="15dp"
-            android:layout_marginTop="15dp"
-            android:gravity="center"
-            android:textSize="18sp"
-            android:textColor="@color/colorPrimary"
-            android:text="TextView"
-            app:layout_constraintStart_toEndOf="@+id/imgView"
-            app:layout_constraintTop_toTopOf="parent" />
+        android:layout_height="0.5sp"
+        android:background="@color/whiteBackground"
+        ></View>
+    <TextView
+        android:id="@+id/tvDatePlaced"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/default_circle_indicator_stroke_color"
+        android:gravity="center"
+        android:padding="10dp"
+        android:text="Place on Thu 04 Oct, 6:00 pm"
+        android:textColor="@color/whiteBackground"
+        android:textSize="15sp"
+        app:layout_constraintTop_toTopOf="parent" />
 
 
-        <TextView
-            android:id="@+id/tvDesc"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="TextView"
-            android:textSize="15sp"
-            app:layout_constraintStart_toStartOf="@+id/tvProductName"
-            app:layout_constraintTop_toBottomOf="@+id/tvProductName" />
+    <View
+        android:id="@+id/view"
+        android:layout_width="match_parent"
+        android:layout_height="0.5sp"
+        android:background="@color/whiteBackground"
+        app:layout_constraintBottom_toBottomOf="@+id/tvDatePlaced"></View>
 
-        <TextView
-            android:id="@+id/tvSellingPrice"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:text="TextView"
-            android:textSize="15sp"
-            android:textColor="@android:color/black"
-            android:textStyle="bold"
-            app:layout_constraintStart_toStartOf="@+id/tvDesc"
-            app:layout_constraintTop_toBottomOf="@+id/tvDesc" />
-
-        <TextView
-            android:id="@+id/tvMrpPrice"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="12dp"
-            android:text="TextView"
-            android:textSize="15sp"
-            app:layout_constraintBottom_toBottomOf="@+id/tvSellingPrice"
-            app:layout_constraintStart_toEndOf="@+id/tvSellingPrice"
-            app:layout_constraintTop_toTopOf="@+id/tvSellingPrice"
-            app:layout_constraintVertical_bias="0.0" />
+    <TextView
+        android:id="@+id/tvProductName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@android:color/white"
+        android:gravity="center"
+        android:padding="5dp"
+        android:layout_marginTop="10dp"
+        android:visibility="gone"
+        android:text="Schedule for Sat 06 Oct, 6 am - 10pm "
+        android:textColor="@color/whiteBackground"
+        android:textSize="15sp"
+        app:layout_constraintTop_toBottomOf="@+id/view" />
 
 
-        <Button
+    <TextView
+        android:id="@+id/tvDesc"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginRight="10dp"
+        android:background="@drawable/btn_round_corner_strip_grey"
+        android:padding="10dp"
+        android:text="Delivered by Benaka"
+        android:textSize="15sp"
+        app:layout_constraintStart_toStartOf="@+id/tvProductName"
+        app:layout_constraintTop_toBottomOf="@+id/tvProductName" />
+
+    <LinearLayout
+        android:id="@+id/linr"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:background="@drawable/btn_round_corner_strip_grey_b"
+        android:orientation="horizontal"
+        app:layout_constraintTop_toBottomOf="@+id/tvDesc">
+
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textColor="@android:color/white"
-            android:text="View Details"
-            app:layout_constraintStart_toStartOf="@+id/tvMrpPrice"
-            app:layout_constraintTop_toBottomOf="@+id/tvMrpPrice"
-            android:textSize="15sp"
-            android:layout_margin="20dp"
+            android:layout_weight="1"
+            android:orientation="vertical">
 
-            android:background="@drawable/btn_round_corner_red"/>
-    </android.support.constraint.ConstraintLayout>
-</android.support.v7.widget.CardView>
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/store" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.5"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tvAddress"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="Benaka Store - M.G Road sdsdsds"
+                android:textColor="@color/whiteBackground"
+                android:textSize="18sp"
+                android:paddingRight="10dp"
+                android:maxLines="2"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/tvMrpPrice"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Delivery Charge"
+                android:paddingTop="5dp"
+                android:textSize="15sp" />
+            <TextView
+                android:id="@+id/tvOrderId"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Order ID: ODR323142562"
+                android:paddingTop="5dp"
+                android:textSize="15sp" />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Delivered"
+                android:drawablePadding="10dp"
+                android:paddingTop="5dp"
+                android:textColor="@android:color/holo_green_light"
+                android:drawableLeft="@drawable/checked"
+                android:layout_marginBottom="10dp"
+                android:textSize="15sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:paddingRight="5dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tvCharge"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="right"
+                android:layout_marginTop="10dp"
+                android:gravity="right"
+                android:text="1,234"
+                android:textColor="@color/whiteBackground"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/tvDeliveryCharge"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="right"
+                android:gravity="right"
+                android:text="Free"
+                android:paddingTop="5dp"
+                android:textColor="@android:color/holo_green_light"
+                android:textSize="15sp"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="5dp"
+        android:layout_marginTop="10dp"
+        android:maxLines="1"
+        android:text="Final Paid Amount"
+        android:textColor="@color/whiteBackground"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="@+id/linr"
+        app:layout_constraintTop_toBottomOf="@+id/linr" />
+
+    <TextView
+        android:id="@+id/tvAmount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="10dp"
+        android:maxLines="1"
+        android:text="1,234"
+        android:paddingRight="5dp"
+        android:textColor="@color/whiteBackground"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="@+id/linr"
+        app:layout_constraintTop_toBottomOf="@+id/linr" />
+
+    <Button
+        android:id="@+id/btnDetails"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="20dp"
+        android:paddingRight="40dp"
+        android:paddingLeft="40dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:background="@drawable/btn_round_corner_red"
+        android:text="View Details"
+        android:textAllCaps="false"
+        android:textColor="@android:color/white"
+        android:textSize="15sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView" />
+</android.support.constraint.ConstraintLayout>

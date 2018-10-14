@@ -35,8 +35,10 @@ import retrofit2.Call;
 import static grossary.cyron.com.grossary.utility.Constant.CATEGORY.ADD;
 import static grossary.cyron.com.grossary.utility.Constant.CATEGORY.LIST_DETAILS;
 import static grossary.cyron.com.grossary.utility.Constant.CATEGORY.ONCLICK;
+import static grossary.cyron.com.grossary.utility.Constant.CATEGORY.ORDER_DETAIL;
 import static grossary.cyron.com.grossary.utility.Constant.CURRENT_STATE.CATG_LIST_FRG;
 import static grossary.cyron.com.grossary.utility.Constant.CURRENT_STATE.HOME_FRG;
+import static grossary.cyron.com.grossary.utility.Constant.CURRENT_STATE.MY_ORDER_DETAIL_FRG;
 import static grossary.cyron.com.grossary.utility.Constant.CURRENT_STATE.SELLER_FRG;
 import static grossary.cyron.com.grossary.utility.Constant.KEY_NAME.CURRENT_FRG;
 import static grossary.cyron.com.grossary.utility.Constant.KEY_NAME.FRAG_PARAMETER;
@@ -133,7 +135,7 @@ public class MyOrdersFragment extends Fragment implements OnItemClickListener<Vi
     @Override
     public void onItemClick(ViewOrderListModel.OrderlistEntity categoryModel, View view, int position,String type) {
 
-
+        ((CategoryActivity)getActivity()).selectFrag(ORDER_DETAIL,new Gson().toJson(categoryModel),MY_ORDER_DETAIL_FRG);
     }
 
 }
