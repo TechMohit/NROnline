@@ -12,6 +12,7 @@ import grossary.cyron.com.grossary.category.AddToCartDetailsModel;
 import grossary.cyron.com.grossary.category.CategoryModel;
 import grossary.cyron.com.grossary.category.ProductdDescDetailsModel;
 import grossary.cyron.com.grossary.home.HomeModel;
+import grossary.cyron.com.grossary.order.OrderDetailsModel;
 import grossary.cyron.com.grossary.order.ViewOrderListModel;
 import grossary.cyron.com.grossary.profile.GetUserProfileModel;
 import grossary.cyron.com.grossary.profile.GetUserProfileUpdateModel;
@@ -58,6 +59,10 @@ public interface APIInterface {
     @POST()
     @FormUrlEncoded
     Call<ViewAddtoCartDetailsModel> viewAddtoCartDetails(@Url String url, @Field("UserId") String UserId);
+
+    @POST()
+    @FormUrlEncoded
+    Call<OrderDetailsModel> orderDetails(@Url String url, @Field("UserId") String UserId,@Field("TranNo") String TranNo);
 
     @POST()
     @FormUrlEncoded

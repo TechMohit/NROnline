@@ -16,7 +16,6 @@ public class CategoryModel {
     @SerializedName("Response")
     public Response response;
 
-
     public class Projectlist {
         @SerializedName("ProductId")
         public int productId;
@@ -28,7 +27,6 @@ public class CategoryModel {
         public String productName;
         @SerializedName("ProductImage")
         public String productImage;
-
         @SerializedName("StoreName")
         public String storeName;
         @SerializedName("MRPPrice")

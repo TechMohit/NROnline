@@ -43,7 +43,7 @@
             android:id="@+id/tvDesc"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="TextView"
+            android:text="1kg"
             android:layout_marginTop="10dp"
             android:textSize="15sp"
             app:layout_constraintStart_toStartOf="@+id/tvProductName"
@@ -53,31 +53,13 @@
             android:id="@+id/tvPrice"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="TextView"
+            android:text="200"
             android:layout_marginTop="10dp"
             android:textSize="15sp"
             android:layout_marginRight="10dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tvProductName"
             />
-        <Spinner
-            android:id="@+id/spQty"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="20dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/imgView"
-            app:layout_constraintTop_toBottomOf="@+id/tvDesc"></Spinner>
 
-        <Button
-            android:id="@+id/btnDelete"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:layout_marginStart="8dp"
-            android:background="@drawable/delete"
-            app:layout_constraintStart_toEndOf="@+id/spQty"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tvDesc"
-             />
     </android.support.constraint.ConstraintLayout>
 </android.support.v7.widget.CardView>

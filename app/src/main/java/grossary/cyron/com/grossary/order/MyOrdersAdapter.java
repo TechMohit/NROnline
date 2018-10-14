@@ -40,21 +40,29 @@ public class MyOrdersAdapter extends RecyclerView.Adapter {
     public void onBindViewHolder(final RecyclerView.ViewHolder holder, final int listPosition) {
 
         final ViewOrderListModel.OrderlistEntity object = dataSet.get(listPosition);
-//        ((ImageTypeViewHolder) holder).tvProductName.setText(String.format("%s", object.productName));
-//        ((ImageTypeViewHolder) holder).tvDesc.setText(String.format("%s", object.subProductQTY));
-//        ((ImageTypeViewHolder) holder).tvSellingPrice.setText("₹"+String.format("%s", object.sellingPrice));
-//        ((ImageTypeViewHolder) holder).tvMrpPrice.setText(String.format("%s", "(₹"+object.mRPPrice+")"));
+        ((ImageTypeViewHolder) holder).tvOrderId.setText("Order ID: "+object.getTranno());
+        if(object.getDeliverycharges().equalsIgnoreCase("0.00")){
+            ((ImageTypeViewHolder) holder).tvDeliveryCharge.setText("Free");
+
+        }else {
+            ((ImageTypeViewHolder) holder).tvDeliveryCharge.setText("₹" + object.getDeliverycharges());
+        }
+        ((ImageTypeViewHolder) holder).tvDatePlaced.setText("Place on "+object.getTrandate());
+        ((ImageTypeViewHolder) holder).tvAddress.setText(""+object.getShippingaddress());
+        ((ImageTypeViewHolder) holder).tvCharge.setText("₹"+ object.getTotalamount());
+        ((ImageTypeViewHolder) holder).tvAmount.setText("₹"+ object.getTotalamount());
+
 //        ((ImageTypeViewHolder) holder).tvMrpPrice.setPaintFlags(((ImageTypeViewHolder) holder).tvMrpPrice.getPaintFlags()
 //                | Paint.STRIKE_THRU_TEXT_FLAG);
 //
 //
-//        ((ImageTypeViewHolder) holder).card_parent.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                clickListener.onItemClick(object, ((ImageTypeViewHolder) holder).card_parent, listPosition,ONCLICK);
-//            }
-//        });
-//
+        ((ImageTypeViewHolder) holder).btnDetails.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                clickListener.onItemClick(object, ((ImageTypeViewHolder) holder).btnDetails, listPosition,ONCLICK);
+            }
+        });
+
 //        ((ImageTypeViewHolder) holder).btnAdd.setOnClickListener(new View.OnClickListener() {
 //            @Override
 //            public void onClick(View v) {
@@ -88,21 +96,18 @@ public class MyOrdersAdapter extends RecyclerView.Adapter {
 
     public static class ImageTypeViewHolder extends RecyclerView.ViewHolder {
 
-        private TextView tvProductName,tvDesc,tvSellingPrice,tvMrpPrice;
-        private CardView card_parent;
-        private ImageView imgView;
-        private Button btnAdd;
-
+        private TextView tvAmount,tvOrderId,tvDeliveryCharge,tvDatePlaced,tvAddress,tvCharge;
+        private Button btnDetails;
 
         public ImageTypeViewHolder(View itemView) {
             super(itemView);
-            this.tvProductName = itemView.findViewById(R.id.tvProductName);
-            this.card_parent = itemView.findViewById(R.id.card_parent);
-            this.imgView = itemView.findViewById(R.id.imgView);
-            this.tvDesc = itemView.findViewById(R.id.tvDesc);
-            this.tvSellingPrice = itemView.findViewById(R.id.tvSellingPrice);
-            this.tvMrpPrice = itemView.findViewById(R.id.tvMrpPrice);
-            this.btnAdd=itemView.findViewById(R.id.btnAdd);
+            this.tvAmount = itemView.findViewById(R.id.tvAmount);
+            this.tvOrderId=itemView.findViewById(R.id.tvOrderId);
+            this.tvDeliveryCharge=itemView.findViewById(R.id.tvDeliveryCharge);
+            this.tvDatePlaced=itemView.findViewById(R.id.tvDatePlaced);
+            this.tvAddress=itemView.findViewById(R.id.tvAddress);
+            this.tvCharge=itemView.findViewById(R.id.tvCharge);
+            this.btnDetails=itemView.findViewById(R.id.btnDetails);
         }
     }
 

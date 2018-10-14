@@ -10,6 +10,13 @@ public class Constant {
 
 
     }
+
+    public interface CONSTANT{
+        String CHECKOUT="Checkout";
+        String PLACE_YOUR_ORDER="Place Your Order";
+        String MAKE_PAYMENT="Make Payment";
+
+    }
     public interface KEY_NAME{
         String FRAG_PARAMETER="FRAG_PARAMETER";
         String ACT_HOME_PARAMETER="ACT_HOME_PARAMETER";
@@ -24,6 +31,8 @@ public class Constant {
         String CATG_LIST_FRG="CATG_LIST_FRG";
         String VIEW_CART_FRG="VIEW_CART_FRG";
         String MY_ORDER_FRG="MY_ORDER_FRG";
+        String ADDRESS_FRG="ADDRESS_FRG";
+        String MY_ORDER_DETAIL_FRG="MY_ORDER_DETAIL_FRG";
 
     }
     public interface NAV_DRAWER{
@@ -47,6 +56,8 @@ public class Constant {
         String ONCLICK="ONCLICK";
         String DELETE="DELETE";
         String ORDER="ORDER";
+        String ORDER_DETAIL="ORDER_DETAIL";
+        String ADDRESS="ADDRESS";
 
     }
 

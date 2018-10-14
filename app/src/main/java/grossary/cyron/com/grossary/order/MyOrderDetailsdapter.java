@@ -1,4 +1,4 @@
-package grossary.cyron.com.grossary.cart;
+package grossary.cyron.com.grossary.order;
 
 import android.app.Activity;
 import android.support.v7.widget.CardView;
@@ -13,25 +13,24 @@ import android.widget.TextView;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import grossary.cyron.com.grossary.R;
-import grossary.cyron.com.grossary.home.HomeModel;
+import grossary.cyron.com.grossary.cart.ViewAddtoCartDetailsModel;
 import grossary.cyron.com.grossary.utility.GlideApp;
 import grossary.cyron.com.grossary.utility.callback.OnItemClickListener;
 
 import static grossary.cyron.com.grossary.utility.Constant.CATEGORY.DELETE;
-import static grossary.cyron.com.grossary.utility.Constant.CATEGORY.ONCLICK;
 
 
-public class ViewCartAdapter extends RecyclerView.Adapter {
+public class MyOrderDetailsdapter extends RecyclerView.Adapter {
 
-    private List<ViewAddtoCartDetailsModel.ObjviewaddcartlistEntity> dataSet;
+    private List<OrderDetailsModel.OrderdetailEntity> dataSet;
     private Activity activity;
-    private OnItemClickListener<ViewAddtoCartDetailsModel.ObjviewaddcartlistEntity> clickListener;
-    private ViewAddtoCartDetailsModel response;
-    public ViewCartAdapter(Activity activity, OnItemClickListener<ViewAddtoCartDetailsModel.ObjviewaddcartlistEntity> clickListener) {
+    private OnItemClickListener<OrderDetailsModel.OrderdetailEntity> clickListener;
+    private OrderDetailsModel response;
+
+    public MyOrderDetailsdapter(Activity activity, OnItemClickListener<OrderDetailsModel.OrderdetailEntity> clickListener) {
         this.activity = activity;
         this.clickListener = clickListener;
     }
@@ -40,15 +39,12 @@ public class ViewCartAdapter extends RecyclerView.Adapter {
     public void onBindViewHolder(final RecyclerView.ViewHolder holder, final int listPosition) {
 
         if(listPosition==dataSet.size()){
-            ((LastTypeViewHolder) holder).tvItem.setText("₹"+response.getTotalshippingcharges());
-            ((LastTypeViewHolder) holder).tvTotal.setText("₹"+response.getGrandtoal());
+
 
         }else {
 
-            final ViewAddtoCartDetailsModel.ObjviewaddcartlistEntity object = dataSet.get(listPosition);
+            final OrderDetailsModel.OrderdetailEntity object = dataSet.get(listPosition);
             ((ImageTypeViewHolder) holder).tvProductName.setText(String.format("%s", object.getProductname()));
-            ((ImageTypeViewHolder) holder).tvDesc.setText(String.format("%s", object.getUnitqty()));
-            ((ImageTypeViewHolder) holder).tvPrice.setText("₹" + String.format("%s", object.getSellingprice()));
 
             GlideApp.with(activity)
                     .load(object.getProductimage())
@@ -60,24 +56,16 @@ public class ViewCartAdapter extends RecyclerView.Adapter {
                     .diskCacheStrategy(DiskCacheStrategy.NONE)
                     .into(((ImageTypeViewHolder) holder).imgView);
 
-
-            ((ImageTypeViewHolder) holder).btnDelete.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    clickListener.onItemClick(object, ((ImageTypeViewHolder) holder).card_parent, listPosition, DELETE);
-                }
-            });
-
         }
     }
 
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         if(viewType==0) {
-            View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_item_cart, parent, false);
+            View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_item_order_detail, parent, false);
             return new ImageTypeViewHolder(view);
         }else {
-            View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_item_cart_last, parent, false);
+            View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_item_order_detail_last, parent, false);
             return new LastTypeViewHolder(view);
         }
 
@@ -97,7 +85,7 @@ public class ViewCartAdapter extends RecyclerView.Adapter {
         return 0;
     }
 
-    public void setAdapterData(List<ViewAddtoCartDetailsModel.ObjviewaddcartlistEntity> sellerList, ViewAddtoCartDetailsModel response) {
+    public void setAdapterData(List<OrderDetailsModel.OrderdetailEntity> sellerList, OrderDetailsModel response) {
         dataSet = sellerList;
         this.response=response;
         notifyDataSetChanged();
@@ -107,31 +95,23 @@ public class ViewCartAdapter extends RecyclerView.Adapter {
 
     public static class ImageTypeViewHolder extends RecyclerView.ViewHolder {
 
-        private TextView tvProductName,tvDesc,tvPrice;
-        private CardView card_parent;
+        private TextView tvProductName;
         private ImageView imgView;
-        private Button btnDelete;
 
 
         public ImageTypeViewHolder(View itemView) {
             super(itemView);
             this.tvProductName = itemView.findViewById(R.id.tvProductName);
-            this.tvDesc=itemView.findViewById(R.id.tvDesc);
-            this.tvPrice=itemView.findViewById(R.id.tvPrice);
-            this.card_parent = itemView.findViewById(R.id.card_parent);
             this.imgView = itemView.findViewById(R.id.imgView);
-            this.btnDelete=itemView.findViewById(R.id.btnDelete);
         }
     }
     public static class LastTypeViewHolder extends RecyclerView.ViewHolder {
 
-        private TextView tvItem,tvTotal;
 
 
         public LastTypeViewHolder(View itemView) {
             super(itemView);
-            this.tvItem = itemView.findViewById(R.id.tvItem);
-            this.tvTotal=itemView.findViewById(R.id.tvTotal);
+
         }
     }
 

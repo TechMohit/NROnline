@@ -34,7 +34,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
             android:text="TextView"
-            android:textSize="15sp"
+            android:textSize="18sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="@+id/tvProductName"
             app:layout_constraintTop_toBottomOf="@+id/tvProductName" />
@@ -69,7 +69,7 @@
                 android:layout_height="wrap_content"
                 android:text="TextView"
                 android:textColor="@android:color/black"
-                android:textSize="15sp"
+                android:textSize="20sp"
                 android:textStyle="bold" />
 
             <TextView
@@ -78,7 +78,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="12dp"
                 android:text="TextView"
-                android:textSize="15sp" />
+                android:textSize="20sp" />
         </LinearLayout>
 
         <Button
@@ -131,10 +131,11 @@
             android:layout_marginBottom="16dp"
             android:layout_marginEnd="8dp"
             android:layout_marginStart="8dp"
-            android:background="@drawable/btn_round_corner_strip_red"
-            android:text="+ add"
-            android:textColor="@color/colorPrimary"
+            android:background="@drawable/btn_round_corner_red"
+            android:text="+ Add"
+            android:textColor="@android:color/white"
             android:textSize="15sp"
+            android:textAllCaps="false"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />

@@ -13,7 +13,9 @@ import android.widget.Toast;
 
 import grossary.cyron.com.grossary.R;
 import grossary.cyron.com.grossary.account.LoginModel;
+import grossary.cyron.com.grossary.adress.AddressFragment;
 import grossary.cyron.com.grossary.cart.ViewCartFragment;
+import grossary.cyron.com.grossary.order.MyOrderDetailFragment;
 import grossary.cyron.com.grossary.order.MyOrdersFragment;
 import grossary.cyron.com.grossary.utility.FragmentHelper;
 import grossary.cyron.com.grossary.utility.LoadingView;
@@ -25,10 +27,15 @@ import grossary.cyron.com.grossary.utility.retrofit.callbacks.ResponseListener;
 import okhttp3.Headers;
 import retrofit2.Call;
 
+import static grossary.cyron.com.grossary.utility.Constant.CATEGORY.ADDRESS;
 import static grossary.cyron.com.grossary.utility.Constant.CATEGORY.LIST;
 import static grossary.cyron.com.grossary.utility.Constant.CATEGORY.LIST_DETAILS;
 import static grossary.cyron.com.grossary.utility.Constant.CATEGORY.ORDER;
+import static grossary.cyron.com.grossary.utility.Constant.CATEGORY.ORDER_DETAIL;
 import static grossary.cyron.com.grossary.utility.Constant.CATEGORY.VIEW_CART;
+import static grossary.cyron.com.grossary.utility.Constant.CONSTANT.CHECKOUT;
+import static grossary.cyron.com.grossary.utility.Constant.CONSTANT.PLACE_YOUR_ORDER;
+import static grossary.cyron.com.grossary.utility.Constant.CURRENT_STATE.ADDRESS_FRG;
 import static grossary.cyron.com.grossary.utility.Constant.CURRENT_STATE.HOME_FRG;
 import static grossary.cyron.com.grossary.utility.Constant.CURRENT_STATE.MY_ORDER_FRG;
 import static grossary.cyron.com.grossary.utility.Constant.CURRENT_STATE.OFFER_FRG;
@@ -43,12 +50,14 @@ public class CategoryActivity extends AppCompatActivity implements FragmentManag
 
     private LoadingView load;
     private RelativeLayout revBottom;
-    private TextView txtCheckout;
+    public TextView txtCheckout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_category);
+        txtCheckout=findViewById(R.id.txtCheckout);
+        revBottom=findViewById(R.id.revBottom);
 
         String current = getIntent().getStringExtra(CURRENT_FRG);
         if (current.equalsIgnoreCase(HOME_FRG)) {
@@ -63,15 +72,15 @@ public class CategoryActivity extends AppCompatActivity implements FragmentManag
             selectFrag(ORDER, "", MY_ORDER_FRG);
         }
         getFragmentManager().addOnBackStackChangedListener(this);
-        txtCheckout=findViewById(R.id.txtCheckout);
 
-        revBottom=findViewById(R.id.revBottom);
-        TextView txtCheckout = findViewById(R.id.txtCheckout);
         txtCheckout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
+                if(txtCheckout.getText().toString().equalsIgnoreCase(CHECKOUT))
                 selectFrag(VIEW_CART, "2", VIEW_CART_FRG);
+                else if(txtCheckout.getText().toString().equalsIgnoreCase(PLACE_YOUR_ORDER))
+                    selectFrag(ADDRESS, "", ADDRESS_FRG);
 
             }
         });
@@ -82,11 +91,11 @@ public class CategoryActivity extends AppCompatActivity implements FragmentManag
     public void selectFrag(String tag, String response, String current) {
 
         revBottom.setVisibility(View.VISIBLE);
-        txtCheckout.setText("Checkout");
         Fragment fragment = null;
         Bundle arguments = null;
         switch (tag) {
             case LIST:
+
                 fragment = new CategoryListFragment();
                 arguments = new Bundle();
                 arguments.putString(CURRENT_FRG, current);
@@ -98,6 +107,7 @@ public class CategoryActivity extends AppCompatActivity implements FragmentManag
 
                 break;
             case LIST_DETAILS:
+
                 fragment = new CategoryListDetailsFragment();
                 arguments = new Bundle();
                 arguments.putString(CURRENT_FRG, current);
@@ -111,7 +121,6 @@ public class CategoryActivity extends AppCompatActivity implements FragmentManag
                 }
                 break;
             case VIEW_CART:
-                txtCheckout.setText("Place Your Order");
 
                 fragment = new ViewCartFragment();
                 if (response.equalsIgnoreCase("1")) {
@@ -125,10 +134,21 @@ public class CategoryActivity extends AppCompatActivity implements FragmentManag
             case ORDER:
                 revBottom.setVisibility(View.GONE);
                 fragment = new MyOrdersFragment();
-                FragmentHelper.replaceFragment(this, R.id.container, fragment, false, tag);
+                FragmentHelper.replaceFragment(this, R.id.container, fragment, true, tag);
 
                 break;
 
+            case ADDRESS:
+                fragment = new AddressFragment();
+                FragmentHelper.replaceFragment(this, R.id.container, fragment, true, tag);
+
+                break;
+            case ORDER_DETAIL:
+                revBottom.setVisibility(View.GONE);
+                fragment = new MyOrderDetailFragment();
+                FragmentHelper.replaceFragment(this, R.id.container, fragment, false, tag);
+
+                break;
         }
     }
 

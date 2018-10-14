@@ -37,6 +37,7 @@ import retrofit2.Call;
 import static grossary.cyron.com.grossary.utility.Constant.CATEGORY.ADD;
 import static grossary.cyron.com.grossary.utility.Constant.CATEGORY.LIST_DETAILS;
 import static grossary.cyron.com.grossary.utility.Constant.CATEGORY.ONCLICK;
+import static grossary.cyron.com.grossary.utility.Constant.CONSTANT.CHECKOUT;
 import static grossary.cyron.com.grossary.utility.Constant.CURRENT_STATE.CATG_LIST_FRG;
 import static grossary.cyron.com.grossary.utility.Constant.CURRENT_STATE.HOME_FRG;
 import static grossary.cyron.com.grossary.utility.Constant.CURRENT_STATE.OFFER_FRG;
@@ -72,6 +73,7 @@ public class CategoryListFragment extends Fragment implements OnItemClickListene
         View view = inflater.inflate(R.layout.fragment_category_list, container, false);
         initView(view);
 
+        ((CategoryActivity)getActivity()).txtCheckout.setText(CHECKOUT);
         recyclerView.setLayoutManager(new GridLayoutManager(getActivity(), 1));
         setAdapter();
 

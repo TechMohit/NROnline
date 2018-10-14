@@ -1,0 +1,137 @@
+package grossary.cyron.com.grossary.order;
+
+
+import android.content.Context;
+import android.os.Bundle;
+import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.Toast;
+
+import java.util.ArrayList;
+
+import grossary.cyron.com.grossary.R;
+import grossary.cyron.com.grossary.account.LoginModel;
+import grossary.cyron.com.grossary.cart.DeleteFromCartDetailsModel;
+import grossary.cyron.com.grossary.cart.ViewAddtoCartDetailsModel;
+import grossary.cyron.com.grossary.cart.ViewCartAdapter;
+import grossary.cyron.com.grossary.cart.ViewCartModel;
+import grossary.cyron.com.grossary.category.CategoryActivity;
+import grossary.cyron.com.grossary.utility.LoadingView;
+import grossary.cyron.com.grossary.utility.PreferenceManager;
+import grossary.cyron.com.grossary.utility.callback.OnItemClickListener;
+import grossary.cyron.com.grossary.utility.retrofit.RetrofitClient;
+import grossary.cyron.com.grossary.utility.retrofit.RetrofitRequest;
+import grossary.cyron.com.grossary.utility.retrofit.callbacks.Request;
+import grossary.cyron.com.grossary.utility.retrofit.callbacks.ResponseListener;
+import okhttp3.Headers;
+import retrofit2.Call;
+
+import static grossary.cyron.com.grossary.utility.Constant.CATEGORY.DELETE;
+import static grossary.cyron.com.grossary.utility.Constant.CONSTANT.PLACE_YOUR_ORDER;
+import static grossary.cyron.com.grossary.utility.Constant.URL.BASE_URL;
+
+/**
+ * A simple {@link Fragment} subclass.
+ */
+public class MyOrderDetailFragment extends Fragment implements OnItemClickListener<OrderDetailsModel.OrderdetailEntity>  {
+
+    private RecyclerView recyclerView;
+    private ArrayList<ViewCartModel> list = new ArrayList<>();
+    private MyOrderDetailsdapter adapter;
+    private LoadingView load;
+    private Context context;
+
+    public MyOrderDetailFragment() {
+        // Required empty public constructor
+    }
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+       this.context=context;
+    }
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        // Inflate the layout for getActivity() fragment
+        View view = inflater.inflate(R.layout.fragment_my_order_detail, container, false);
+        initView(view);
+
+        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        setAdapter();
+        callApiViewCart();
+
+        return view;
+    }
+
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+
+    }
+
+    
+
+    private void initView(View view) {
+        recyclerView = view.findViewById(R.id.recycle_view);
+
+    }
+
+    private void callApiViewCart() {
+        load = new LoadingView(getActivity());
+        load.setCancalabe(false);
+        load.showLoading();
+        String url = BASE_URL + "/order/OrderDetails";
+        LoginModel res = new PreferenceManager(getActivity()).getLoginModel();
+
+        Log.e("URl", "*** " + url);
+
+        Call<OrderDetailsModel> call = RetrofitClient.getAPIInterface().orderDetails(url,"1006","BEN000000068");
+        Request request = new RetrofitRequest<>(call, new ResponseListener<OrderDetailsModel>() {
+            @Override
+            public void onResponse(int code, OrderDetailsModel response, Headers headers) {
+                load.dismissLoading();
+
+                if (response.getResponse().getResponseval()) {
+
+                    adapter.setAdapterData(response.getOrderdetail(),response);
+                } else {
+                    Toast.makeText(getActivity(), "" + response.getResponse().getReason(), Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onError(int error) {
+                load.dismissLoading();
+
+            }
+
+            @Override
+            public void onFailure(Throwable throwable) {
+                Log.e("respond", "failure ---->");
+                load.dismissLoading();
+            }
+        });
+        request.enqueue();
+    }
+
+    private void setAdapter() {
+        adapter = new MyOrderDetailsdapter(getActivity(), this);
+        recyclerView.setAdapter(adapter);
+    }
+
+    @Override
+    public void onItemClick(OrderDetailsModel.OrderdetailEntity obj, View view, int position,String type) {
+
+
+
+    }
+
+}

@@ -30,6 +30,7 @@ import grossary.cyron.com.grossary.utility.retrofit.callbacks.ResponseListener;
 import okhttp3.Headers;
 import retrofit2.Call;
 
+import static grossary.cyron.com.grossary.utility.Constant.CONSTANT.CHECKOUT;
 import static grossary.cyron.com.grossary.utility.Constant.CURRENT_STATE.CATG_LIST_FRG;
 import static grossary.cyron.com.grossary.utility.Constant.CURRENT_STATE.HOME_FRG;
 import static grossary.cyron.com.grossary.utility.Constant.CURRENT_STATE.OFFER_FRG;
@@ -65,6 +66,8 @@ public class CategoryListDetailsFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_category_list_details, container, false);
         initView(view);
+
+        ((CategoryActivity)getActivity()).txtCheckout.setText(CHECKOUT);
 
         txtCount.setText("" + count);
         btnAdd.setOnClickListener(new View.OnClickListener() {
