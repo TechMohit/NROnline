@@ -108,6 +108,14 @@ public class Util {
         }
     }
 
+    public static void openKeyPad(Activity activity,View view){
+        InputMethodManager inputMethodManager =
+                (InputMethodManager)activity.getSystemService(Context.INPUT_METHOD_SERVICE);
+        inputMethodManager.toggleSoftInputFromWindow(
+                view.getApplicationWindowToken(),
+                InputMethodManager.SHOW_FORCED, 0);
+    }
+
 //    public static String getStringValue(int id) {
 //        return MyApplication.getInstance().getApplicationContext().getString(id);
 //    }

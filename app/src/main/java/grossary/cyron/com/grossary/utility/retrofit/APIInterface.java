@@ -7,10 +7,12 @@ import grossary.cyron.com.grossary.account.RegisterModel;
 import grossary.cyron.com.grossary.account.ResendOTPModel;
 import grossary.cyron.com.grossary.account.VerifyRegisterOTPModel;
 import grossary.cyron.com.grossary.cart.DeleteFromCartDetailsModel;
+import grossary.cyron.com.grossary.cart.UpdateFromCartDetailsModel;
 import grossary.cyron.com.grossary.cart.ViewAddtoCartDetailsModel;
 import grossary.cyron.com.grossary.category.AddToCartDetailsModel;
 import grossary.cyron.com.grossary.category.CategoryModel;
 import grossary.cyron.com.grossary.category.ProductdDescDetailsModel;
+import grossary.cyron.com.grossary.category.ViewCartItemCountDetailsModel;
 import grossary.cyron.com.grossary.home.HomeModel;
 import grossary.cyron.com.grossary.order.OrderDetailsModel;
 import grossary.cyron.com.grossary.order.ViewOrderListModel;
@@ -58,7 +60,16 @@ public interface APIInterface {
 
     @POST()
     @FormUrlEncoded
+    Call<UpdateFromCartDetailsModel> updateFromCartDetails(@Url String url, @Field("OrderId") String OrderId, @Field("Qty") String Qty);
+
+
+    @POST()
+    @FormUrlEncoded
     Call<ViewAddtoCartDetailsModel> viewAddtoCartDetails(@Url String url, @Field("UserId") String UserId);
+
+    @POST()
+    @FormUrlEncoded
+    Call<ViewCartItemCountDetailsModel> viewCartItemCountDetails(@Url String url, @Field("UserId") String UserId);
 
     @POST()
     @FormUrlEncoded
@@ -80,6 +91,10 @@ public interface APIInterface {
     @POST()
     @FormUrlEncoded
     Call<CategoryModel> productDetails(@Url String url, @Field("Storeid") String Storeid, @Field("CategoryId") String CategoryId);
+
+    @POST()
+    @FormUrlEncoded
+    Call<CategoryModel> productSearch(@Url String url, @Field("SearchTag") String SearchTag);
 
     @POST()
     @FormUrlEncoded

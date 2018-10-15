@@ -4,6 +4,7 @@ package grossary.cyron.com.grossary.adress;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.TextInputEditText;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -39,6 +40,8 @@ public class AddressFragment extends Fragment  {
 
 
     private LoadingView load;
+    private TextInputEditText etUserName;
+
     private Context context;
     public AddressFragment() {
         // Required empty public constructor
@@ -56,7 +59,9 @@ public class AddressFragment extends Fragment  {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_address, container, false);
         ((CategoryActivity)getActivity()).txtCheckout.setText(MAKE_PAYMENT);
+        etUserName=view.findViewById(R.id.etUserName);
 
+        LoginModel res = new PreferenceManager(getActivity()).getLoginModel();
         return view;
     }
 

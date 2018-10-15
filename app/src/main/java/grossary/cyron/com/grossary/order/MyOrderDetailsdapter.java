@@ -46,8 +46,10 @@ public class MyOrderDetailsdapter extends RecyclerView.Adapter {
             final OrderDetailsModel.OrderdetailEntity object = dataSet.get(listPosition);
             ((ImageTypeViewHolder) holder).tvProductName.setText(String.format("%s", object.getProductname()));
 
-            //ProductPrice*OrderItemQty
-            //(ProductPrice*OrderItemQty)
+            Float sum=(Float.valueOf(object.getProductprice())*Float.valueOf(object.getOrderitemqty()));
+            ((ImageTypeViewHolder) holder).tvPrice.setText("₹"+sum);
+            ((ImageTypeViewHolder) holder).tvQty.setText("₹"+object.getProductprice()+"*"+object.getOrderitemqty());
+
             GlideApp.with(activity)
                     .load(object.getProductimage())
                     .centerCrop()
@@ -97,7 +99,7 @@ public class MyOrderDetailsdapter extends RecyclerView.Adapter {
 
     public static class ImageTypeViewHolder extends RecyclerView.ViewHolder {
 
-        private TextView tvProductName;
+        private TextView tvProductName,tvPrice,tvQty;
         private ImageView imgView;
 
 
@@ -105,6 +107,8 @@ public class MyOrderDetailsdapter extends RecyclerView.Adapter {
             super(itemView);
             this.tvProductName = itemView.findViewById(R.id.tvProductName);
             this.imgView = itemView.findViewById(R.id.imgView);
+            this.tvPrice=itemView.findViewById(R.id.tvPrice);
+            this.tvQty=itemView.findViewById(R.id.tvQty);
         }
     }
     public static class LastTypeViewHolder extends RecyclerView.ViewHolder {
