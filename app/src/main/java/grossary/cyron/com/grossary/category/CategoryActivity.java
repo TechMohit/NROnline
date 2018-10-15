@@ -56,8 +56,8 @@ public class CategoryActivity extends AppCompatActivity implements FragmentManag
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_category);
-        txtCheckout=findViewById(R.id.txtCheckout);
-        revBottom=findViewById(R.id.revBottom);
+        txtCheckout = findViewById(R.id.txtCheckout);
+        revBottom = findViewById(R.id.revBottom);
 
         String current = getIntent().getStringExtra(CURRENT_FRG);
         if (current.equalsIgnoreCase(HOME_FRG)) {
@@ -77,9 +77,9 @@ public class CategoryActivity extends AppCompatActivity implements FragmentManag
             @Override
             public void onClick(View v) {
 
-                if(txtCheckout.getText().toString().equalsIgnoreCase(CHECKOUT))
-                selectFrag(VIEW_CART, "2", VIEW_CART_FRG);
-                else if(txtCheckout.getText().toString().equalsIgnoreCase(PLACE_YOUR_ORDER))
+                if (txtCheckout.getText().toString().equalsIgnoreCase(CHECKOUT))
+                    selectFrag(VIEW_CART, "2", VIEW_CART_FRG);
+                else if (txtCheckout.getText().toString().equalsIgnoreCase(PLACE_YOUR_ORDER))
                     selectFrag(ADDRESS, "", ADDRESS_FRG);
 
             }
@@ -152,7 +152,7 @@ public class CategoryActivity extends AppCompatActivity implements FragmentManag
         }
     }
 
-    public void callApiAddtoCart(String productDescId, String productId, String stroeId, String sellingPrice) {
+    public void callApiAddtoCart(String productDescId, String productId, String stroeId, String sellingPrice, String qty) {
 
         load = new LoadingView(CategoryActivity.this);
         load.setCancalabe(false);
@@ -163,11 +163,12 @@ public class CategoryActivity extends AppCompatActivity implements FragmentManag
         Log.e("URl", "*** " + url);
         LoginModel res = new PreferenceManager(CategoryActivity.this).getLoginModel();
 
+
         Call<AddToCartDetailsModel> call = RetrofitClient.getAPIInterface().addToCartDetails(url, "" + res.getUserid(),
                 "" + productDescId,
                 "" + productId,
                 "" + stroeId,
-                "" + sellingPrice);
+                "" + sellingPrice, "" + qty);
         Request request = new RetrofitRequest<>(call, new ResponseListener<AddToCartDetailsModel>() {
             @Override
             public void onResponse(int code, AddToCartDetailsModel response, Headers headers) {

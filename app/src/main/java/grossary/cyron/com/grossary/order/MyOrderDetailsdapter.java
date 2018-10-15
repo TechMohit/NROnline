@@ -46,6 +46,8 @@ public class MyOrderDetailsdapter extends RecyclerView.Adapter {
             final OrderDetailsModel.OrderdetailEntity object = dataSet.get(listPosition);
             ((ImageTypeViewHolder) holder).tvProductName.setText(String.format("%s", object.getProductname()));
 
+            //ProductPrice*OrderItemQty
+            //(ProductPrice*OrderItemQty)
             GlideApp.with(activity)
                     .load(object.getProductimage())
                     .centerCrop()
