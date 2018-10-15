@@ -47,7 +47,7 @@ public class CategoryListDetailsFragment extends Fragment {
     private TextView tvProductName, tvDesc, tvSellingPrice, tvMrpPrice, txtCount;
     private LoadingView load;
     private Context context;
-    private int count = 0;
+    private int count = 1;
     private Button btnAddCart, btnMin, btnAdd;
     private ImageView imgProduct;
     private ProductdDescDetailsModel responseMain;
@@ -81,7 +81,7 @@ public class CategoryListDetailsFragment extends Fragment {
         btnMin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (count > 1) {
+                if (count >=2) {
                     count--;
                     txtCount.setText("" + count);
                 }
@@ -93,7 +93,7 @@ public class CategoryListDetailsFragment extends Fragment {
             public void onClick(View v) {
 
                 ((CategoryActivity) getActivity()).callApiAddtoCart("" + responseMain.productDescId,
-                        "" + responseMain.productId, "" + responseMain.storeId, responseMain.sellingPrice);
+                        "" + responseMain.productId, "" + responseMain.storeId, responseMain.sellingPrice,""+count);
 
             }
         });

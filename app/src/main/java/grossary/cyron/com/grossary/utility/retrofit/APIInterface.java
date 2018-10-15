@@ -85,7 +85,7 @@ public interface APIInterface {
     @FormUrlEncoded
     Call<AddToCartDetailsModel> addToCartDetails(@Url String url, @Field("UserId") String UserId, @Field("ProductDescId") String ProductDescId,
                                                  @Field("ProductId") String ProductId, @Field("StoreId") String StoreId,
-                                                 @Field("ShippingCharges") String ShippingCharges);
+                                                 @Field("ShippingCharges") String ShippingCharges,@Field("Qty") String Qty);
 
     @POST()
     @FormUrlEncoded
