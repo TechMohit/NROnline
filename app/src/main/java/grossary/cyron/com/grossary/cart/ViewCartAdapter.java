@@ -11,6 +11,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
@@ -23,7 +24,9 @@ import grossary.cyron.com.grossary.home.HomeModel;
 import grossary.cyron.com.grossary.utility.GlideApp;
 import grossary.cyron.com.grossary.utility.callback.OnItemClickListener;
 
+import static grossary.cyron.com.grossary.utility.Constant.CATEGORY.ADD;
 import static grossary.cyron.com.grossary.utility.Constant.CATEGORY.DELETE;
+import static grossary.cyron.com.grossary.utility.Constant.CATEGORY.MIN;
 import static grossary.cyron.com.grossary.utility.Constant.CATEGORY.ONCLICK;
 
 
@@ -33,17 +36,10 @@ public class ViewCartAdapter extends RecyclerView.Adapter {
     private Activity activity;
     private OnItemClickListener<ViewAddtoCartDetailsModel.ObjviewaddcartlistEntity> clickListener;
     private ViewAddtoCartDetailsModel response;
-    private ArrayList<String> spValue=new ArrayList<>();
 
     public ViewCartAdapter(Activity activity, OnItemClickListener<ViewAddtoCartDetailsModel.ObjviewaddcartlistEntity> clickListener) {
         this.activity = activity;
         this.clickListener = clickListener;
-
-        for(int i=0;i<30;i++){
-
-            spValue.add(""+i);
-        }
-
     }
 
     @Override
@@ -60,12 +56,8 @@ public class ViewCartAdapter extends RecyclerView.Adapter {
             ((ImageTypeViewHolder) holder).tvPrice.setText("₹" + String.format("%s", object.getSellingprice()));
 
             //UnitQty in spinner
-            ArrayAdapter<String> spinnerArrayAdapter = new ArrayAdapter<String>(activity, android.R.layout.simple_spinner_item, spValue);
-            spinnerArrayAdapter.setDropDownViewResource(android.R.layout
-                    .simple_spinner_dropdown_item);
-            ((ImageTypeViewHolder) holder).spQty.setAdapter(spinnerArrayAdapter);
 
-            ((ImageTypeViewHolder) holder).spQty.setSelection(object.getUnitqty());
+            ((ImageTypeViewHolder) holder).txtCount.setText(""+object.getUnitqty());
 
             GlideApp.with(activity)
                     .load(object.getProductimage())
@@ -82,6 +74,34 @@ public class ViewCartAdapter extends RecyclerView.Adapter {
                 @Override
                 public void onClick(View v) {
                     clickListener.onItemClick(object, ((ImageTypeViewHolder) holder).card_parent, listPosition, DELETE);
+                }
+            });
+            ((ImageTypeViewHolder) holder).btnMin.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+                    int i=object.getUnitqty();
+                    if(i<=1){
+                        Toast.makeText(activity,"Invalid Qty",Toast.LENGTH_LONG).show();
+                    }else{
+                        i--;
+                        object.setUnitqty(i);
+                        ((ImageTypeViewHolder) holder).txtCount.setText(""+i);
+                        clickListener.onItemClick(object, ((ImageTypeViewHolder) holder).card_parent, listPosition, ADD);
+
+                    }
+                }
+            });
+            ((ImageTypeViewHolder) holder).btnAdd.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    int i=object.getUnitqty();
+                        i++;
+                        object.setUnitqty(i);
+                        ((ImageTypeViewHolder) holder).txtCount.setText(""+i);
+                    clickListener.onItemClick(object, ((ImageTypeViewHolder) holder).card_parent, listPosition, MIN);
+
+
                 }
             });
 
@@ -124,11 +144,10 @@ public class ViewCartAdapter extends RecyclerView.Adapter {
 
     public static class ImageTypeViewHolder extends RecyclerView.ViewHolder {
 
-        private TextView tvProductName,tvPrice;
+        private TextView tvProductName,tvPrice,txtCount;
         private CardView card_parent;
         private ImageView imgView;
-        private Button btnDelete;
-        private Spinner spQty;
+        private Button btnDelete,btnAdd,btnMin;
 
         public ImageTypeViewHolder(View itemView) {
             super(itemView);
@@ -137,7 +156,9 @@ public class ViewCartAdapter extends RecyclerView.Adapter {
             this.card_parent = itemView.findViewById(R.id.card_parent);
             this.imgView = itemView.findViewById(R.id.imgView);
             this.btnDelete=itemView.findViewById(R.id.btnDelete);
-            this.spQty=itemView.findViewById(R.id.spQty);
+            this.txtCount=itemView.findViewById(R.id.txtCount);
+            this.btnAdd=itemView.findViewById(R.id.btnAdd);
+            this.btnMin=itemView.findViewById(R.id.btnMin);
         }
     }
     public static class LastTypeViewHolder extends RecyclerView.ViewHolder {

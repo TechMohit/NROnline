@@ -41,6 +41,7 @@ import static grossary.cyron.com.grossary.utility.Constant.CONSTANT.CHECKOUT;
 import static grossary.cyron.com.grossary.utility.Constant.CURRENT_STATE.CATG_LIST_FRG;
 import static grossary.cyron.com.grossary.utility.Constant.CURRENT_STATE.HOME_FRG;
 import static grossary.cyron.com.grossary.utility.Constant.CURRENT_STATE.OFFER_FRG;
+import static grossary.cyron.com.grossary.utility.Constant.CURRENT_STATE.SEARCH_FRG;
 import static grossary.cyron.com.grossary.utility.Constant.CURRENT_STATE.SELLER_FRG;
 import static grossary.cyron.com.grossary.utility.Constant.KEY_NAME.ACT_HOME_PARAMETER;
 import static grossary.cyron.com.grossary.utility.Constant.KEY_NAME.CURRENT_FRG;
@@ -83,7 +84,52 @@ public class CategoryListFragment extends Fragment implements OnItemClickListene
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        callApi();
+
+        String value = (getArguments().getString(FRAG_PARAMETER));
+        String current = (getArguments().getString(CURRENT_FRG));
+        if(current.equalsIgnoreCase(SEARCH_FRG)){
+            callApiSearch(value);
+        }else {
+            callApi();
+        }
+        ((CategoryActivity)getActivity()).callApiCount();
+
+    }
+
+    private void callApiSearch(String value) {
+        load = new LoadingView(getActivity());
+        load.setCancalabe(false);
+        load.showLoading();
+        String url = BASE_URL + "/Home/ProductSearch";
+
+        Log.e("URl", "*** " + url);
+
+        Call<CategoryModel> call = RetrofitClient.getAPIInterface().productSearch(url,value);
+        Request request = new RetrofitRequest<>(call, new ResponseListener<CategoryModel>() {
+            @Override
+            public void onResponse(int code, CategoryModel response, Headers headers) {
+                load.dismissLoading();
+                if (response.response.responseval) {
+                    adapter.setAdapterData(response.projectlists);
+
+                }else{
+                    Toast.makeText(getActivity(), ""+response.response.reason , Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onError(int error) {
+                load.dismissLoading();
+
+            }
+
+            @Override
+            public void onFailure(Throwable throwable) {
+                Log.e("respond", "failure ---->");
+                load.dismissLoading();
+            }
+        });
+        request.enqueue();
 
     }
 

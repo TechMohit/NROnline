@@ -18,23 +18,20 @@
 
             <ImageView
                 android:id="@+id/tvBack"
-                android:layout_width="20dp"
-                android:layout_height="20dp"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
                 android:layout_centerVertical="true"
+                android:background="@drawable/back_arrow"
                 android:layout_marginLeft="10dp" />
 
-            <TextView
-                android:id="@+id/tv_toolbar"
+            <ImageView
+                android:id="@+id/imgSearch"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
-                android:layout_marginStart="20dp"
-                android:layout_toEndOf="@+id/tv_hamburger"
-                android:background="@drawable/logo_white"
-                android:text=""
-                android:textSize="15sp"
-                android:textStyle="bold" />
-
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="20dp"
+                android:background="@drawable/search_icon" />
         </RelativeLayout>
 
         <RelativeLayout
@@ -61,20 +58,34 @@
                     android:id="@+id/img_cart"
                     android:layout_width="30dp"
                     android:layout_height="30dp"
+                    android:layout_marginRight="20dp"
                     android:layout_centerVertical="true"
                     android:layout_marginLeft="20dp"
                     android:background="@drawable/shopping_cart" />
 
+                <TextView
+                    android:id="@+id/tvCount"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_alignParentTop="true"
+                    android:background="@drawable/red_dot"
+                    android:text="0"
+                    android:layout_toLeftOf="@+id/view_left"
+                    android:gravity="center"
+                    android:layout_marginRight="5dp"
+                    android:textColor="@android:color/white"
+                    android:textSize="12dp"
+                    android:textStyle="bold" />
                 <View
                     android:id="@+id/view_left"
                     android:layout_width="0.5sp"
                     android:layout_height="30dp"
                     android:layout_centerVertical="true"
-                    android:layout_marginLeft="10dp"
                     android:layout_toRightOf="@+id/img_cart"
                     android:background="@color/colorPrimaryDark"></View>
 
                 <TextView
+                    android:id="@+id/tvTotal"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"

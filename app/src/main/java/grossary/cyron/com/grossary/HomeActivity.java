@@ -1,6 +1,8 @@
 package grossary.cyron.com.grossary;
 
+import android.app.Dialog;
 import android.content.Intent;
+import android.graphics.drawable.ColorDrawable;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -14,10 +16,15 @@ import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.gson.Gson;
 
@@ -28,6 +35,7 @@ import grossary.cyron.com.grossary.account.LoginModel;
 import grossary.cyron.com.grossary.account.SigninActivity;
 import grossary.cyron.com.grossary.brands.BrandsFragment;
 import grossary.cyron.com.grossary.category.CategoryActivity;
+import grossary.cyron.com.grossary.category.ViewCartItemCountDetailsModel;
 import grossary.cyron.com.grossary.drawer.DrawerFragment;
 import grossary.cyron.com.grossary.home.HomeFragment;
 import grossary.cyron.com.grossary.home.HomeModel;
@@ -47,10 +55,12 @@ import retrofit2.Call;
 
 import static grossary.cyron.com.grossary.utility.Constant.CURRENT_STATE.HOME_FRG;
 import static grossary.cyron.com.grossary.utility.Constant.CURRENT_STATE.MY_ORDER_FRG;
+import static grossary.cyron.com.grossary.utility.Constant.CURRENT_STATE.SEARCH_FRG;
 import static grossary.cyron.com.grossary.utility.Constant.CURRENT_STATE.VIEW_CART_FRG;
 import static grossary.cyron.com.grossary.utility.Constant.KEY_NAME.ACT_HOME_PARAMETER;
 import static grossary.cyron.com.grossary.utility.Constant.KEY_NAME.CURRENT_FRG;
 import static grossary.cyron.com.grossary.utility.Constant.URL.BASE_URL;
+import static grossary.cyron.com.grossary.utility.Util.openKeyPad;
 
 public class HomeActivity extends AppCompatActivity implements FragmentManager.OnBackStackChangedListener, DrawerFragment.DrawerListener, android.app.FragmentManager.OnBackStackChangedListener {
 
@@ -62,7 +72,8 @@ public class HomeActivity extends AppCompatActivity implements FragmentManager.O
     private FrameLayout layConnection;
     private Button btnRetry;
     private TextView tvCartCount;
-    private ImageView tv_hamburger, img_cart;
+    private ImageView tv_hamburger, img_cart, imgSearch;
+    private Dialog dialog;
 
     private int[] tabIcons = {
             R.drawable.tb_home,
@@ -125,7 +136,57 @@ public class HomeActivity extends AppCompatActivity implements FragmentManager.O
 
             }
         });
+        callApiCount();
 
+        imgSearch.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                dialog = new Dialog(HomeActivity.this);
+                dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+                dialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
+                dialog.setContentView(R.layout.custom_search);
+                WindowManager.LayoutParams lp = new WindowManager.LayoutParams();
+                Window window = dialog.getWindow();
+                lp.copyFrom(window.getAttributes());
+                //This makes the dialog take up the full width
+                lp.width = WindowManager.LayoutParams.MATCH_PARENT;
+                lp.height = WindowManager.LayoutParams.MATCH_PARENT;
+                window.setAttributes(lp);
+                dialog.setCancelable(true);
+                TextView imgSearch = dialog.findViewById(R.id.imgSearch);
+                ImageView imgBack = dialog.findViewById(R.id.imgBack);
+                final EditText etSearch = dialog.findViewById(R.id.etSearch);
+
+                openKeyPad(HomeActivity.this,etSearch);
+
+                imgBack.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        dialog.dismiss();
+                    }
+                });
+                imgSearch.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+
+                        if (etSearch.getText().toString().equalsIgnoreCase("")) {
+                            Toast.makeText(HomeActivity.this, "Enter Value to Search", Toast.LENGTH_SHORT).show();
+                        } else {
+
+                            dialog.dismiss();
+                            Intent intent = new Intent(HomeActivity.this, CategoryActivity.class);
+                            intent.putExtra(CURRENT_FRG, SEARCH_FRG);
+                            intent.putExtra(ACT_HOME_PARAMETER, "" + etSearch.getText().toString());
+                            startActivity(intent);
+
+                        }
+                    }
+                });
+                dialog.show();
+
+            }
+        });
     }
 
     private void callHomeApi() {
@@ -203,8 +264,8 @@ public class HomeActivity extends AppCompatActivity implements FragmentManager.O
         if (homeModel != null)
             homeModel = new HomeModel();
         homeModel = response;
-        if (homeModel.objTotalCartItemCount != null)
-            tvCartCount.setText("" + homeModel.objTotalCartItemCount.totalItemCount);
+//        if (homeModel.objTotalCartItemCount != null)
+//            tvCartCount.setText("" + homeModel.objTotalCartItemCount.totalItemCount);
         ViewPagerAdapter fa = (ViewPagerAdapter) viewPager.getAdapter();
         HomeFragment homeFragment = (HomeFragment) fa.getItem(0);
         OffersFragment theFragment = (OffersFragment) fa.getItem(1);
@@ -256,6 +317,7 @@ public class HomeActivity extends AppCompatActivity implements FragmentManager.O
         btnRetry = findViewById(R.id.btnRetry);
         tv_hamburger = findViewById(R.id.tv_hamburger);
         img_cart = findViewById(R.id.img_cart);
+        imgSearch = findViewById(R.id.imgSearch);
     }
 
     @Override
@@ -291,5 +353,54 @@ public class HomeActivity extends AppCompatActivity implements FragmentManager.O
         }
 
     }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        tvCartCount.setText("" +new PreferenceManager(HomeActivity.this).getCount());
+
+    }
+
+    public void callApiCount() {
+
+//        load = new LoadingView(HomeActivity.this);
+//        load.setCancalabe(false);
+//        load.showLoading();
+
+        String url = BASE_URL + "/ShoppingCart/ViewCartItemCountDetails";
+
+        Log.e("URl", "*** " + url);
+        final LoginModel res = new PreferenceManager(HomeActivity.this).getLoginModel();
+
+
+        Call<ViewCartItemCountDetailsModel> call = RetrofitClient.getAPIInterface().viewCartItemCountDetails(url, "" + res.getUserid());
+        Request request = new RetrofitRequest<>(call, new ResponseListener<ViewCartItemCountDetailsModel>() {
+            @Override
+            public void onResponse(int code, ViewCartItemCountDetailsModel response, Headers headers) {
+//                load.dismissLoading();
+                if (response.getResponse().getResponseval()) {
+                    tvCartCount.setText("" + response.getTotalitemcount());
+                    new PreferenceManager(HomeActivity.this).setCount(""+response.getTotalitemcount());
+
+                } else {
+                    Toast.makeText(HomeActivity.this, "" + response.getResponse().getReason(), Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onError(int error) {
+//                load.dismissLoading();
+
+            }
+
+            @Override
+            public void onFailure(Throwable throwable) {
+                Log.e("respond", "failure ---->");
+//                load.dismissLoading();
+            }
+        });
+        request.enqueue();
+    }
+
 
 }

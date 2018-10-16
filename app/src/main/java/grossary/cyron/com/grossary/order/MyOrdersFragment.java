@@ -92,7 +92,7 @@ public class MyOrdersFragment extends Fragment implements OnItemClickListener<Vi
         Log.e("URl", "*** " + url);
         LoginModel res = new PreferenceManager(getActivity()).getLoginModel();
 
-        Call<ViewOrderListModel> call = RetrofitClient.getAPIInterface().viewOrderList(url,"1006");
+        Call<ViewOrderListModel> call = RetrofitClient.getAPIInterface().viewOrderList(url,""+res.getUserid());
         Request request = new RetrofitRequest<>(call, new ResponseListener<ViewOrderListModel>() {
             @Override
             public void onResponse(int code, ViewOrderListModel response, Headers headers) {

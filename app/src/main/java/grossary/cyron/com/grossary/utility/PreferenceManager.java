@@ -15,7 +15,7 @@ import static android.support.v4.util.Preconditions.checkNotNull;
 public class PreferenceManager {
 
     private final static String FORTIS_PREFERENCES = "cyron_glossary";
-    private static final String CITY = "city";
+    private static final String COUNT = "count";
     private static final String LOGIN_MODEL = "login_model";
     private static final String AUTO_LOGIN = "auto_login";
 
@@ -33,11 +33,11 @@ public class PreferenceManager {
     }
 
 
-    public void setCity( String city) {
-        sharedPreferences.edit().putString(CITY, city).apply();
+    public void setCount( String city) {
+        sharedPreferences.edit().putString(COUNT, city).apply();
     }
-    public String getCity() {
-        String city = sharedPreferences.getString(CITY, null);
+    public String getCount() {
+        String city = sharedPreferences.getString(COUNT, "0");
         return city;
     }
     public void setLoginModel( LoginModel loginModel) {

@@ -13,6 +13,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import com.google.gson.Gson;
+
 import java.util.ArrayList;
 
 import grossary.cyron.com.grossary.R;
@@ -22,6 +24,7 @@ import grossary.cyron.com.grossary.cart.ViewAddtoCartDetailsModel;
 import grossary.cyron.com.grossary.cart.ViewCartAdapter;
 import grossary.cyron.com.grossary.cart.ViewCartModel;
 import grossary.cyron.com.grossary.category.CategoryActivity;
+import grossary.cyron.com.grossary.home.HomeModel;
 import grossary.cyron.com.grossary.utility.LoadingView;
 import grossary.cyron.com.grossary.utility.PreferenceManager;
 import grossary.cyron.com.grossary.utility.callback.OnItemClickListener;
@@ -34,6 +37,8 @@ import retrofit2.Call;
 
 import static grossary.cyron.com.grossary.utility.Constant.CATEGORY.DELETE;
 import static grossary.cyron.com.grossary.utility.Constant.CONSTANT.PLACE_YOUR_ORDER;
+import static grossary.cyron.com.grossary.utility.Constant.KEY_NAME.CURRENT_FRG;
+import static grossary.cyron.com.grossary.utility.Constant.KEY_NAME.FRAG_PARAMETER;
 import static grossary.cyron.com.grossary.utility.Constant.URL.BASE_URL;
 
 /**
@@ -92,8 +97,12 @@ public class MyOrderDetailFragment extends Fragment implements OnItemClickListen
         LoginModel res = new PreferenceManager(getActivity()).getLoginModel();
 
         Log.e("URl", "*** " + url);
+        String value=(getArguments().getString(FRAG_PARAMETER));
+        String current=(getArguments().getString(CURRENT_FRG));
 
-        Call<OrderDetailsModel> call = RetrofitClient.getAPIInterface().orderDetails(url,"1006","BEN000000068");
+        ViewOrderListModel.OrderlistEntity product = new Gson().fromJson(value, ViewOrderListModel.OrderlistEntity.class);
+
+        Call<OrderDetailsModel> call = RetrofitClient.getAPIInterface().orderDetails(url,""+res.getUserid(),""+product.getTranno());
         Request request = new RetrofitRequest<>(call, new ResponseListener<OrderDetailsModel>() {
             @Override
             public void onResponse(int code, OrderDetailsModel response, Headers headers) {

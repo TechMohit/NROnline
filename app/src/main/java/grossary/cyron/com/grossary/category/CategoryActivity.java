@@ -1,16 +1,23 @@
 package grossary.cyron.com.grossary.category;
 
+import android.app.Dialog;
 import android.app.FragmentManager;
 import android.content.Intent;
+import android.graphics.drawable.ColorDrawable;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
+import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import grossary.cyron.com.grossary.HomeActivity;
 import grossary.cyron.com.grossary.R;
 import grossary.cyron.com.grossary.account.LoginModel;
 import grossary.cyron.com.grossary.adress.AddressFragment;
@@ -39,18 +46,22 @@ import static grossary.cyron.com.grossary.utility.Constant.CURRENT_STATE.ADDRESS
 import static grossary.cyron.com.grossary.utility.Constant.CURRENT_STATE.HOME_FRG;
 import static grossary.cyron.com.grossary.utility.Constant.CURRENT_STATE.MY_ORDER_FRG;
 import static grossary.cyron.com.grossary.utility.Constant.CURRENT_STATE.OFFER_FRG;
+import static grossary.cyron.com.grossary.utility.Constant.CURRENT_STATE.SEARCH_FRG;
 import static grossary.cyron.com.grossary.utility.Constant.CURRENT_STATE.SELLER_FRG;
 import static grossary.cyron.com.grossary.utility.Constant.CURRENT_STATE.VIEW_CART_FRG;
 import static grossary.cyron.com.grossary.utility.Constant.KEY_NAME.ACT_HOME_PARAMETER;
 import static grossary.cyron.com.grossary.utility.Constant.KEY_NAME.CURRENT_FRG;
 import static grossary.cyron.com.grossary.utility.Constant.KEY_NAME.FRAG_PARAMETER;
 import static grossary.cyron.com.grossary.utility.Constant.URL.BASE_URL;
+import static grossary.cyron.com.grossary.utility.Util.openKeyPad;
 
 public class CategoryActivity extends AppCompatActivity implements FragmentManager.OnBackStackChangedListener {
 
     private LoadingView load;
     private RelativeLayout revBottom;
-    public TextView txtCheckout;
+    public TextView txtCheckout, tvTotal, tvCount;
+    private Dialog dialog;
+    private ImageView tvBack;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,6 +69,9 @@ public class CategoryActivity extends AppCompatActivity implements FragmentManag
         setContentView(R.layout.activity_category);
         txtCheckout = findViewById(R.id.txtCheckout);
         revBottom = findViewById(R.id.revBottom);
+        tvTotal = findViewById(R.id.tvTotal);
+        tvCount = findViewById(R.id.tvCount);
+        tvBack=findViewById(R.id.tvBack);
 
         String current = getIntent().getStringExtra(CURRENT_FRG);
         if (current.equalsIgnoreCase(HOME_FRG)) {
@@ -70,6 +84,9 @@ public class CategoryActivity extends AppCompatActivity implements FragmentManag
             selectFrag(VIEW_CART, "1", VIEW_CART_FRG);
         } else if (current.equalsIgnoreCase(MY_ORDER_FRG)) {
             selectFrag(ORDER, "", MY_ORDER_FRG);
+        } else if (current.equalsIgnoreCase(SEARCH_FRG)) {
+            selectFrag(LIST, getIntent().getStringExtra(ACT_HOME_PARAMETER), current);
+
         }
         getFragmentManager().addOnBackStackChangedListener(this);
 
@@ -85,7 +102,59 @@ public class CategoryActivity extends AppCompatActivity implements FragmentManag
             }
         });
 
+        tvBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+            }
+        });
+        ImageView imgSearch=findViewById(R.id.imgSearch);
+        imgSearch.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
 
+                dialog = new Dialog(CategoryActivity.this);
+                dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+                dialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
+                dialog.setContentView(R.layout.custom_search);
+                WindowManager.LayoutParams lp = new WindowManager.LayoutParams();
+                Window window = dialog.getWindow();
+                lp.copyFrom(window.getAttributes());
+                //This makes the dialog take up the full width
+                lp.width = WindowManager.LayoutParams.MATCH_PARENT;
+                lp.height = WindowManager.LayoutParams.MATCH_PARENT;
+                window.setAttributes(lp);
+                dialog.setCancelable(true);
+                TextView imgSearch = dialog.findViewById(R.id.imgSearch);
+                ImageView imgBack = dialog.findViewById(R.id.imgBack);
+                final EditText etSearch = dialog.findViewById(R.id.etSearch);
+
+                openKeyPad(CategoryActivity.this,etSearch);
+
+                imgBack.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        dialog.dismiss();
+                    }
+                });
+                imgSearch.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+
+                        if (etSearch.getText().toString().equalsIgnoreCase("")) {
+                            Toast.makeText(CategoryActivity.this, "Enter Value to Search", Toast.LENGTH_SHORT).show();
+                        } else {
+
+                            dialog.dismiss();
+                            selectFrag(LIST, etSearch.getText().toString(), SEARCH_FRG);
+
+                        }
+                    }
+                });
+                dialog.show();
+
+            }
+        });
     }
 
     public void selectFrag(String tag, String response, String current) {
@@ -134,7 +203,7 @@ public class CategoryActivity extends AppCompatActivity implements FragmentManag
             case ORDER:
                 revBottom.setVisibility(View.GONE);
                 fragment = new MyOrdersFragment();
-                FragmentHelper.replaceFragment(this, R.id.container, fragment, true, tag);
+                FragmentHelper.replaceFragment(this, R.id.container, fragment, false, tag);
 
                 break;
 
@@ -146,7 +215,11 @@ public class CategoryActivity extends AppCompatActivity implements FragmentManag
             case ORDER_DETAIL:
                 revBottom.setVisibility(View.GONE);
                 fragment = new MyOrderDetailFragment();
-                FragmentHelper.replaceFragment(this, R.id.container, fragment, false, tag);
+                arguments = new Bundle();
+                arguments.putString(CURRENT_FRG, current);
+                arguments.putString(FRAG_PARAMETER, response);
+                fragment.setArguments(arguments);
+                FragmentHelper.replaceFragment(this, R.id.container, fragment, true, tag);
 
                 break;
         }
@@ -174,6 +247,7 @@ public class CategoryActivity extends AppCompatActivity implements FragmentManag
             public void onResponse(int code, AddToCartDetailsModel response, Headers headers) {
                 load.dismissLoading();
                 if (response.getResponse().getResponseval()) {
+                    callApiCount();
                     Toast.makeText(CategoryActivity.this, "" + response.getResponse().getReason(), Toast.LENGTH_SHORT).show();
 
                 } else {
@@ -196,8 +270,52 @@ public class CategoryActivity extends AppCompatActivity implements FragmentManag
         request.enqueue();
     }
 
+
+    public void callApiCount() {
+
+//        load = new LoadingView(CategoryActivity.this);
+//        load.setCancalabe(false);
+//        load.showLoading();
+
+        String url = BASE_URL + "/ShoppingCart/ViewCartItemCountDetails";
+
+        Log.e("URl", "*** " + url);
+        final LoginModel res = new PreferenceManager(CategoryActivity.this).getLoginModel();
+
+
+        Call<ViewCartItemCountDetailsModel> call = RetrofitClient.getAPIInterface().viewCartItemCountDetails(url, "" + res.getUserid());
+        Request request = new RetrofitRequest<>(call, new ResponseListener<ViewCartItemCountDetailsModel>() {
+            @Override
+            public void onResponse(int code, ViewCartItemCountDetailsModel response, Headers headers) {
+//                load.dismissLoading();
+                if (response.getResponse().getResponseval()) {
+                    tvTotal.setText("" + response.getGrandtoal());
+                    tvCount.setText("₹" + response.getTotalitemcount());
+                    new PreferenceManager(CategoryActivity.this).setCount(""+response.getTotalitemcount());
+
+                } else {
+                    Toast.makeText(CategoryActivity.this, "" + response.getResponse().getReason(), Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onError(int error) {
+//                load.dismissLoading();
+
+            }
+
+            @Override
+            public void onFailure(Throwable throwable) {
+                Log.e("respond", "failure ---->");
+//                load.dismissLoading();
+            }
+        });
+        request.enqueue();
+    }
+
     @Override
     public void onBackStackChanged() {
 
     }
+
 }

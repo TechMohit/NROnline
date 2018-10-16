@@ -32,6 +32,7 @@ public class Constant {
         String VIEW_CART_FRG="VIEW_CART_FRG";
         String MY_ORDER_FRG="MY_ORDER_FRG";
         String ADDRESS_FRG="ADDRESS_FRG";
+        String SEARCH_FRG="SEARCH_FRG";
         String MY_ORDER_DETAIL_FRG="MY_ORDER_DETAIL_FRG";
 
     }
@@ -53,6 +54,7 @@ public class Constant {
         String LIST="Category_list";
         String LIST_DETAILS="Category_list_details";
         String ADD="ADD";
+        String MIN="MIN";
         String ONCLICK="ONCLICK";
         String DELETE="DELETE";
         String ORDER="ORDER";

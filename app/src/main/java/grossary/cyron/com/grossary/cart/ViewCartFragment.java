@@ -5,7 +5,6 @@ import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -14,16 +13,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
-import com.google.gson.Gson;
-
 import java.util.ArrayList;
 
 import grossary.cyron.com.grossary.R;
 import grossary.cyron.com.grossary.account.LoginModel;
 import grossary.cyron.com.grossary.category.CategoryActivity;
-import grossary.cyron.com.grossary.category.CategoryListAdapter;
-import grossary.cyron.com.grossary.category.CategoryModel;
-import grossary.cyron.com.grossary.home.HomeModel;
 import grossary.cyron.com.grossary.utility.LoadingView;
 import grossary.cyron.com.grossary.utility.PreferenceManager;
 import grossary.cyron.com.grossary.utility.callback.OnItemClickListener;
@@ -36,14 +30,8 @@ import retrofit2.Call;
 
 import static grossary.cyron.com.grossary.utility.Constant.CATEGORY.ADD;
 import static grossary.cyron.com.grossary.utility.Constant.CATEGORY.DELETE;
-import static grossary.cyron.com.grossary.utility.Constant.CATEGORY.LIST_DETAILS;
-import static grossary.cyron.com.grossary.utility.Constant.CATEGORY.ONCLICK;
+import static grossary.cyron.com.grossary.utility.Constant.CATEGORY.MIN;
 import static grossary.cyron.com.grossary.utility.Constant.CONSTANT.PLACE_YOUR_ORDER;
-import static grossary.cyron.com.grossary.utility.Constant.CURRENT_STATE.CATG_LIST_FRG;
-import static grossary.cyron.com.grossary.utility.Constant.CURRENT_STATE.HOME_FRG;
-import static grossary.cyron.com.grossary.utility.Constant.CURRENT_STATE.SELLER_FRG;
-import static grossary.cyron.com.grossary.utility.Constant.KEY_NAME.CURRENT_FRG;
-import static grossary.cyron.com.grossary.utility.Constant.KEY_NAME.FRAG_PARAMETER;
 import static grossary.cyron.com.grossary.utility.Constant.URL.BASE_URL;
 
 /**
@@ -113,6 +101,7 @@ public class ViewCartFragment extends Fragment implements OnItemClickListener<Vi
 
                 if (response.getResponse().getResponseval()) {
 
+                    ((CategoryActivity)getActivity()).callApiCount();
                     adapter.setAdapterData(response.getObjviewaddcartlist(),response);
                 } else {
                     Toast.makeText(getActivity(), "" + response.getResponse().getReason(), Toast.LENGTH_SHORT).show();
@@ -144,7 +133,52 @@ public class ViewCartFragment extends Fragment implements OnItemClickListener<Vi
 
         if(type.equalsIgnoreCase(DELETE)){
             callApiDeleteCart(obj);
+        }else if(type.equalsIgnoreCase(ADD)){
+            callApiUpdateValue(obj);
+        }else if(type.equalsIgnoreCase(MIN)){
+            callApiUpdateValue(obj);
         }
+
+    }
+
+    private void callApiUpdateValue(ViewAddtoCartDetailsModel.ObjviewaddcartlistEntity obj) {
+
+        load = new LoadingView(getActivity());
+        load.setCancalabe(false);
+        load.showLoading();
+        String url = BASE_URL + "/ShoppingCart/UpdateFromCartDetails";
+
+        Log.e("URl", "*** " + url);
+
+        Call<UpdateFromCartDetailsModel> call = RetrofitClient.getAPIInterface().updateFromCartDetails(url,
+                ""+obj.getOrderid() ,""+obj.getUnitqty());
+        Request request = new RetrofitRequest<>(call, new ResponseListener<UpdateFromCartDetailsModel>() {
+            @Override
+            public void onResponse(int code, UpdateFromCartDetailsModel response, Headers headers) {
+                load.dismissLoading();
+
+                if (response.getResponse().getResponseval()) {
+                    callApiViewCart();
+                    Toast.makeText(getActivity(), "" + response.getStatusmessage(), Toast.LENGTH_SHORT).show();
+
+                } else {
+                    Toast.makeText(getActivity(), "" + response.getResponse().getReason(), Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onError(int error) {
+                load.dismissLoading();
+
+            }
+
+            @Override
+            public void onFailure(Throwable throwable) {
+                Log.e("respond", "failure ---->");
+                load.dismissLoading();
+            }
+        });
+        request.enqueue();
 
     }
 
