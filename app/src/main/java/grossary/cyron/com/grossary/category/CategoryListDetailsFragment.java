@@ -93,7 +93,7 @@ public class CategoryListDetailsFragment extends Fragment {
             public void onClick(View v) {
 
                 ((CategoryActivity) getActivity()).callApiAddtoCart("" + responseMain.productDescId,
-                        "" + responseMain.productId, "" + responseMain.storeId, responseMain.sellingPrice,""+count);
+                        "" + responseMain.productId, "" + responseMain.storeId, ""+responseMain.shippingCharges,""+count);
 
             }
         });

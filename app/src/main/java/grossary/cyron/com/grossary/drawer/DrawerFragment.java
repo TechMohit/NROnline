@@ -9,12 +9,16 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import grossary.cyron.com.grossary.R;
+import grossary.cyron.com.grossary.account.LoginModel;
+import grossary.cyron.com.grossary.category.CategoryActivity;
 import grossary.cyron.com.grossary.utility.Constant;
+import grossary.cyron.com.grossary.utility.PreferenceManager;
 import grossary.cyron.com.grossary.utility.callback.OnItemClickListener;
 
 public class DrawerFragment extends Fragment implements OnItemClickListener {
@@ -22,6 +26,7 @@ public class DrawerFragment extends Fragment implements OnItemClickListener {
     private DrawerAdapter adapter = null;
     private DrawerListener drawerListener;
     private RecyclerView recyclerView;
+    private TextView navName,navEmailId;
 
     public DrawerFragment() {
         // Required empty public constructor
@@ -45,11 +50,19 @@ public class DrawerFragment extends Fragment implements OnItemClickListener {
         initView(view);
         setValue();
 
+        LoginModel res = new PreferenceManager(getActivity()).getLoginModel();
+
+        navName.setText(""+res.getFullname());
+        navEmailId.setText(""+res.getEmail());
+
         return view;
     }
 
     private void initView(View view) {
         recyclerView=view.findViewById(R.id.recycler_view);
+        navEmailId=view.findViewById(R.id.navEmailId);
+        navName=view.findViewById(R.id.navName);
+
     }
 
     private void setValue() {

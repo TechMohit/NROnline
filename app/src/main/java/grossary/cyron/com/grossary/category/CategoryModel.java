@@ -37,6 +37,8 @@ public class CategoryModel {
         public String subProductQTY;
         @SerializedName("SubProductDesc")
         public String subProductDesc;
+        @SerializedName("ShippingCharge")
+        public String shippingCharge;
     }
 
     public class Response {

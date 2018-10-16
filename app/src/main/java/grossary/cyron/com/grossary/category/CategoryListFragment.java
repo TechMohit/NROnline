@@ -199,7 +199,7 @@ public class CategoryListFragment extends Fragment implements OnItemClickListene
             ((CategoryActivity) getActivity()).selectFrag(LIST_DETAILS, new Gson().toJson(categoryModel), CATG_LIST_FRG);
         }else if(type.equalsIgnoreCase(ADD)){
             ((CategoryActivity)getActivity()).callApiAddtoCart(""+categoryModel.productDescId,
-                    ""+categoryModel.productId,""+categoryModel.stroeId,categoryModel.sellingPrice,"1");
+                    ""+categoryModel.productId,""+categoryModel.stroeId,categoryModel.shippingCharge,"1");
         }
 
     }
