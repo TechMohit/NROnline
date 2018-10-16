@@ -289,8 +289,8 @@ public class CategoryActivity extends AppCompatActivity implements FragmentManag
             public void onResponse(int code, ViewCartItemCountDetailsModel response, Headers headers) {
 //                load.dismissLoading();
                 if (response.getResponse().getResponseval()) {
-                    tvTotal.setText("" + response.getGrandtoal());
-                    tvCount.setText("₹" + response.getTotalitemcount());
+                    tvTotal.setText("₹" + response.getGrandtoal());
+                    tvCount.setText("" + response.getTotalitemcount());
                     new PreferenceManager(CategoryActivity.this).setCount(""+response.getTotalitemcount());
 
                 } else {
