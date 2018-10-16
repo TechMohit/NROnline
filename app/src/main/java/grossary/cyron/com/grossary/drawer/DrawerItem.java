@@ -5,6 +5,7 @@ public class DrawerItem {
     private String text;
     private int icon;
     private String tag;
+    private int iconUnSelect;
 
     public void setText(String text) {
         this.text = text;
@@ -28,5 +29,13 @@ public class DrawerItem {
 
     public String getTag() {
         return tag;
+    }
+
+    public void setIconUnSelect(int iconUnSelect) {
+        this.iconUnSelect = iconUnSelect;
+    }
+
+    public int getIconUnSelect() {
+        return iconUnSelect;
     }
 }

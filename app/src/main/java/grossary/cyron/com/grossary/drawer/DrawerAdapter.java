@@ -52,14 +52,15 @@ public class DrawerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
         if(position==selectedPosition){
             ((ImageTypeViewHolder) holder).linItem.setBackgroundColor(activity.getResources().getColor(R.color.colorAccent));
             ((ImageTypeViewHolder) holder).tv_text.setTextColor(Color.parseColor("#ffffff"));
+            ((ImageTypeViewHolder) holder).img_icon.setImageDrawable(ContextCompat.getDrawable(activity,object.getIconUnSelect()));
+
         }else {
             ((ImageTypeViewHolder) holder).linItem.setBackground(null);
             ((ImageTypeViewHolder) holder).tv_text.setTextColor(Color.parseColor("#000000"));
-
+            ((ImageTypeViewHolder) holder).img_icon.setImageDrawable(ContextCompat.getDrawable(activity,object.getIcon()));
         }
 
         ((ImageTypeViewHolder) holder).tv_text.setText("" + object.getText());
-        ((ImageTypeViewHolder) holder).img_icon.setImageDrawable(ContextCompat.getDrawable(activity,object.getIcon()));
 
         ((ImageTypeViewHolder) holder).linItem.setOnClickListener(new View.OnClickListener() {
             @Override
