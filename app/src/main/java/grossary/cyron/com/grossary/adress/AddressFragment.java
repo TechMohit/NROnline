@@ -19,6 +19,8 @@ import grossary.cyron.com.grossary.account.LoginModel;
 import grossary.cyron.com.grossary.category.CategoryActivity;
 import grossary.cyron.com.grossary.order.MyOrdersAdapter;
 import grossary.cyron.com.grossary.order.ViewOrderListModel;
+import grossary.cyron.com.grossary.profile.GetUserProfileModel;
+import grossary.cyron.com.grossary.profile.ProfileActivity;
 import grossary.cyron.com.grossary.utility.LoadingView;
 import grossary.cyron.com.grossary.utility.PreferenceManager;
 import grossary.cyron.com.grossary.utility.callback.OnItemClickListener;
@@ -40,7 +42,7 @@ public class AddressFragment extends Fragment  {
 
 
     private LoadingView load;
-    private TextInputEditText etUserName;
+    private TextInputEditText etUserName,etEmail,etAddress,etCity,etState,etZip,etPhone;
 
     private Context context;
     public AddressFragment() {
@@ -60,8 +62,13 @@ public class AddressFragment extends Fragment  {
         View view = inflater.inflate(R.layout.fragment_address, container, false);
         ((CategoryActivity)getActivity()).txtCheckout.setText(MAKE_PAYMENT);
         etUserName=view.findViewById(R.id.etUserName);
-
-        LoginModel res = new PreferenceManager(getActivity()).getLoginModel();
+        etEmail=view.findViewById(R.id.etEmail);
+        etAddress=view.findViewById(R.id.etAddress);
+        etCity=view.findViewById(R.id.etCity);
+        etState=view.findViewById(R.id.etState);
+        etZip=view.findViewById(R.id.etZip);
+        etPhone=view.findViewById(R.id.etPhone);
+        callApiProfile();
         return view;
     }
 
@@ -70,44 +77,50 @@ public class AddressFragment extends Fragment  {
         super.onActivityCreated(savedInstanceState);
 
     }
+    private void callApiProfile() {
+        load = new LoadingView(getActivity());
+        load.setCancalabe(false);
+        load.showLoading();
+        String url = BASE_URL + "/Profile/GetUserProfile";
+        final LoginModel res = new PreferenceManager(getActivity()).getLoginModel();
 
-//    private void callApi() {
-//        load = new LoadingView(getActivity());
-//        load.setCancalabe(false);
-//        load.showLoading();
-//        String url = BASE_URL + "/Order/ViewOrderList";
-//
-//        Log.e("URl", "*** " + url);
-//        LoginModel res = new PreferenceManager(getActivity()).getLoginModel();
-//
-//        Call<ViewOrderListModel> call = RetrofitClient.getAPIInterface().viewOrderList(url,"1006");
-//        Request request = new RetrofitRequest<>(call, new ResponseListener<ViewOrderListModel>() {
-//            @Override
-//            public void onResponse(int code, ViewOrderListModel response, Headers headers) {
-//                load.dismissLoading();
-//                if (response.getResponse().getResponseval()) {
-//
-//                }else{
-//                    Toast.makeText(getActivity(), ""+response.getResponse().getResponseval() , Toast.LENGTH_SHORT).show();
-//                }
-//            }
-//
-//            @Override
-//            public void onError(int error) {
-//                load.dismissLoading();
-//
-//            }
-//
-//            @Override
-//            public void onFailure(Throwable throwable) {
-//                Log.e("respond", "failure ---->");
-//                load.dismissLoading();
-//            }
-//        });
-//        request.enqueue();
-//
-//
-//    }
+        Log.e("URl", "*** " + url);
+        Call<GetUserProfileModel> call = RetrofitClient.getAPIInterface().getUserProfile(url, "" + res.getUserid());
+        Request request = new RetrofitRequest<>(call, new ResponseListener<GetUserProfileModel>() {
+            @Override
+            public void onResponse(int code, GetUserProfileModel response, Headers headers) {
+                load.dismissLoading();
+
+                if (response.getResponse().getResponseval()) {
+
+                    etUserName.setText(""+response.getFullname());
+                    etEmail.setText(""+response.getEmail());
+                    etAddress.setText(""+response.getAddress());
+                    etCity.setText(""+response.getCity());
+                    etState.setText(""+response.getState());
+                    etZip.setText(""+response.getZipcode());
+                    etPhone.setText(""+response.getMobileno());
+
+                } else {
+                    Toast.makeText(getActivity(), "" + response.getResponse().getReason(), Toast.LENGTH_SHORT).show();
+                }
+
+            }
+
+            @Override
+            public void onError(int error) {
+                load.dismissLoading();
+
+            }
+
+            @Override
+            public void onFailure(Throwable throwable) {
+                Log.e("respond", "failure ---->");
+                load.dismissLoading();
+            }
+        });
+        request.enqueue();
+    }
 
 
 

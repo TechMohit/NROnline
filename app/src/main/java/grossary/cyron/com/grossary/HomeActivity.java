@@ -22,11 +22,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
-import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import com.google.gson.Gson;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -50,10 +47,10 @@ import grossary.cyron.com.grossary.utility.retrofit.RetrofitClient;
 import grossary.cyron.com.grossary.utility.retrofit.RetrofitRequest;
 import grossary.cyron.com.grossary.utility.retrofit.callbacks.Request;
 import grossary.cyron.com.grossary.utility.retrofit.callbacks.ResponseListener;
+import grossary.cyron.com.grossary.webview.WebViewActivity;
 import okhttp3.Headers;
 import retrofit2.Call;
 
-import static grossary.cyron.com.grossary.utility.Constant.CURRENT_STATE.HOME_FRG;
 import static grossary.cyron.com.grossary.utility.Constant.CURRENT_STATE.MY_ORDER_FRG;
 import static grossary.cyron.com.grossary.utility.Constant.CURRENT_STATE.SEARCH_FRG;
 import static grossary.cyron.com.grossary.utility.Constant.CURRENT_STATE.VIEW_CART_FRG;
@@ -340,6 +337,9 @@ public class HomeActivity extends AppCompatActivity implements FragmentManager.O
                 intent.putExtra(ACT_HOME_PARAMETER, "");
                 startActivity(intent);
                 break;
+            case Constant.NAV_DRAWER.PRIVICY:
+                startActivity(new Intent(this, WebViewActivity.class));
+                break;
             case Constant.NAV_DRAWER.LOG_OUT:
                 new PreferenceManager(HomeActivity.this).setAutoLogin(false);
                 intent = new Intent(HomeActivity.this, SigninActivity.class);
@@ -351,6 +351,8 @@ public class HomeActivity extends AppCompatActivity implements FragmentManager.O
                 break;
 
         }
+        if(drawer.isDrawerOpen(Gravity.LEFT))
+        drawer.closeDrawer(Gravity.LEFT);
 
     }
 

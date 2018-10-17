@@ -72,7 +72,7 @@ public class MyOrderDetailFragment extends Fragment implements OnItemClickListen
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         setAdapter();
         callApiViewCart();
-
+        ((CategoryActivity)getActivity()).callApiCount();
         return view;
     }
 

@@ -39,6 +39,7 @@ public class Constant {
     public interface NAV_DRAWER{
         String MY_PROFILE="MY_PROFILE";
         String MY_ORDER = "MY_ORDER";
+        String PRIVICY="PRIVICY";
         String LOG_OUT = "LOG_OUT";
     }
 

@@ -107,7 +107,7 @@ public class ProfileActivity extends AppCompatActivity {
             public void onResponse(int code, GetUserProfileModel response, Headers headers) {
                 load.dismissLoading();
 
-                if (response.getResponse().isResponseval()) {
+                if (response.getResponse().getResponseval()) {
 
                     etName.setText("" + response.getFullname());
                     etMobile.setText("" + response.getMobileno());

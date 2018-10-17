@@ -61,7 +61,7 @@ public class CategoryActivity extends AppCompatActivity implements FragmentManag
     private RelativeLayout revBottom;
     public TextView txtCheckout, tvTotal, tvCount;
     private Dialog dialog;
-    private ImageView tvBack;
+    private ImageView tvBack,img_cart;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,6 +72,7 @@ public class CategoryActivity extends AppCompatActivity implements FragmentManag
         tvTotal = findViewById(R.id.tvTotal);
         tvCount = findViewById(R.id.tvCount);
         tvBack=findViewById(R.id.tvBack);
+        img_cart=findViewById(R.id.img_cart);
 
         String current = getIntent().getStringExtra(CURRENT_FRG);
         if (current.equalsIgnoreCase(HOME_FRG)) {
@@ -98,6 +99,14 @@ public class CategoryActivity extends AppCompatActivity implements FragmentManag
                     selectFrag(VIEW_CART, "2", VIEW_CART_FRG);
                 else if (txtCheckout.getText().toString().equalsIgnoreCase(PLACE_YOUR_ORDER))
                     selectFrag(ADDRESS, "", ADDRESS_FRG);
+
+            }
+        });
+        img_cart.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (txtCheckout.getText().toString().equalsIgnoreCase(CHECKOUT))
+                    selectFrag(VIEW_CART, "2", VIEW_CART_FRG);
 
             }
         });
