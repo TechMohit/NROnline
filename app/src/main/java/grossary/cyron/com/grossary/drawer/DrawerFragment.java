@@ -98,7 +98,7 @@ public class DrawerFragment extends Fragment implements OnItemClickListener {
 
         DrawerItem drawerItem4 = new DrawerItem();
         drawerItem4.setText("Privacy Policy");
-        drawerItem4.setTag("PRIVACY_POLICY");
+        drawerItem4.setTag(Constant.NAV_DRAWER.PRIVICY);
         drawerItem4.setIcon(R.drawable.keyhole_pink);
         drawerItem4.setIconUnSelect(R.drawable.keyhole);
         newsList.add(drawerItem4);

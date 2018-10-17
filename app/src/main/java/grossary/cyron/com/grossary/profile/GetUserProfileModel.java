@@ -9,131 +9,147 @@ import com.google.gson.annotations.SerializedName;
 public class GetUserProfileModel {
 
 
-    @SerializedName("userId")
-    public int userid;
-    @SerializedName("LoginId")
-    public String loginid;
-    @SerializedName("FullName")
-    public String fullname;
-    @SerializedName("MobileNo")
-    public String mobileno;
-    @SerializedName("Email")
-    public String email;
+    @SerializedName("Response")
+    private ResponseEntity response;
+    @SerializedName("RoleCode")
+    private String rolecode;
+    @SerializedName("GSTNumber")
+    private String gstnumber;
+    @SerializedName("ZipCode")
+    private String zipcode;
+    @SerializedName("State")
+    private String state;
+    @SerializedName("City")
+    private String city;
     @SerializedName("Address")
-    public String address;
+    private String address;
+    @SerializedName("Email")
+    private String email;
+    @SerializedName("MobileNo")
+    private String mobileno;
+    @SerializedName("FullName")
+    private String fullname;
+    @SerializedName("LoginId")
+    private String loginid;
+    @SerializedName("userId")
+    private int userid;
 
-    public int getUserid() {
-        return userid;
+    public ResponseEntity getResponse() {
+        return response;
     }
 
-    public GetUserProfileModel setUserid(int userid) {
-        this.userid = userid;
-        return this;
-    }
-
-    public String getLoginid() {
-        return loginid;
-    }
-
-    public GetUserProfileModel setLoginid(String loginid) {
-        this.loginid = loginid;
-        return this;
-    }
-
-    public String getFullname() {
-        return fullname;
-    }
-
-    public GetUserProfileModel setFullname(String fullname) {
-        this.fullname = fullname;
-        return this;
-    }
-
-    public String getMobileno() {
-        return mobileno;
-    }
-
-    public GetUserProfileModel setMobileno(String mobileno) {
-        this.mobileno = mobileno;
-        return this;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public GetUserProfileModel setEmail(String email) {
-        this.email = email;
-        return this;
-    }
-
-    public String getAddress() {
-        return address;
-    }
-
-    public GetUserProfileModel setAddress(String address) {
-        this.address = address;
-        return this;
-    }
-
-    public String getGstnumber() {
-        return gstnumber;
-    }
-
-    public GetUserProfileModel setGstnumber(String gstnumber) {
-        this.gstnumber = gstnumber;
-        return this;
+    public void setResponse(ResponseEntity response) {
+        this.response = response;
     }
 
     public String getRolecode() {
         return rolecode;
     }
 
-    public GetUserProfileModel setRolecode(String rolecode) {
+    public void setRolecode(String rolecode) {
         this.rolecode = rolecode;
-        return this;
     }
 
-    public Response getResponse() {
-        return response;
+    public String getGstnumber() {
+        return gstnumber;
     }
 
-    public GetUserProfileModel setResponse(Response response) {
-        this.response = response;
-        return this;
+    public void setGstnumber(String gstnumber) {
+        this.gstnumber = gstnumber;
     }
 
+    public String getZipcode() {
+        return zipcode;
+    }
 
-    @SerializedName("GSTNumber")
-    public String gstnumber;
-    @SerializedName("RoleCode")
-    public String rolecode;
-    @SerializedName("Response")
-    public Response response;
+    public void setZipcode(String zipcode) {
+        this.zipcode = zipcode;
+    }
 
-    public  class Response {
+    public String getState() {
+        return state;
+    }
+
+    public void setState(String state) {
+        this.state = state;
+    }
+
+    public String getCity() {
+        return city;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getMobileno() {
+        return mobileno;
+    }
+
+    public void setMobileno(String mobileno) {
+        this.mobileno = mobileno;
+    }
+
+    public String getFullname() {
+        return fullname;
+    }
+
+    public void setFullname(String fullname) {
+        this.fullname = fullname;
+    }
+
+    public String getLoginid() {
+        return loginid;
+    }
+
+    public void setLoginid(String loginid) {
+        this.loginid = loginid;
+    }
+
+    public int getUserid() {
+        return userid;
+    }
+
+    public void setUserid(int userid) {
+        this.userid = userid;
+    }
+
+    public static class ResponseEntity {
+        @SerializedName("Reason")
+        private String reason;
         @SerializedName("ResponseVal")
-        public boolean responseval;
-
-        public boolean isResponseval() {
-            return responseval;
-        }
-
-        public Response setResponseval(boolean responseval) {
-            this.responseval = responseval;
-            return this;
-        }
+        private boolean responseval;
 
         public String getReason() {
             return reason;
         }
 
-        public Response setReason(String reason) {
+        public void setReason(String reason) {
             this.reason = reason;
-            return this;
         }
 
-        @SerializedName("Reason")
-        public String reason;
+        public boolean getResponseval() {
+            return responseval;
+        }
+
+        public void setResponseval(boolean responseval) {
+            this.responseval = responseval;
+        }
     }
 }
