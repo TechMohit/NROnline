@@ -24,6 +24,7 @@ import grossary.cyron.com.grossary.adress.AddressFragment;
 import grossary.cyron.com.grossary.cart.ViewCartFragment;
 import grossary.cyron.com.grossary.order.MyOrderDetailFragment;
 import grossary.cyron.com.grossary.order.MyOrdersFragment;
+import grossary.cyron.com.grossary.payment.SubmitTransactionModel;
 import grossary.cyron.com.grossary.utility.FragmentHelper;
 import grossary.cyron.com.grossary.utility.LoadingView;
 import grossary.cyron.com.grossary.utility.PreferenceManager;
@@ -41,6 +42,7 @@ import static grossary.cyron.com.grossary.utility.Constant.CATEGORY.ORDER;
 import static grossary.cyron.com.grossary.utility.Constant.CATEGORY.ORDER_DETAIL;
 import static grossary.cyron.com.grossary.utility.Constant.CATEGORY.VIEW_CART;
 import static grossary.cyron.com.grossary.utility.Constant.CONSTANT.CHECKOUT;
+import static grossary.cyron.com.grossary.utility.Constant.CONSTANT.MAKE_PAYMENT;
 import static grossary.cyron.com.grossary.utility.Constant.CONSTANT.PLACE_YOUR_ORDER;
 import static grossary.cyron.com.grossary.utility.Constant.CURRENT_STATE.ADDRESS_FRG;
 import static grossary.cyron.com.grossary.utility.Constant.CURRENT_STATE.HOME_FRG;
@@ -99,7 +101,11 @@ public class CategoryActivity extends AppCompatActivity implements FragmentManag
                     selectFrag(VIEW_CART, "2", VIEW_CART_FRG);
                 else if (txtCheckout.getText().toString().equalsIgnoreCase(PLACE_YOUR_ORDER))
                     selectFrag(ADDRESS, "", ADDRESS_FRG);
-
+                else if(txtCheckout.getText().toString().equalsIgnoreCase(MAKE_PAYMENT)) {
+                    AddressFragment fragment = (AddressFragment) FragmentHelper.getFragment(CategoryActivity.this, ADDRESS);
+                    if(fragment!=null)
+                    fragment.callApiSubmitTransaction();
+                }
             }
         });
         img_cart.setOnClickListener(new View.OnClickListener() {
@@ -326,5 +332,6 @@ public class CategoryActivity extends AppCompatActivity implements FragmentManag
     public void onBackStackChanged() {
 
     }
+
 
 }

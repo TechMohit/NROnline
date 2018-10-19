@@ -16,6 +16,7 @@ import grossary.cyron.com.grossary.category.ViewCartItemCountDetailsModel;
 import grossary.cyron.com.grossary.home.HomeModel;
 import grossary.cyron.com.grossary.order.OrderDetailsModel;
 import grossary.cyron.com.grossary.order.ViewOrderListModel;
+import grossary.cyron.com.grossary.payment.SubmitTransactionModel;
 import grossary.cyron.com.grossary.profile.GetUserProfileModel;
 import grossary.cyron.com.grossary.profile.GetUserProfileUpdateModel;
 import okhttp3.MultipartBody;
@@ -37,13 +38,13 @@ public interface APIInterface {
 
     @POST()
     @FormUrlEncoded
-    Call<LoginModel> authenticate(@Url String url,@Field("MobileNumber") String MobileNumber);
+    Call<LoginModel> authenticate(@Url String url, @Field("MobileNumber") String MobileNumber);
 
     @POST()
     @FormUrlEncoded
     Call<GetUserProfileUpdateModel> getUserProfileUpdate(@Url String url, @Field("userId") String UserId, @Field("LoginId") String LoginId
-    ,@Field("FullName") String FullName, @Field("MobileNo") String MobileNo,@Field("Email") String Email, @Field("Address") String Address
-    ,@Field("GSTNumber") String GSTNumber);
+            , @Field("FullName") String FullName, @Field("MobileNo") String MobileNo, @Field("Email") String Email, @Field("Address") String Address
+            , @Field("GSTNumber") String GSTNumber);
 
     @POST()
     @FormUrlEncoded
@@ -71,9 +72,17 @@ public interface APIInterface {
     @FormUrlEncoded
     Call<ViewCartItemCountDetailsModel> viewCartItemCountDetails(@Url String url, @Field("UserId") String UserId);
 
+
     @POST()
     @FormUrlEncoded
-    Call<OrderDetailsModel> orderDetails(@Url String url, @Field("UserId") String UserId,@Field("TranNo") String TranNo);
+    Call<SubmitTransactionModel> submitTransaction(@Url String url, @Field("FullName") String FullName, @Field("Address") String Address
+            , @Field("City") String City, @Field("State") String State, @Field("ZipCode") String ZipCode, @Field("Phone") String Phone
+            , @Field("UserId") String UserId, @Field("Paymode") String Paymode, @Field("TotalShippingCharges") String TotalShippingCharges
+            , @Field("GrandToal") String GrandToal);
+
+    @POST()
+    @FormUrlEncoded
+    Call<OrderDetailsModel> orderDetails(@Url String url, @Field("UserId") String UserId, @Field("TranNo") String TranNo);
 
     @POST()
     @FormUrlEncoded
@@ -100,7 +109,7 @@ public interface APIInterface {
     @FormUrlEncoded
     Call<AddToCartDetailsModel> addToCartDetails(@Url String url, @Field("UserId") String UserId, @Field("ProductDescId") String ProductDescId,
                                                  @Field("ProductId") String ProductId, @Field("StoreId") String StoreId,
-                                                 @Field("ShippingCharges") String ShippingCharges,@Field("Qty") String Qty);
+                                                 @Field("ShippingCharges") String ShippingCharges, @Field("Qty") String Qty);
 
     @POST()
     @FormUrlEncoded

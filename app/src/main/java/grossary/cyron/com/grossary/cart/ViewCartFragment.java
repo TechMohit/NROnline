@@ -103,6 +103,8 @@ public class ViewCartFragment extends Fragment implements OnItemClickListener<Vi
 
                     ((CategoryActivity)getActivity()).callApiCount();
                     adapter.setAdapterData(response.getObjviewaddcartlist(),response);
+                    new PreferenceManager(getActivity()).setShippingCharges(""+response.getTotalshippingcharges());
+
                 } else {
                     Toast.makeText(getActivity(), "" + response.getResponse().getReason(), Toast.LENGTH_SHORT).show();
                 }
