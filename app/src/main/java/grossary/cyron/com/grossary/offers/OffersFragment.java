@@ -22,7 +22,6 @@ import grossary.cyron.com.grossary.category.CategoryActivity;
 import grossary.cyron.com.grossary.home.HomeModel;
 import grossary.cyron.com.grossary.utility.callback.OnItemClickListener;
 
-import static grossary.cyron.com.grossary.utility.Constant.CURRENT_STATE.HOME_FRG;
 import static grossary.cyron.com.grossary.utility.Constant.CURRENT_STATE.OFFER_FRG;
 import static grossary.cyron.com.grossary.utility.Constant.KEY_NAME.ACT_HOME_PARAMETER;
 import static grossary.cyron.com.grossary.utility.Constant.KEY_NAME.CURRENT_FRG;
@@ -30,10 +29,10 @@ import static grossary.cyron.com.grossary.utility.Constant.KEY_NAME.CURRENT_FRG;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class OffersFragment extends Fragment implements OnItemClickListener<HomeModel.Objofferdetailslist> {
+public class OffersFragment extends Fragment implements OnItemClickListener<HomeModel.ObjOfferDetailsListEntity> {
 
     private RecyclerView recyclerView;
-    private ArrayList<HomeModel.Objofferdetailslist> offersList = new ArrayList<>();
+    private ArrayList<HomeModel.ObjOfferDetailsListEntity> offersList = new ArrayList<>();
     private OffersListAdapter adapter;
 
     public OffersFragment() {
@@ -60,7 +59,7 @@ public class OffersFragment extends Fragment implements OnItemClickListener<Home
         if(adapter.getItemCount()<=0)
         {
             if(((HomeActivity)getActivity()).getHomeModel()!=null)
-            setData(((HomeActivity)getActivity()).getHomeModel().objofferdetailslist);
+            setData(((HomeActivity)getActivity()).getHomeModel().getObjOfferDetailsList());
         }
     }
 
@@ -76,7 +75,7 @@ public class OffersFragment extends Fragment implements OnItemClickListener<Home
     }
 
     @Override
-    public void onItemClick(HomeModel.Objofferdetailslist OffersModel, View view, int position,String type) {
+    public void onItemClick(HomeModel.ObjOfferDetailsListEntity OffersModel, View view, int position,String type) {
 
         Intent intent=new Intent(getActivity(),CategoryActivity.class);
         intent.putExtra(CURRENT_FRG,OFFER_FRG);
@@ -84,7 +83,7 @@ public class OffersFragment extends Fragment implements OnItemClickListener<Home
         startActivity(intent);
     }
 
-    public void setData(List<HomeModel.Objofferdetailslist> offersList) {
+    public void setData(List<HomeModel.ObjOfferDetailsListEntity> offersList) {
 
         if(adapter==null || offersList==null)
             return;
@@ -95,7 +94,7 @@ public class OffersFragment extends Fragment implements OnItemClickListener<Home
         adapter.setAdapterData(this.offersList);
     }
 
-    public List<HomeModel.Objofferdetailslist> getData() {
+    public List<HomeModel.ObjOfferDetailsListEntity> getData() {
         return offersList;
     }
 }

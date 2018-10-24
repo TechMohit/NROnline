@@ -13,9 +13,7 @@
     </option>
     <option name="fieldType" value="GSON" />
     <option name="naming">
-      <list>
-        <option value="CAMEL_CASE" />
-      </list>
+      <list />
     </option>
   </component>
 </project>

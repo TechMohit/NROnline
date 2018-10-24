@@ -30,12 +30,12 @@ import static grossary.cyron.com.grossary.utility.Constant.KEY_NAME.ACT_HOME_PAR
 import static grossary.cyron.com.grossary.utility.Constant.KEY_NAME.CURRENT_FRG;
 
 
-public class HomeFragment extends Fragment implements OnItemClickListener<HomeModel.Objcategorylist> {
+public class HomeFragment extends Fragment implements OnItemClickListener<HomeModel.ObjCategoryListEntity> {
 
     private CirclePageIndicator indicator;
     private ViewPager pager;
-    private List<HomeModel.ObjOfferImageList> homeOfferList = new ArrayList<>();
-    private ArrayList<HomeModel.Objcategorylist> homeList = new ArrayList<>();
+    private List<HomeModel.ObjOfferImageListEntity> homeOfferList = new ArrayList<>();
+    private ArrayList<HomeModel.ObjCategoryListEntity> homeList = new ArrayList<>();
     private Timer timer;
     private HomeListAdapter adapter;
     private RecyclerView recyclerView;
@@ -70,7 +70,7 @@ public class HomeFragment extends Fragment implements OnItemClickListener<HomeMo
         if(adapter.getItemCount()<=0)
         {
             if(((HomeActivity)getActivity()).getHomeModel()!=null)
-            setData(((HomeActivity)getActivity()).getHomeModel().objcategorylist, ((HomeActivity)getActivity()).getHomeModel().homeOfferList);
+            setData(((HomeActivity)getActivity()).getHomeModel().getObjCategoryList(), ((HomeActivity)getActivity()).getHomeModel().getObjOfferImageList());
         }
     }
 
@@ -87,7 +87,7 @@ public class HomeFragment extends Fragment implements OnItemClickListener<HomeMo
 
     }
 
-    private void setViewPagerTimer(final List<HomeModel.ObjOfferImageList> homeOfferList) {
+    private void setViewPagerTimer(final List<HomeModel.ObjOfferImageListEntity> homeOfferList) {
 
         pager.setAdapter(new SlidingImage_Adapter(getActivity(), homeOfferList));
         indicator.setViewPager(pager);
@@ -124,7 +124,7 @@ public class HomeFragment extends Fragment implements OnItemClickListener<HomeMo
         }
     }
 
-    public void setData(List<HomeModel.Objcategorylist> data, List<HomeModel.ObjOfferImageList> homeOfferList) {
+    public void setData(List<HomeModel.ObjCategoryListEntity> data, List<HomeModel.ObjOfferImageListEntity> homeOfferList) {
 
 
         if(adapter==null || data==null || homeOfferList==null)
@@ -142,12 +142,12 @@ public class HomeFragment extends Fragment implements OnItemClickListener<HomeMo
 
     }
 
-    public List<HomeModel.Objcategorylist> getData() {
+    public List<HomeModel.ObjCategoryListEntity> getData() {
         return homeList;
     }
 
     @Override
-    public void onItemClick(HomeModel.Objcategorylist objstoredetailslist, View view, int position,String type) {
+    public void onItemClick(HomeModel.ObjCategoryListEntity objstoredetailslist, View view, int position,String type) {
         Intent intent=new Intent(getActivity(),CategoryActivity.class);
         intent.putExtra(CURRENT_FRG,HOME_FRG);
         intent.putExtra(ACT_HOME_PARAMETER,new Gson().toJson(objstoredetailslist));

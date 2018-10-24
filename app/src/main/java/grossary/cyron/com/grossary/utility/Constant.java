@@ -15,6 +15,8 @@ public class Constant {
         String CHECKOUT="Checkout";
         String PLACE_YOUR_ORDER="Place Your Order";
         String MAKE_PAYMENT="Make Payment";
+        String MAKE_PAYMENT_ONLINE="C";
+
 
     }
     public interface KEY_NAME{
@@ -27,6 +29,7 @@ public class Constant {
     public interface CURRENT_STATE{
         String HOME_FRG="HOME_FRG";
         String OFFER_FRG="OFFER_FRG";
+        String BRAND_FRG="BRAND_FRG";
         String SELLER_FRG="SELLER_FRG";
         String CATG_LIST_FRG="CATG_LIST_FRG";
         String VIEW_CART_FRG="VIEW_CART_FRG";
@@ -37,6 +40,7 @@ public class Constant {
 
     }
     public interface NAV_DRAWER{
+        String MY_HOME="HOME";
         String MY_PROFILE="MY_PROFILE";
         String MY_ORDER = "MY_ORDER";
         String PRIVICY="PRIVICY";

@@ -30,6 +30,7 @@ import java.util.List;
 
 import grossary.cyron.com.grossary.account.LoginModel;
 import grossary.cyron.com.grossary.account.SigninActivity;
+import grossary.cyron.com.grossary.adress.AddressFragment;
 import grossary.cyron.com.grossary.brands.BrandsFragment;
 import grossary.cyron.com.grossary.category.CategoryActivity;
 import grossary.cyron.com.grossary.category.ViewCartItemCountDetailsModel;
@@ -51,6 +52,7 @@ import grossary.cyron.com.grossary.webview.WebViewActivity;
 import okhttp3.Headers;
 import retrofit2.Call;
 
+import static grossary.cyron.com.grossary.utility.Constant.CATEGORY.ADDRESS;
 import static grossary.cyron.com.grossary.utility.Constant.CURRENT_STATE.MY_ORDER_FRG;
 import static grossary.cyron.com.grossary.utility.Constant.CURRENT_STATE.SEARCH_FRG;
 import static grossary.cyron.com.grossary.utility.Constant.CURRENT_STATE.VIEW_CART_FRG;
@@ -108,7 +110,6 @@ public class HomeActivity extends AppCompatActivity implements FragmentManager.O
         tabLayout = findViewById(R.id.tabs);
         tabLayout.setupWithViewPager(viewPager);
         setupTabIcons();
-        callHomeApi();
         btnRetry.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -133,7 +134,8 @@ public class HomeActivity extends AppCompatActivity implements FragmentManager.O
 
             }
         });
-        callApiCount();
+
+        setHome();
 
         imgSearch.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -155,7 +157,7 @@ public class HomeActivity extends AppCompatActivity implements FragmentManager.O
                 ImageView imgBack = dialog.findViewById(R.id.imgBack);
                 final EditText etSearch = dialog.findViewById(R.id.etSearch);
 
-                openKeyPad(HomeActivity.this,etSearch);
+                openKeyPad(HomeActivity.this, etSearch);
 
                 imgBack.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -186,6 +188,12 @@ public class HomeActivity extends AppCompatActivity implements FragmentManager.O
         });
     }
 
+    private void setHome() {
+        callApiCount();
+        callHomeApi();
+
+    }
+
     private void callHomeApi() {
 
         load = new LoadingView(this);
@@ -198,7 +206,7 @@ public class HomeActivity extends AppCompatActivity implements FragmentManager.O
         LoginModel res = new PreferenceManager(HomeActivity.this).getLoginModel();
 
         Call<HomeModel> call = RetrofitClient.getAPIInterface().homeDetailsAPI(url,
-                res.getMobile());
+                ""+res.getUserid());
         Request request = new RetrofitRequest<>(call, new ResponseListener<HomeModel>() {
             @Override
             public void onResponse(int code, HomeModel response, Headers headers) {
@@ -268,10 +276,10 @@ public class HomeActivity extends AppCompatActivity implements FragmentManager.O
         OffersFragment theFragment = (OffersFragment) fa.getItem(1);
         SellerFragment sellerFragment = (SellerFragment) fa.getItem(2);
         BrandsFragment brandsFragment = (BrandsFragment) fa.getItem(3);
-        homeFragment.setData(homeModel.objcategorylist, response.homeOfferList);
-        theFragment.setData(homeModel.objofferdetailslist);
-        sellerFragment.setData(response.objstoredetailslist);
-        brandsFragment.setData();
+        homeFragment.setData(homeModel.getObjCategoryList(), response.getObjOfferImageList());
+        theFragment.setData(homeModel.getObjOfferDetailsList());
+        sellerFragment.setData(homeModel.getObjStoreDetailsList());
+        brandsFragment.setData(homeModel.getObjOfferProdList());
     }
 
     public HomeModel getHomeModel() {
@@ -328,6 +336,9 @@ public class HomeActivity extends AppCompatActivity implements FragmentManager.O
         Intent intent = null;
         switch (tag) {
 
+            case Constant.NAV_DRAWER.MY_HOME:
+                setHome();
+                break;
             case Constant.NAV_DRAWER.MY_PROFILE:
                 startActivity(new Intent(this, ProfileActivity.class));
                 break;
@@ -351,15 +362,17 @@ public class HomeActivity extends AppCompatActivity implements FragmentManager.O
                 break;
 
         }
-        if(drawer.isDrawerOpen(Gravity.LEFT))
-        drawer.closeDrawer(Gravity.LEFT);
+        if (drawer.isDrawerOpen(Gravity.LEFT)) {
+            drawer.closeDrawer(Gravity.LEFT);
+
+        }
 
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        tvCartCount.setText("" +new PreferenceManager(HomeActivity.this).getCount());
+        tvCartCount.setText("" + new PreferenceManager(HomeActivity.this).getCount());
 
     }
 
@@ -382,7 +395,7 @@ public class HomeActivity extends AppCompatActivity implements FragmentManager.O
 //                load.dismissLoading();
                 if (response.getResponse().getResponseval()) {
                     tvCartCount.setText("" + response.getTotalitemcount());
-                    new PreferenceManager(HomeActivity.this).setCount(""+response.getTotalitemcount());
+                    new PreferenceManager(HomeActivity.this).setCount("" + response.getTotalitemcount());
 
                 } else {
                     Toast.makeText(HomeActivity.this, "" + response.getResponse().getReason(), Toast.LENGTH_SHORT).show();

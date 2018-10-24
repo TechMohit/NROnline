@@ -25,11 +25,11 @@ import static grossary.cyron.com.grossary.utility.Constant.CATEGORY.ONCLICK;
 
 public class OffersListAdapter extends RecyclerView.Adapter {
 
-    private ArrayList<HomeModel.Objofferdetailslist> dataSet;
+    private ArrayList<HomeModel.ObjOfferDetailsListEntity> dataSet;
     private Activity activity;
-    private OnItemClickListener<HomeModel.Objofferdetailslist> clickListener;
+    private OnItemClickListener<HomeModel.ObjOfferDetailsListEntity> clickListener;
 
-    public OffersListAdapter( Activity activity, OnItemClickListener<HomeModel.Objofferdetailslist> clickListener) {
+    public OffersListAdapter( Activity activity, OnItemClickListener<HomeModel.ObjOfferDetailsListEntity> clickListener) {
         this.activity = activity;
         this.clickListener = clickListener;
     }
@@ -37,18 +37,18 @@ public class OffersListAdapter extends RecyclerView.Adapter {
     @Override
     public void onBindViewHolder(final RecyclerView.ViewHolder holder, final int listPosition) {
 
-        final HomeModel.Objofferdetailslist object = dataSet.get(listPosition);
+        final HomeModel.ObjOfferDetailsListEntity object = dataSet.get(listPosition);
 
 
-        ((ImageTypeViewHolder) holder).tvName.setText(""+object.productname);
-        ((ImageTypeViewHolder) holder).tvMrpPrice.setText("\u20B9"+object.mrpprice);
+        ((ImageTypeViewHolder) holder).tvName.setText(""+object.getProductName());
+        ((ImageTypeViewHolder) holder).tvMrpPrice.setText("\u20B9"+object.getMRPPrice());
 
         ((ImageTypeViewHolder) holder).tvMrpPrice.setPaintFlags(((ImageTypeViewHolder) holder).tvMrpPrice.getPaintFlags()
                 | Paint.STRIKE_THRU_TEXT_FLAG);
-        ((ImageTypeViewHolder) holder).tvSellerPrice.setText("\u20B9"+object.sellingprice);
+        ((ImageTypeViewHolder) holder).tvSellerPrice.setText("\u20B9"+object.getSellingPrice());
 
                 GlideApp.with(activity)
-                .load(object.productimage)
+                .load(object.getProductImage())
                 .centerCrop()
                 .transition(DrawableTransitionOptions.withCrossFade())
                 .placeholder(R.drawable.logo_long)
@@ -82,7 +82,7 @@ public class OffersListAdapter extends RecyclerView.Adapter {
         return dataSet.size();
     }
 
-    public void setAdapterData(ArrayList<HomeModel.Objofferdetailslist> offersList) {
+    public void setAdapterData(ArrayList<HomeModel.ObjOfferDetailsListEntity> offersList) {
 
         dataSet=offersList;
         notifyDataSetChanged();

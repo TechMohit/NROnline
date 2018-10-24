@@ -18,10 +18,13 @@ public class PreferenceManager {
     private static final String COUNT = "count";
     private static final String LOGIN_MODEL = "login_model";
     private static final String AUTO_LOGIN = "auto_login";
+    private static final String GRANT_TOTAL = "GRANT_TOTAL";
+    private static final String SHIPPING_CHARGE = "SHIPPING_CHARGE";
 
 
 
     private SharedPreferences sharedPreferences;
+    private String shippingCharges;
 
     private PreferenceManager() {
 
@@ -55,5 +58,23 @@ public class PreferenceManager {
         return loginModel;
     }
 
+    public void setShippingCharges(String shippingCharges) {
 
+        sharedPreferences.edit().putString(SHIPPING_CHARGE, shippingCharges).apply();
+        }
+
+    public String getShippingCharges() {
+        String shippingCharges = sharedPreferences.getString(SHIPPING_CHARGE, "0");
+
+        return shippingCharges;
+    }
+
+    public void setGrandtoal(String grandtoal) {
+        sharedPreferences.edit().putString(GRANT_TOTAL, grandtoal).apply();
+    }
+
+    public String getGrandtoal() {
+        String city = sharedPreferences.getString(GRANT_TOTAL, "0");
+        return city;
+    }
 }

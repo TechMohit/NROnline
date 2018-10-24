@@ -40,6 +40,7 @@ public class WebViewActivity extends AppCompatActivity {
             }
         });
         webView.loadUrl("http://www.benakasoft.com/Public/Policies");
+
         webView.setWebChromeClient(new WebChromeClient() {
         });
 

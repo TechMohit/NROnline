@@ -74,6 +74,17 @@ public class FragmentHelper {
         }
 
     }
+    public static void clearBackStackAll(final FragmentActivity activity) {
+        try {
+            for(int i=getStackCount(activity);i>0;i--){
+                clearBackStack(activity);
+            }
+        } catch (IllegalStateException e) {
+            e.printStackTrace();
+        }
+        getStackCount(activity);
+
+    }
 
     public static int getStackCount(final FragmentActivity activity) {
         FragmentManager fragmentManager = activity.getSupportFragmentManager();

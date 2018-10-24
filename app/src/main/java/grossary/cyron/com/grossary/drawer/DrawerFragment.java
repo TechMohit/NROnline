@@ -21,6 +21,8 @@ import grossary.cyron.com.grossary.utility.Constant;
 import grossary.cyron.com.grossary.utility.PreferenceManager;
 import grossary.cyron.com.grossary.utility.callback.OnItemClickListener;
 
+import static grossary.cyron.com.grossary.utility.Constant.NAV_DRAWER.MY_HOME;
+
 public class DrawerFragment extends Fragment implements OnItemClickListener {
 
     private DrawerAdapter adapter = null;
@@ -70,7 +72,7 @@ public class DrawerFragment extends Fragment implements OnItemClickListener {
 
         DrawerItem drawerItem = new DrawerItem();
         drawerItem.setText("Home");
-        drawerItem.setTag("HOME");
+        drawerItem.setTag(MY_HOME);
         drawerItem.setIcon(R.drawable.home_pink);
         drawerItem.setIconUnSelect(R.drawable.home_white);
         newsList.add(drawerItem);

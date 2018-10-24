@@ -1,6 +1,7 @@
 package grossary.cyron.com.grossary.brands;
 
 import android.app.Activity;
+import android.graphics.Paint;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -13,6 +14,7 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import grossary.cyron.com.grossary.R;
 import grossary.cyron.com.grossary.home.HomeModel;
@@ -25,11 +27,11 @@ import static grossary.cyron.com.grossary.utility.Constant.CATEGORY.ONCLICK;
 
 public class BrandsListAdapter extends RecyclerView.Adapter {
 
-    private ArrayList<HomeModel.ObjOfferImageList> dataSet;
+    private List<HomeModel.ObjOfferProdListEntity> dataSet;
     private Activity activity;
-    private OnItemClickListener<HomeModel.ObjOfferImageList> clickListener;
+    private OnItemClickListener<HomeModel.ObjOfferProdListEntity> clickListener;
 
-    public BrandsListAdapter(Activity activity, OnItemClickListener<HomeModel.ObjOfferImageList> clickListener) {
+    public BrandsListAdapter(Activity activity, OnItemClickListener<HomeModel.ObjOfferProdListEntity> clickListener) {
         this.activity = activity;
         this.clickListener = clickListener;
     }
@@ -37,10 +39,16 @@ public class BrandsListAdapter extends RecyclerView.Adapter {
     @Override
     public void onBindViewHolder(final RecyclerView.ViewHolder holder, final int listPosition) {
 
-        final HomeModel.ObjOfferImageList object = dataSet.get(listPosition);
+        final HomeModel.ObjOfferProdListEntity object = dataSet.get(listPosition);
+        ((ImageTypeViewHolder) holder).tvName.setText(""+object.getProductName());
+        ((ImageTypeViewHolder) holder).tvMrpPrice.setText("\u20B9"+object.getMRPPrice());
+
+        ((ImageTypeViewHolder) holder).tvMrpPrice.setPaintFlags(((ImageTypeViewHolder) holder).tvMrpPrice.getPaintFlags()
+                | Paint.STRIKE_THRU_TEXT_FLAG);
+        ((ImageTypeViewHolder) holder).tvSellerPrice.setText("\u20B9"+object.getSellingPrice());
 
         GlideApp.with(activity)
-                .load(object.offerImage)
+                .load(object.getProductImage())
                 .centerCrop()
                 .transition(DrawableTransitionOptions.withCrossFade())
                 .placeholder(R.drawable.logo_long)
@@ -55,6 +63,7 @@ public class BrandsListAdapter extends RecyclerView.Adapter {
                 clickListener.onItemClick(object, ((ImageTypeViewHolder) holder).card_parent, listPosition,ONCLICK);
             }
         });
+
 
 
     }
@@ -73,7 +82,7 @@ public class BrandsListAdapter extends RecyclerView.Adapter {
         return dataSet.size();
     }
 
-    public void setAdapterData(ArrayList<HomeModel.ObjOfferImageList> brandsList) {
+    public void setAdapterData(List<HomeModel.ObjOfferProdListEntity> brandsList) {
         dataSet = brandsList;
         notifyDataSetChanged();
     }
@@ -83,12 +92,16 @@ public class BrandsListAdapter extends RecyclerView.Adapter {
 
         private CardView card_parent;
         private ImageView imgView;
+        private TextView tvSellerPrice,tvMrpPrice,tvName;
 
 
         public ImageTypeViewHolder(View itemView) {
             super(itemView);
             this.card_parent = itemView.findViewById(R.id.card_parent);
             this.imgView = itemView.findViewById(R.id.imgView);
+            this.tvName = itemView.findViewById(R.id.tvName);
+            this.tvMrpPrice = itemView.findViewById(R.id.tvMrpPrice);
+            this.tvSellerPrice = itemView.findViewById(R.id.tvSellerPrice);
         }
     }
 

@@ -1,6 +1,7 @@
 package grossary.cyron.com.grossary.brands;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -10,23 +11,31 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.google.gson.Gson;
+
 import java.util.ArrayList;
 import java.util.List;
 
 import grossary.cyron.com.grossary.HomeActivity;
 import grossary.cyron.com.grossary.R;
+import grossary.cyron.com.grossary.category.CategoryActivity;
 import grossary.cyron.com.grossary.home.HomeModel;
 import grossary.cyron.com.grossary.sellers.SellersListAdapter;
 import grossary.cyron.com.grossary.utility.callback.OnItemClickListener;
 
+import static grossary.cyron.com.grossary.utility.Constant.CURRENT_STATE.BRAND_FRG;
+import static grossary.cyron.com.grossary.utility.Constant.CURRENT_STATE.OFFER_FRG;
+import static grossary.cyron.com.grossary.utility.Constant.KEY_NAME.ACT_HOME_PARAMETER;
+import static grossary.cyron.com.grossary.utility.Constant.KEY_NAME.CURRENT_FRG;
+
 /**
  * A simple {@link Fragment} subclass.
  */
-public class BrandsFragment extends Fragment implements OnItemClickListener<HomeModel.ObjOfferImageList> {
+public class BrandsFragment extends Fragment implements OnItemClickListener<HomeModel.ObjOfferProdListEntity> {
 
     private RecyclerView recyclerView;
-    private ArrayList<HomeModel.ObjOfferImageList> brandsList = new ArrayList<>();
-    private List<HomeModel.ObjOfferImageList> data;
+    private ArrayList<HomeModel.ObjOfferProdListEntity> brandsList = new ArrayList<>();
+    private ArrayList<HomeModel.ObjOfferProdListEntity> objofferprodlist=new ArrayList<>();
     private BrandsListAdapter adapter;
 
     public BrandsFragment() {
@@ -46,6 +55,8 @@ public class BrandsFragment extends Fragment implements OnItemClickListener<Home
         return view;
     }
 
+
+
     private void initView(View view) {
         recyclerView = view.findViewById(R.id.recycle_view);
     }
@@ -54,6 +65,8 @@ public class BrandsFragment extends Fragment implements OnItemClickListener<Home
         super.onActivityCreated(savedInstanceState);
         if(adapter.getItemCount()<=0)
         {
+            if(((HomeActivity)getActivity()).getHomeModel()!=null)
+                setData(((HomeActivity)getActivity()).getHomeModel().getObjOfferProdList());
 
         }
     }
@@ -64,16 +77,25 @@ public class BrandsFragment extends Fragment implements OnItemClickListener<Home
     }
 
     @Override
-    public void onItemClick(HomeModel.ObjOfferImageList brandsModel, View view, int position,String type) {
+    public void onItemClick(HomeModel.ObjOfferProdListEntity brandsModel, View view, int position,String type) {
 
+        Intent intent=new Intent(getActivity(),CategoryActivity.class);
+        intent.putExtra(CURRENT_FRG,BRAND_FRG);
+        intent.putExtra(ACT_HOME_PARAMETER,new Gson().toJson(brandsModel));
+        startActivity(intent);
     }
 
-    public void setData() {
+    public void setData(List<HomeModel.ObjOfferProdListEntity> objofferprodlist) {
 
-
+        if(adapter==null || objofferprodlist==null)
+            return;
+        if (this.objofferprodlist.size() > 0)
+            this.objofferprodlist.clear();
+        this.objofferprodlist.addAll(objofferprodlist);
+        adapter.setAdapterData(this.objofferprodlist);
     }
 
-    public List<HomeModel.ObjOfferImageList> getData() {
-        return data;
+    public List<HomeModel.ObjOfferProdListEntity> getData() {
+        return objofferprodlist;
     }
 }
