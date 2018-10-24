@@ -207,7 +207,6 @@ public class AddressFragment extends Fragment {
         String totalCharge = new PreferenceManager(getActivity()).getGrandtoal();
 
 
-
         if (rdCash.isChecked()) {
 
             load = new LoadingView(getActivity());
@@ -353,11 +352,6 @@ public class AddressFragment extends Fragment {
                 getActivity().finish();
             }
         });
-        TextView txtPaymentMode=dialog.findViewById(R.id.txtPaymentMode);
-        txtPaymentMode.setText("PayMode : "+response.getPaymode());
-
-        TextView txtCustName=dialog.findViewById(R.id.txtCustName);
-        txtCustName.setText("Name : "+response.getCustomername());
         TextView txtShipingAddres=dialog.findViewById(R.id.txtShipingAddres);
         txtShipingAddres.setText("Address : "+response.getShippingaddress());
         TextView txtTotalAmount=dialog.findViewById(R.id.txtTotalAmount);
@@ -366,8 +360,6 @@ public class AddressFragment extends Fragment {
         txtTranDate.setText("Transation Date : "+response.getTransactiondate());
         TextView txtTransNo=dialog.findViewById(R.id.txtTransNo);
         txtTransNo.setText("transation No : "+response.getTranno());
-        TextView txtPayTranNo=dialog.findViewById(R.id.txtPayTranNo);
-        txtPayTranNo.setText("Payment Tran No : "+response.getPaymenttransactionnumber());
 
 
     }

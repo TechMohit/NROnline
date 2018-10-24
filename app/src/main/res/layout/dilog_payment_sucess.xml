@@ -27,19 +27,7 @@
             android:layout_marginBottom="10dp"
             android:background="@color/default_circle_indicator_stroke_color"></View>
 
-        <TextView
-            android:id="@+id/txtPaymentMode"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:paddingTop="10dp"
-            android:text="Payment Mode: Online" />
 
-        <TextView
-            android:id="@+id/txtCustName"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:paddingTop="10dp"
-            android:text="" />
 
         <TextView
             android:id="@+id/txtShipingAddres"
@@ -69,13 +57,6 @@
             android:paddingTop="10dp"
             android:text="Payment Mode: Online" />
 
-        <TextView
-            android:id="@+id/txtPayTranNo"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="20dp"
-            android:paddingTop="10dp"
-            android:text="Payment Mode: Online" />
 
         <Button
             android:id="@+id/btnClose"
