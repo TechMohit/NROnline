@@ -310,6 +310,7 @@ public class CategoryActivity extends AppCompatActivity implements FragmentManag
                     tvTotal.setText("₹" + response.getGrandtoal());
                     tvCount.setText("" + response.getTotalitemcount());
                     new PreferenceManager(CategoryActivity.this).setCount(""+response.getTotalitemcount());
+                    new PreferenceManager(CategoryActivity.this).setGrandtoal(""+response.getGrandtoal());
 
                 } else {
                     Toast.makeText(CategoryActivity.this, "" + response.getResponse().getReason(), Toast.LENGTH_SHORT).show();

@@ -1,10 +1,14 @@
 package grossary.cyron.com.grossary.adress;
 
 
+import android.annotation.TargetApi;
 import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.graphics.drawable.ColorDrawable;
+import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TextInputEditText;
@@ -23,10 +27,12 @@ import android.webkit.WebResourceRequest;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import grossary.cyron.com.grossary.R;
@@ -34,6 +40,7 @@ import grossary.cyron.com.grossary.account.LoginModel;
 import grossary.cyron.com.grossary.category.CategoryActivity;
 import grossary.cyron.com.grossary.order.MyOrdersAdapter;
 import grossary.cyron.com.grossary.order.ViewOrderListModel;
+import grossary.cyron.com.grossary.payment.PaymentGatewayRequestModel;
 import grossary.cyron.com.grossary.payment.SubmitTransactionModel;
 import grossary.cyron.com.grossary.profile.GetUserProfileModel;
 import grossary.cyron.com.grossary.profile.ProfileActivity;
@@ -188,16 +195,20 @@ public class AddressFragment extends Fragment {
             Toast.makeText(context, "Enter Zip Code", Toast.LENGTH_SHORT).show();
         } else if (etPhone.getText().toString().equalsIgnoreCase("")) {
             Toast.makeText(context, "Enter Phone", Toast.LENGTH_SHORT).show();
-        } else if (rdCash.isChecked()) {
-            String fullName = etUserName.getText().toString();
-            String address = etAddress.getText().toString();
-            String city = etCity.getText().toString();
-            String state = etState.getText().toString();
-            String zipcode = etZip.getText().toString();
-            String phone = etPhone.getText().toString();
-            String paymode = MAKE_PAYMENT_ONLINE;
-            String shippinfCharge = new PreferenceManager(getActivity()).getShippingCharges();
-            String totalCharge = new PreferenceManager(getActivity()).getCount();
+        }
+        String fullName = etUserName.getText().toString();
+        String address = etAddress.getText().toString();
+        String city = etCity.getText().toString();
+        String state = etState.getText().toString();
+        String zipcode = etZip.getText().toString();
+        String phone = etPhone.getText().toString();
+        String paymode = MAKE_PAYMENT_ONLINE;
+        String shippinfCharge = new PreferenceManager(getActivity()).getShippingCharges();
+        String totalCharge = new PreferenceManager(getActivity()).getGrandtoal();
+
+
+
+        if (rdCash.isChecked()) {
 
             load = new LoadingView(getActivity());
             load.setCancalabe(false);
@@ -207,8 +218,6 @@ public class AddressFragment extends Fragment {
 
             Log.e("URl", "*** " + url);
             final LoginModel res = new PreferenceManager(getActivity()).getLoginModel();
-
-
             Call<SubmitTransactionModel> call = RetrofitClient.getAPIInterface().submitTransaction(url, fullName, address, city, state, zipcode, phone
                     , "" + res.getUserid(), paymode, shippinfCharge, totalCharge);
             Request request = new RetrofitRequest<>(call, new ResponseListener<SubmitTransactionModel>() {
@@ -218,8 +227,9 @@ public class AddressFragment extends Fragment {
                     if (response.getResponse().getResponseval()) {
                         Toast.makeText(getActivity(), "" + response.getResponse().getReason(), Toast.LENGTH_SHORT).show();
                         new PreferenceManager(getActivity()).setShippingCharges("0");
+                        new PreferenceManager(getActivity()).setGrandtoal("0");
                         new PreferenceManager(getActivity()).setCount("0");
-                        getActivity().finish();
+                        showDilogSucess(response);
 
                     } else {
                         Toast.makeText(getActivity(), "" + response.getResponse().getReason(), Toast.LENGTH_SHORT).show();
@@ -240,10 +250,126 @@ public class AddressFragment extends Fragment {
             });
             request.enqueue();
         } else {
-            Toast.makeText(context, "Pay Online", Toast.LENGTH_SHORT).show();
-            String url = "https://paynetzuat.atomtech.in/paynetz/epi/fts?login=197&pass=Test@123&ttype=NBFundTransfer&prodid=NSE&amt=120.00&txncurr=INR&txnscamt=0&clientcode=SmFtZXNCb25k&txnid=BEN000000099&date=23/10/2018%2010:55:38&custacc=1234567890&udf9=Arun%20Manjuanath&ru=http://www.benakasoft.com/Payment/AtomPGResponse&signature=e8d1f6b25118bf735669d5b54dec71c4d699132c5fd376632ba2a9c45a9b438c6daa46b4e2238fe7ceed4931c05686de59b507b4a07cea7d2a4f2acf1abfd5f9";
-            openDilog(url, getActivity());
+
+            load = new LoadingView(getActivity());
+            load.setCancalabe(false);
+            load.showLoading();
+
+            String url = BASE_URL + "/Payment/PaymentGatewayRequest";
+
+            Log.e("URl", "*** " + url);
+            final LoginModel res = new PreferenceManager(getActivity()).getLoginModel();
+            Call<PaymentGatewayRequestModel> call = RetrofitClient.getAPIInterface().paymentGatewayRequest(url, fullName, address, city, state, zipcode, phone
+                    , "" + res.getUserid(), paymode, shippinfCharge, totalCharge);
+            Request request = new RetrofitRequest<>(call, new ResponseListener<PaymentGatewayRequestModel>() {
+                @Override
+                public void onResponse(int code, PaymentGatewayRequestModel response, Headers headers) {
+                    load.dismissLoading();
+                    if (response.getResponse().getResponseVal()) {
+
+                        String tempurl=response.getGatewayURL();
+                        openDilog(tempurl, getActivity());
+
+                    } else {
+                        Toast.makeText(getActivity(), "" + response.getResponse().getReason(), Toast.LENGTH_SHORT).show();
+                    }
+                }
+
+                @Override
+                public void onError(int error) {
+                    load.dismissLoading();
+
+                }
+
+                @Override
+                public void onFailure(Throwable throwable) {
+                    Log.e("respond", "failure ---->");
+                    load.dismissLoading();
+                }
+            });
+            request.enqueue();
         }
+    }
+//    private class WebClient extends WebViewClient {
+//
+//        @Override
+//        public void onPageStarted(WebView view, String url, Bitmap favicon) {
+//            binding.progressBar.setVisibility(View.VISIBLE);
+//            super.onPageStarted(view, url, favicon);
+//        }
+//
+//        @Override
+//        public void onPageFinished(WebView view, String url) {
+//            binding.progressBar.setVisibility(View.GONE);
+//            super.onPageFinished(view, url);
+//        }
+//
+//        @SuppressWarnings("deprecation")
+//        @Override
+//        public boolean shouldOverrideUrlLoading(WebView view, String url) {
+//            return isPaymentConfirm(url);
+//        }
+//
+//        @TargetApi(Build.VERSION_CODES.N)
+//        @Override
+//        public boolean shouldOverrideUrlLoading(WebView view, WebResourceRequest request) {
+//            final Uri uri = request.getUrl();
+//            return isPaymentConfirm(uri.toString());
+//        }
+//
+//    }
+//
+//    private boolean isPaymentConfirm(String url) {
+//        Uri paymentUri = Uri.parse(url);
+//        if (paymentUri.toString().contains("thank-you")) {
+//            if (getActivity() != null)
+//                ((AppointmentListener) getActivity()).onShowMyAppointments();
+//            return true;
+//        } else {
+//            return false;
+//        }
+//    }
+
+    private void showDilogSucess(SubmitTransactionModel response) {
+        final Dialog dialog = new Dialog(context);
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
+        dialog.setContentView(R.layout.dilog_payment_sucess);
+        WindowManager.LayoutParams lp = new WindowManager.LayoutParams();
+        Window window = dialog.getWindow();
+        lp.copyFrom(window.getAttributes());
+        //This makes the dialog take up the full width
+        lp.width = WindowManager.LayoutParams.MATCH_PARENT;
+        lp.height = WindowManager.LayoutParams.WRAP_CONTENT;
+        window.setAttributes(lp);
+        dialog.setCancelable(false);
+        dialog.show();
+
+        Button btnClose=dialog.findViewById(R.id.btnClose);
+        btnClose.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+                getActivity().finish();
+            }
+        });
+        TextView txtPaymentMode=dialog.findViewById(R.id.txtPaymentMode);
+        txtPaymentMode.setText("PayMode : "+response.getPaymode());
+
+        TextView txtCustName=dialog.findViewById(R.id.txtCustName);
+        txtCustName.setText("Name : "+response.getCustomername());
+        TextView txtShipingAddres=dialog.findViewById(R.id.txtShipingAddres);
+        txtShipingAddres.setText("Address : "+response.getShippingaddress());
+        TextView txtTotalAmount=dialog.findViewById(R.id.txtTotalAmount);
+        txtTotalAmount.setText("Total Amount : ₹"+response.getTotalamount());
+        TextView txtTranDate=dialog.findViewById(R.id.txtTranDate);
+        txtTranDate.setText("Transation Date : "+response.getTransactiondate());
+        TextView txtTransNo=dialog.findViewById(R.id.txtTransNo);
+        txtTransNo.setText("transation No : "+response.getTranno());
+        TextView txtPayTranNo=dialog.findViewById(R.id.txtPayTranNo);
+        txtPayTranNo.setText("Payment Tran No : "+response.getPaymenttransactionnumber());
+
+
     }
 
     public void openDilog(String url, final Context context) {
@@ -257,6 +383,7 @@ public class AddressFragment extends Fragment {
         WindowManager.LayoutParams lp = new WindowManager.LayoutParams();
         Window window = dialog.getWindow();
         lp.copyFrom(window.getAttributes());
+        dialog.setCancelable(false);
         //This makes the dialog take up the full width
         lp.width = WindowManager.LayoutParams.MATCH_PARENT;
         lp.height = WindowManager.LayoutParams.WRAP_CONTENT;

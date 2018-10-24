@@ -16,6 +16,7 @@ import grossary.cyron.com.grossary.category.ViewCartItemCountDetailsModel;
 import grossary.cyron.com.grossary.home.HomeModel;
 import grossary.cyron.com.grossary.order.OrderDetailsModel;
 import grossary.cyron.com.grossary.order.ViewOrderListModel;
+import grossary.cyron.com.grossary.payment.PaymentGatewayRequestModel;
 import grossary.cyron.com.grossary.payment.SubmitTransactionModel;
 import grossary.cyron.com.grossary.profile.GetUserProfileModel;
 import grossary.cyron.com.grossary.profile.GetUserProfileUpdateModel;
@@ -79,6 +80,14 @@ public interface APIInterface {
             , @Field("City") String City, @Field("State") String State, @Field("ZipCode") String ZipCode, @Field("Phone") String Phone
             , @Field("UserId") String UserId, @Field("Paymode") String Paymode, @Field("TotalShippingCharges") String TotalShippingCharges
             , @Field("GrandToal") String GrandToal);
+
+    @POST()
+    @FormUrlEncoded
+    Call<PaymentGatewayRequestModel> paymentGatewayRequest(@Url String url, @Field("FullName") String FullName, @Field("Address") String Address
+            , @Field("City") String City, @Field("State") String State, @Field("ZipCode") String ZipCode, @Field("Phone") String Phone
+            , @Field("UserId") String UserId, @Field("Paymode") String Paymode, @Field("TotalShippingCharges") String TotalShippingCharges
+            , @Field("GrandToal") String GrandToal);
+
 
     @POST()
     @FormUrlEncoded
