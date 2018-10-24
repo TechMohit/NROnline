@@ -45,6 +45,7 @@ import static grossary.cyron.com.grossary.utility.Constant.CONSTANT.CHECKOUT;
 import static grossary.cyron.com.grossary.utility.Constant.CONSTANT.MAKE_PAYMENT;
 import static grossary.cyron.com.grossary.utility.Constant.CONSTANT.PLACE_YOUR_ORDER;
 import static grossary.cyron.com.grossary.utility.Constant.CURRENT_STATE.ADDRESS_FRG;
+import static grossary.cyron.com.grossary.utility.Constant.CURRENT_STATE.BRAND_FRG;
 import static grossary.cyron.com.grossary.utility.Constant.CURRENT_STATE.HOME_FRG;
 import static grossary.cyron.com.grossary.utility.Constant.CURRENT_STATE.MY_ORDER_FRG;
 import static grossary.cyron.com.grossary.utility.Constant.CURRENT_STATE.OFFER_FRG;
@@ -80,6 +81,8 @@ public class CategoryActivity extends AppCompatActivity implements FragmentManag
         if (current.equalsIgnoreCase(HOME_FRG)) {
             selectFrag(LIST, getIntent().getStringExtra(ACT_HOME_PARAMETER), current);
         } else if (current.equalsIgnoreCase(OFFER_FRG)) {
+            selectFrag(LIST_DETAILS, getIntent().getStringExtra(ACT_HOME_PARAMETER), current);
+        } else if (current.equalsIgnoreCase(BRAND_FRG)) {
             selectFrag(LIST_DETAILS, getIntent().getStringExtra(ACT_HOME_PARAMETER), current);
         } else if (current.equalsIgnoreCase(SELLER_FRG)) {
             selectFrag(LIST, getIntent().getStringExtra(ACT_HOME_PARAMETER), current);
@@ -197,7 +200,7 @@ public class CategoryActivity extends AppCompatActivity implements FragmentManag
                 arguments.putString(CURRENT_FRG, current);
                 arguments.putString(FRAG_PARAMETER, response);
                 fragment.setArguments(arguments);
-                if (current.equalsIgnoreCase(OFFER_FRG)) {
+                if (current.equalsIgnoreCase(OFFER_FRG)||current.equalsIgnoreCase(BRAND_FRG)) {
                     FragmentHelper.replaceFragment(this, R.id.container, fragment, false, tag);
 
                 } else {

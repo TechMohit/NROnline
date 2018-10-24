@@ -22,7 +22,6 @@ import grossary.cyron.com.grossary.category.CategoryActivity;
 import grossary.cyron.com.grossary.home.HomeModel;
 import grossary.cyron.com.grossary.utility.callback.OnItemClickListener;
 
-import static grossary.cyron.com.grossary.utility.Constant.CURRENT_STATE.HOME_FRG;
 import static grossary.cyron.com.grossary.utility.Constant.CURRENT_STATE.SELLER_FRG;
 import static grossary.cyron.com.grossary.utility.Constant.KEY_NAME.ACT_HOME_PARAMETER;
 import static grossary.cyron.com.grossary.utility.Constant.KEY_NAME.CURRENT_FRG;
@@ -30,10 +29,10 @@ import static grossary.cyron.com.grossary.utility.Constant.KEY_NAME.CURRENT_FRG;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class SellerFragment extends Fragment implements OnItemClickListener<HomeModel.Objstoredetailslist> {
+public class SellerFragment extends Fragment implements OnItemClickListener<HomeModel.ObjStoreDetailsListEntity> {
 
     private RecyclerView recyclerView;
-    private ArrayList<HomeModel.Objstoredetailslist> sellerList = new ArrayList<>();
+    private ArrayList<HomeModel.ObjStoreDetailsListEntity> sellerList = new ArrayList<>();
     private SellersListAdapter adapter;
 
     public SellerFragment() {
@@ -60,7 +59,7 @@ public class SellerFragment extends Fragment implements OnItemClickListener<Home
         if(adapter.getItemCount()<=0)
         {
             if(((HomeActivity)getActivity()).getHomeModel()!=null)
-            setData(((HomeActivity)getActivity()).getHomeModel().objstoredetailslist);
+            setData(((HomeActivity)getActivity()).getHomeModel().getObjStoreDetailsList());
         }
     }
 
@@ -74,7 +73,7 @@ public class SellerFragment extends Fragment implements OnItemClickListener<Home
     }
 
     @Override
-    public void onItemClick(HomeModel.Objstoredetailslist sellersModel, View view, int position,String type) {
+    public void onItemClick(HomeModel.ObjStoreDetailsListEntity sellersModel, View view, int position,String type) {
 
         Intent intent=new Intent(getActivity(),CategoryActivity.class);
         intent.putExtra(CURRENT_FRG,SELLER_FRG);
@@ -83,7 +82,7 @@ public class SellerFragment extends Fragment implements OnItemClickListener<Home
     }
 
 
-    public void setData(List<HomeModel.Objstoredetailslist> sellerList) {
+    public void setData(List<HomeModel.ObjStoreDetailsListEntity> sellerList) {
         if(adapter==null || sellerList==null)
             return;
         if (this.sellerList.size() > 0)
@@ -92,7 +91,7 @@ public class SellerFragment extends Fragment implements OnItemClickListener<Home
         adapter.setAdapterData(this.sellerList);
     }
 
-    public List<HomeModel.Objstoredetailslist> getData() {
+    public List<HomeModel.ObjStoreDetailsListEntity> getData() {
         return sellerList;
     }
 }

@@ -23,11 +23,11 @@ import grossary.cyron.com.grossary.utility.GlideApp;
 public class SlidingImage_Adapter extends PagerAdapter {
 
 
-    private List<HomeModel.ObjOfferImageList> IMAGES;
+    private List<HomeModel.ObjOfferImageListEntity> IMAGES;
     private LayoutInflater inflater;
 
 
-    public SlidingImage_Adapter(Context context, List<HomeModel.ObjOfferImageList> IMAGES) {
+    public SlidingImage_Adapter(Context context, List<HomeModel.ObjOfferImageListEntity> IMAGES) {
         Context context1 = context;
         this.IMAGES=IMAGES;
         inflater = LayoutInflater.from(context);
@@ -53,7 +53,7 @@ public class SlidingImage_Adapter extends PagerAdapter {
 
 
         GlideApp.with(imageView.getContext())
-                .load(IMAGES.get(position).offerImage)
+                .load(IMAGES.get(position).getOfferImage())
                 .centerCrop()
                 .transition(DrawableTransitionOptions.withCrossFade())
                 .placeholder(R.drawable.logo_long)

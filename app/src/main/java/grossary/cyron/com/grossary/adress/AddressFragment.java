@@ -1,7 +1,10 @@
 package grossary.cyron.com.grossary.adress;
 
 
+import android.app.Dialog;
+import android.app.ProgressDialog;
 import android.content.Context;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TextInputEditText;
@@ -12,7 +15,16 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
+import android.view.WindowManager;
+import android.webkit.WebChromeClient;
+import android.webkit.WebResourceError;
+import android.webkit.WebResourceRequest;
+import android.webkit.WebSettings;
+import android.webkit.WebView;
+import android.webkit.WebViewClient;
 import android.widget.CompoundButton;
+import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Toast;
@@ -166,17 +178,17 @@ public class AddressFragment extends Fragment {
     public void callApiSubmitTransaction() {
         if (etUserName.getText().toString().equalsIgnoreCase("")) {
             Toast.makeText(context, "Enter Full Name", Toast.LENGTH_SHORT).show();
-        } else if(etAddress.getText().toString().equalsIgnoreCase("")){
+        } else if (etAddress.getText().toString().equalsIgnoreCase("")) {
             Toast.makeText(context, "Enter Address", Toast.LENGTH_SHORT).show();
-        }else if(etCity.getText().toString().equalsIgnoreCase("")){
+        } else if (etCity.getText().toString().equalsIgnoreCase("")) {
             Toast.makeText(context, "Enter City", Toast.LENGTH_SHORT).show();
-        }else if(etState.getText().toString().equalsIgnoreCase("")){
+        } else if (etState.getText().toString().equalsIgnoreCase("")) {
             Toast.makeText(context, "Enter State", Toast.LENGTH_SHORT).show();
-        }else if(etZip.getText().toString().equalsIgnoreCase("")){
+        } else if (etZip.getText().toString().equalsIgnoreCase("")) {
             Toast.makeText(context, "Enter Zip Code", Toast.LENGTH_SHORT).show();
-        }else if(etPhone.getText().toString().equalsIgnoreCase("")){
+        } else if (etPhone.getText().toString().equalsIgnoreCase("")) {
             Toast.makeText(context, "Enter Phone", Toast.LENGTH_SHORT).show();
-        }else if (rdCash.isChecked()) {
+        } else if (rdCash.isChecked()) {
             String fullName = etUserName.getText().toString();
             String address = etAddress.getText().toString();
             String city = etCity.getText().toString();
@@ -229,9 +241,67 @@ public class AddressFragment extends Fragment {
             request.enqueue();
         } else {
             Toast.makeText(context, "Pay Online", Toast.LENGTH_SHORT).show();
-//            getActivity().finish();
-
+            String url = "https://paynetzuat.atomtech.in/paynetz/epi/fts?login=197&pass=Test@123&ttype=NBFundTransfer&prodid=NSE&amt=120.00&txncurr=INR&txnscamt=0&clientcode=SmFtZXNCb25k&txnid=BEN000000099&date=23/10/2018%2010:55:38&custacc=1234567890&udf9=Arun%20Manjuanath&ru=http://www.benakasoft.com/Payment/AtomPGResponse&signature=e8d1f6b25118bf735669d5b54dec71c4d699132c5fd376632ba2a9c45a9b438c6daa46b4e2238fe7ceed4931c05686de59b507b4a07cea7d2a4f2acf1abfd5f9";
+            openDilog(url, getActivity());
         }
     }
+
+    public void openDilog(String url, final Context context) {
+
+        Log.e("URl", "***Dilog " + url);
+
+        final Dialog dialog = new Dialog(context);
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
+        dialog.setContentView(R.layout.dilog_web);
+        WindowManager.LayoutParams lp = new WindowManager.LayoutParams();
+        Window window = dialog.getWindow();
+        lp.copyFrom(window.getAttributes());
+        //This makes the dialog take up the full width
+        lp.width = WindowManager.LayoutParams.MATCH_PARENT;
+        lp.height = WindowManager.LayoutParams.WRAP_CONTENT;
+        window.setAttributes(lp);
+
+        ImageView img_close = dialog.findViewById(R.id.img_close);
+
+        img_close.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dialog.dismiss();
+            }
+        });
+        WebView webView = (WebView) dialog.findViewById(R.id.webview);
+        final ProgressDialog progressDialog = ProgressDialog.show(context, "", "Loading...", true);
+
+        webView.getSettings().setJavaScriptEnabled(true);
+        webView.getSettings().setPluginState(WebSettings.PluginState.ON);
+        webView.getSettings().setAllowFileAccess(true);
+        webView.loadUrl(url);
+
+        webView.setWebChromeClient(new WebChromeClient() {
+        });
+
+        webView.setWebViewClient(new WebViewClient() {
+            public boolean shouldOverrideUrlLoading(WebView view, String url) {
+                return false;
+            }
+
+            public void onPageFinished(WebView view, String url) {
+                progressDialog.dismiss();
+                dialog.show();
+                //Toast.makeText(context, "Page Load Finished", Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onReceivedError(WebView view, WebResourceRequest request, WebResourceError error) {
+                super.onReceivedError(view, request, error);
+                progressDialog.dismiss();
+                dialog.show();
+            }
+        });
+
+
+    }
+
 
 }

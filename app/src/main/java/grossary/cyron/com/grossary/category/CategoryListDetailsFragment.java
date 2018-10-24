@@ -31,6 +31,7 @@ import okhttp3.Headers;
 import retrofit2.Call;
 
 import static grossary.cyron.com.grossary.utility.Constant.CONSTANT.CHECKOUT;
+import static grossary.cyron.com.grossary.utility.Constant.CURRENT_STATE.BRAND_FRG;
 import static grossary.cyron.com.grossary.utility.Constant.CURRENT_STATE.CATG_LIST_FRG;
 import static grossary.cyron.com.grossary.utility.Constant.CURRENT_STATE.HOME_FRG;
 import static grossary.cyron.com.grossary.utility.Constant.CURRENT_STATE.OFFER_FRG;
@@ -98,7 +99,7 @@ public class CategoryListDetailsFragment extends Fragment {
             }
         });
 
-
+        ((CategoryActivity)getActivity()).callApiCount();
         return view;
     }
 
@@ -139,8 +140,11 @@ public class CategoryListDetailsFragment extends Fragment {
             CategoryModel.Projectlist product = new Gson().fromJson(value, CategoryModel.Projectlist.class);
             productId = "" + product.productDescId;
         } else if (current.equalsIgnoreCase(OFFER_FRG)) {
-            HomeModel.Objofferdetailslist product = new Gson().fromJson(value, HomeModel.Objofferdetailslist.class);
-            productId = "" + product.productdescid;
+            HomeModel.ObjOfferDetailsListEntity product = new Gson().fromJson(value, HomeModel.ObjOfferDetailsListEntity.class);
+            productId = "" + product.getProductId();
+        } else if (current.equalsIgnoreCase(BRAND_FRG)) {
+            HomeModel.ObjOfferProdListEntity product = new Gson().fromJson(value, HomeModel.ObjOfferProdListEntity.class);
+            productId = "" + product.getProductId();
         }
 
         Call<ProductdDescDetailsModel> call = RetrofitClient.getAPIInterface().ProductdDescDetails(url, "" + productId);

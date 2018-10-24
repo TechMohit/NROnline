@@ -206,7 +206,7 @@ public class HomeActivity extends AppCompatActivity implements FragmentManager.O
         LoginModel res = new PreferenceManager(HomeActivity.this).getLoginModel();
 
         Call<HomeModel> call = RetrofitClient.getAPIInterface().homeDetailsAPI(url,
-                res.getMobile());
+                ""+res.getUserid());
         Request request = new RetrofitRequest<>(call, new ResponseListener<HomeModel>() {
             @Override
             public void onResponse(int code, HomeModel response, Headers headers) {
@@ -276,10 +276,10 @@ public class HomeActivity extends AppCompatActivity implements FragmentManager.O
         OffersFragment theFragment = (OffersFragment) fa.getItem(1);
         SellerFragment sellerFragment = (SellerFragment) fa.getItem(2);
         BrandsFragment brandsFragment = (BrandsFragment) fa.getItem(3);
-        homeFragment.setData(homeModel.objcategorylist, response.homeOfferList);
-        theFragment.setData(homeModel.objofferdetailslist);
-        sellerFragment.setData(response.objstoredetailslist);
-        brandsFragment.setData();
+        homeFragment.setData(homeModel.getObjCategoryList(), response.getObjOfferImageList());
+        theFragment.setData(homeModel.getObjOfferDetailsList());
+        sellerFragment.setData(homeModel.getObjStoreDetailsList());
+        brandsFragment.setData(homeModel.getObjOfferProdList());
     }
 
     public HomeModel getHomeModel() {

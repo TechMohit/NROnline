@@ -24,11 +24,11 @@ import static grossary.cyron.com.grossary.utility.Constant.CATEGORY.ONCLICK;
 
 public class SellersListAdapter extends RecyclerView.Adapter {
 
-    private ArrayList<HomeModel.Objstoredetailslist> dataSet;
+    private ArrayList<HomeModel.ObjStoreDetailsListEntity> dataSet;
     private Activity activity;
-    private OnItemClickListener<HomeModel.Objstoredetailslist> clickListener;
+    private OnItemClickListener<HomeModel.ObjStoreDetailsListEntity> clickListener;
 
-    public SellersListAdapter(Activity activity, OnItemClickListener<HomeModel.Objstoredetailslist> clickListener) {
+    public SellersListAdapter(Activity activity, OnItemClickListener<HomeModel.ObjStoreDetailsListEntity> clickListener) {
         this.activity = activity;
         this.clickListener = clickListener;
     }
@@ -36,11 +36,11 @@ public class SellersListAdapter extends RecyclerView.Adapter {
     @Override
     public void onBindViewHolder(final RecyclerView.ViewHolder holder, final int listPosition) {
 
-        final HomeModel.Objstoredetailslist object = dataSet.get(listPosition);
-        ((ImageTypeViewHolder) holder).title.setText(String.format("%s", object.storename));
+        final HomeModel.ObjStoreDetailsListEntity object = dataSet.get(listPosition);
+        ((ImageTypeViewHolder) holder).title.setText(String.format("%s", object.getStoreName()));
 
         GlideApp.with(activity)
-                .load(object.storeimage)
+                .load(object.getStoreImage())
                 .centerCrop()
                 .transition(DrawableTransitionOptions.withCrossFade())
                 .placeholder(R.drawable.logo_long)
@@ -74,7 +74,7 @@ public class SellersListAdapter extends RecyclerView.Adapter {
         return dataSet.size();
     }
 
-    public void setAdapterData(ArrayList<HomeModel.Objstoredetailslist> sellerList) {
+    public void setAdapterData(ArrayList<HomeModel.ObjStoreDetailsListEntity> sellerList) {
         dataSet = sellerList;
         notifyDataSetChanged();
 

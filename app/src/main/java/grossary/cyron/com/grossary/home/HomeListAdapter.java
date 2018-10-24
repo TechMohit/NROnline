@@ -23,11 +23,11 @@ import static grossary.cyron.com.grossary.utility.Constant.CATEGORY.ONCLICK;
 
 public class HomeListAdapter extends RecyclerView.Adapter {
 
-    private ArrayList<HomeModel.Objcategorylist> dataSet;
+    private ArrayList<HomeModel.ObjCategoryListEntity> dataSet;
     private Activity activity;
-    private OnItemClickListener<HomeModel.Objcategorylist> clickListener;
+    private OnItemClickListener<HomeModel.ObjCategoryListEntity> clickListener;
 
-    public HomeListAdapter(Activity activity, OnItemClickListener<HomeModel.Objcategorylist> clickListener) {
+    public HomeListAdapter(Activity activity, OnItemClickListener<HomeModel.ObjCategoryListEntity> clickListener) {
         this.activity = activity;
         this.clickListener = clickListener;
     }
@@ -35,11 +35,11 @@ public class HomeListAdapter extends RecyclerView.Adapter {
     @Override
     public void onBindViewHolder(final RecyclerView.ViewHolder holder, final int listPosition) {
 
-        final HomeModel.Objcategorylist object = dataSet.get(listPosition);
-        ((ImageTypeViewHolder) holder).title.setText(String.format("%s", object.catergoryname));
+        final HomeModel.ObjCategoryListEntity object = dataSet.get(listPosition);
+        ((ImageTypeViewHolder) holder).title.setText(String.format("%s", object.getCatergoryName()));
 
         GlideApp.with(activity)
-                .load(object.catergoryimage)
+                .load(object.getCatergoryImage())
                 .centerCrop()
                 .transition(DrawableTransitionOptions.withCrossFade())
                 .placeholder(R.drawable.logo_long)
@@ -73,7 +73,7 @@ public class HomeListAdapter extends RecyclerView.Adapter {
         return dataSet.size();
     }
 
-    public void setAdapterData(ArrayList<HomeModel.Objcategorylist> sellerList) {
+    public void setAdapterData(ArrayList<HomeModel.ObjCategoryListEntity> sellerList) {
         dataSet = sellerList;
         notifyDataSetChanged();
 

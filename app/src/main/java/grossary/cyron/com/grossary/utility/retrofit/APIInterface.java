@@ -119,7 +119,7 @@ public interface APIInterface {
 
     @POST()
     @FormUrlEncoded
-    Call<HomeModel> homeDetailsAPI(@Url String url, @Field("MobileNumber") String MobileNumber);
+    Call<HomeModel> homeDetailsAPI(@Url String url, @Field("UserId") String UserId);
 
     interface Header {
         String AUTHORIZATION = "Authorization";

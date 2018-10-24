@@ -29,6 +29,7 @@ public class Constant {
     public interface CURRENT_STATE{
         String HOME_FRG="HOME_FRG";
         String OFFER_FRG="OFFER_FRG";
+        String BRAND_FRG="BRAND_FRG";
         String SELLER_FRG="SELLER_FRG";
         String CATG_LIST_FRG="CATG_LIST_FRG";
         String VIEW_CART_FRG="VIEW_CART_FRG";
