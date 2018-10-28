@@ -1,8 +1,13 @@
 package grossary.cyron.com.grossary.account;
 
+import android.Manifest;
 import android.app.Dialog;
+import android.content.IntentFilter;
+import android.content.pm.PackageManager;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.util.Log;
@@ -29,6 +34,11 @@ import static grossary.cyron.com.grossary.utility.Util.validatePassword;
 
 public class SignupActivity extends AppCompatActivity {
 
+    private static final String ACTION_SMS_RECEIVED = "android.provider.Telephony.SMS_RECEIVED";
+    private final static int PERMISSION_REQUEST_READ_SMS = 100;
+    private SMSReceiver smsReceiver;
+    private static final String SMS_ORIGIN_GROSSARY = "PLATRD";
+    public static final String OTP_DELIMITER = "OTP Code:";
 
     private Button btn_register;
     private EditText etUserName, etPassword, etMobile, etEmail, etAddress, etGst;
@@ -55,8 +65,58 @@ public class SignupActivity extends AppCompatActivity {
                 }
             }
         });
+        chaeckPermission();
 
     }
+    private void unregisterSMSReceiver() {
+        if (smsReceiver == null)
+            return;
+        this.unregisterReceiver(smsReceiver);
+    }
+
+
+    private void registerSMSReceiver() {
+        IntentFilter intentFilter = new IntentFilter();
+        intentFilter.addAction(ACTION_SMS_RECEIVED);
+        intentFilter.setPriority(999);
+        this.registerReceiver(smsReceiver = createReceiver(), intentFilter);
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults) {
+        switch (requestCode) {
+            case PERMISSION_REQUEST_READ_SMS: {
+                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    registerSMSReceiver();
+                } else {
+                    // permission denied, boo! Disable the functionality that depends on this permission.
+                }
+                return;
+            }
+
+        }
+    }
+
+    private SMSReceiver createReceiver() {
+        return new SMSReceiver(new SMSReceiver.OnMessageListener() {
+            @Override
+            public void onMessage(String from, String text) {
+                if (!from.toLowerCase().contains(SMS_ORIGIN_GROSSARY.toLowerCase()))
+                    return;
+                String code = null;
+                int index = text.indexOf(OTP_DELIMITER) + 1;
+                if (index != -1 && ((index + 7) < text.length())) {
+                    int start = index + OTP_DELIMITER.length();
+                    int length = text.length();
+                    code = text.substring(start, length);
+                    callApiOtpVerify(code);
+
+                }
+            }
+        });
+    }
+
+
 
     private void openDilogOtp() {
         dialog = new Dialog(SignupActivity.this);
@@ -247,4 +307,41 @@ public class SignupActivity extends AppCompatActivity {
         }
         return true;
     }
+    @Override
+    protected void onStart() {
+        super.onStart();
+        chaeckPermission();
+
+    }
+
+    private void chaeckPermission() {
+        if (ContextCompat.checkSelfPermission(this,
+                Manifest.permission.READ_SMS)
+                != PackageManager.PERMISSION_GRANTED) {
+
+            // Should we show an explanation?
+            if (ActivityCompat.shouldShowRequestPermissionRationale(this,
+                    Manifest.permission.READ_SMS)) {
+
+
+            } else {
+
+
+                ActivityCompat.requestPermissions(this,
+                        new String[]{Manifest.permission.READ_SMS},
+                        PERMISSION_REQUEST_READ_SMS);
+
+            }
+        } else {
+            registerSMSReceiver();
+        }
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        unregisterSMSReceiver();
+
+    }
+
 }

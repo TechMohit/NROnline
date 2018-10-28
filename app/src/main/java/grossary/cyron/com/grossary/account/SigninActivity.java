@@ -334,8 +334,4 @@ public class SigninActivity extends AppCompatActivity {
 
     }
 
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-    }
 }
