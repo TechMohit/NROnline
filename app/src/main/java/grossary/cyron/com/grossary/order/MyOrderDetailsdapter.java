@@ -56,8 +56,7 @@ public class MyOrderDetailsdapter extends RecyclerView.Adapter {
                     .transition(DrawableTransitionOptions.withCrossFade())
                     .placeholder(R.drawable.logo_long)
                     .error(R.drawable.ic_launcher_background)
-                    .skipMemoryCache(true)
-                    .diskCacheStrategy(DiskCacheStrategy.NONE)
+                    .diskCacheStrategy(DiskCacheStrategy.ALL)
                     .into(((ImageTypeViewHolder) holder).imgView);
 
         }

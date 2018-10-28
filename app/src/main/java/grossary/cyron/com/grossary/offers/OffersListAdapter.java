@@ -7,6 +7,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -20,6 +21,7 @@ import grossary.cyron.com.grossary.home.HomeModel;
 import grossary.cyron.com.grossary.utility.GlideApp;
 import grossary.cyron.com.grossary.utility.callback.OnItemClickListener;
 
+import static grossary.cyron.com.grossary.utility.Constant.CATEGORY.ADD_TO_CART;
 import static grossary.cyron.com.grossary.utility.Constant.CATEGORY.ONCLICK;
 
 
@@ -29,7 +31,7 @@ public class OffersListAdapter extends RecyclerView.Adapter {
     private Activity activity;
     private OnItemClickListener<HomeModel.ObjOfferDetailsListEntity> clickListener;
 
-    public OffersListAdapter( Activity activity, OnItemClickListener<HomeModel.ObjOfferDetailsListEntity> clickListener) {
+    public OffersListAdapter(Activity activity, OnItemClickListener<HomeModel.ObjOfferDetailsListEntity> clickListener) {
         this.activity = activity;
         this.clickListener = clickListener;
     }
@@ -39,31 +41,34 @@ public class OffersListAdapter extends RecyclerView.Adapter {
 
         final HomeModel.ObjOfferDetailsListEntity object = dataSet.get(listPosition);
 
-
-        ((ImageTypeViewHolder) holder).tvName.setText(""+object.getProductName());
-        ((ImageTypeViewHolder) holder).tvMrpPrice.setText("\u20B9"+object.getMRPPrice());
+        ((ImageTypeViewHolder) holder).tvName.setText("" + object.getProductName() + "()");
+        ((ImageTypeViewHolder) holder).tvMrpPrice.setText("\u20B9" + object.getMRPPrice());
 
         ((ImageTypeViewHolder) holder).tvMrpPrice.setPaintFlags(((ImageTypeViewHolder) holder).tvMrpPrice.getPaintFlags()
                 | Paint.STRIKE_THRU_TEXT_FLAG);
-        ((ImageTypeViewHolder) holder).tvSellerPrice.setText("\u20B9"+object.getSellingPrice());
+        ((ImageTypeViewHolder) holder).tvSellerPrice.setText("\u20B9" + object.getSellingPrice());
 
-                GlideApp.with(activity)
+        GlideApp.with(activity)
                 .load(object.getProductImage())
                 .centerCrop()
                 .transition(DrawableTransitionOptions.withCrossFade())
                 .placeholder(R.drawable.logo_long)
+                .diskCacheStrategy(DiskCacheStrategy.ALL)
                 .error(R.drawable.ic_launcher_background)
-                .skipMemoryCache(true)
-                .diskCacheStrategy(DiskCacheStrategy.NONE)
                 .into(((ImageTypeViewHolder) holder).imgView);
 
         ((ImageTypeViewHolder) holder).card_parent.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                clickListener.onItemClick(object, ((ImageTypeViewHolder) holder).card_parent, listPosition,ONCLICK);
+                clickListener.onItemClick(object, ((ImageTypeViewHolder) holder).card_parent, listPosition, ONCLICK);
             }
         });
-
+        ((ImageTypeViewHolder) holder).btnAdd.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                clickListener.onItemClick(object, ((ImageTypeViewHolder) holder).card_parent, listPosition, ADD_TO_CART);
+            }
+        });
 
     }
 
@@ -76,7 +81,7 @@ public class OffersListAdapter extends RecyclerView.Adapter {
 
     @Override
     public int getItemCount() {
-        if(dataSet==null)
+        if (dataSet == null)
             return 0;
 
         return dataSet.size();
@@ -84,7 +89,7 @@ public class OffersListAdapter extends RecyclerView.Adapter {
 
     public void setAdapterData(ArrayList<HomeModel.ObjOfferDetailsListEntity> offersList) {
 
-        dataSet=offersList;
+        dataSet = offersList;
         notifyDataSetChanged();
 
     }
@@ -94,7 +99,8 @@ public class OffersListAdapter extends RecyclerView.Adapter {
 
         private CardView card_parent;
         private ImageView imgView;
-        private TextView tvSellerPrice,tvMrpPrice,tvName;
+        private TextView tvSellerPrice, tvMrpPrice, tvName;
+        private Button btnAdd;
 
 
         public ImageTypeViewHolder(View itemView) {
@@ -104,6 +110,7 @@ public class OffersListAdapter extends RecyclerView.Adapter {
             this.tvName = itemView.findViewById(R.id.tvName);
             this.tvMrpPrice = itemView.findViewById(R.id.tvMrpPrice);
             this.tvSellerPrice = itemView.findViewById(R.id.tvSellerPrice);
+            this.btnAdd = itemView.findViewById(R.id.btnAdd);
         }
     }
 

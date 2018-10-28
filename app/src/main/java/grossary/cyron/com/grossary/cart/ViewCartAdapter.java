@@ -56,7 +56,6 @@ public class ViewCartAdapter extends RecyclerView.Adapter {
             ((ImageTypeViewHolder) holder).tvPrice.setText("₹" + String.format("%s", object.getSellingprice()));
 
             //UnitQty in spinner
-
             ((ImageTypeViewHolder) holder).txtCount.setText(""+object.getUnitqty());
 
             GlideApp.with(activity)
@@ -65,8 +64,7 @@ public class ViewCartAdapter extends RecyclerView.Adapter {
                     .transition(DrawableTransitionOptions.withCrossFade())
                     .placeholder(R.drawable.logo_long)
                     .error(R.drawable.ic_launcher_background)
-                    .skipMemoryCache(true)
-                    .diskCacheStrategy(DiskCacheStrategy.NONE)
+                    .diskCacheStrategy(DiskCacheStrategy.ALL)
                     .into(((ImageTypeViewHolder) holder).imgView);
 
 

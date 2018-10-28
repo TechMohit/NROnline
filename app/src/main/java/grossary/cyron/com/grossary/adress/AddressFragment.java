@@ -352,14 +352,13 @@ public class AddressFragment extends Fragment {
                 getActivity().finish();
             }
         });
-        TextView txtShipingAddres=dialog.findViewById(R.id.txtShipingAddres);
-        txtShipingAddres.setText("Address : "+response.getShippingaddress());
+
         TextView txtTotalAmount=dialog.findViewById(R.id.txtTotalAmount);
         txtTotalAmount.setText("Total Amount : ₹"+response.getTotalamount());
         TextView txtTranDate=dialog.findViewById(R.id.txtTranDate);
         txtTranDate.setText("Transation Date : "+response.getTransactiondate());
         TextView txtTransNo=dialog.findViewById(R.id.txtTransNo);
-        txtTransNo.setText("transation No : "+response.getTranno());
+        txtTransNo.setText("Order Number : "+response.getTranno());
 
 
     }

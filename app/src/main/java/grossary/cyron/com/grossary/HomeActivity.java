@@ -32,6 +32,7 @@ import grossary.cyron.com.grossary.account.LoginModel;
 import grossary.cyron.com.grossary.account.SigninActivity;
 import grossary.cyron.com.grossary.adress.AddressFragment;
 import grossary.cyron.com.grossary.brands.BrandsFragment;
+import grossary.cyron.com.grossary.category.AddToCartDetailsModel;
 import grossary.cyron.com.grossary.category.CategoryActivity;
 import grossary.cyron.com.grossary.category.ViewCartItemCountDetailsModel;
 import grossary.cyron.com.grossary.drawer.DrawerFragment;
@@ -189,7 +190,7 @@ public class HomeActivity extends AppCompatActivity implements FragmentManager.O
     }
 
     private void setHome() {
-        callApiCount();
+
         callHomeApi();
 
     }
@@ -210,6 +211,7 @@ public class HomeActivity extends AppCompatActivity implements FragmentManager.O
         Request request = new RetrofitRequest<>(call, new ResponseListener<HomeModel>() {
             @Override
             public void onResponse(int code, HomeModel response, Headers headers) {
+                callApiCount();
                 load.dismissLoading();
                 setHomeModel(response);
                 layConnection.setVisibility(View.GONE);
@@ -251,7 +253,7 @@ public class HomeActivity extends AppCompatActivity implements FragmentManager.O
         tabLayout.getTabAt(2).setCustomView(tabThree);
 
         TextView tabFour = (TextView) LayoutInflater.from(this).inflate(R.layout.custom_tab, null);
-        tabFour.setText("Brands");
+        tabFour.setText("Spl.Offer");
         tabFour.setCompoundDrawablesWithIntrinsicBounds(0, tabIcons[3], 0, 0);
         tabLayout.getTabAt(3).setCustomView(tabFour);
     }
@@ -416,6 +418,52 @@ public class HomeActivity extends AppCompatActivity implements FragmentManager.O
         });
         request.enqueue();
     }
+
+    public void callApiAddtoCart(String productDescId, String productId, String stroeId, String sellingPrice, String qty) {
+
+        load = new LoadingView(HomeActivity.this);
+        load.setCancalabe(false);
+        load.showLoading();
+
+        String url = BASE_URL + "/ShoppingCart/AddToCartDetails";
+
+        Log.e("URl", "*** " + url);
+        LoginModel res = new PreferenceManager(HomeActivity.this).getLoginModel();
+
+
+        Call<AddToCartDetailsModel> call = RetrofitClient.getAPIInterface().addToCartDetails(url, "" + res.getUserid(),
+                "" + productDescId,
+                "" + productId,
+                "" + stroeId,
+                "" + sellingPrice, "" + qty);
+        Request request = new RetrofitRequest<>(call, new ResponseListener<AddToCartDetailsModel>() {
+            @Override
+            public void onResponse(int code, AddToCartDetailsModel response, Headers headers) {
+                load.dismissLoading();
+                if (response.getResponse().getResponseval()) {
+                    callApiCount();
+                    Toast.makeText(HomeActivity.this, "" + response.getResponse().getReason(), Toast.LENGTH_SHORT).show();
+
+                } else {
+                    Toast.makeText(HomeActivity.this, "" + response.getResponse().getReason(), Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onError(int error) {
+                load.dismissLoading();
+
+            }
+
+            @Override
+            public void onFailure(Throwable throwable) {
+                Log.e("respond", "failure ---->");
+                load.dismissLoading();
+            }
+        });
+        request.enqueue();
+    }
+
 
 
 }

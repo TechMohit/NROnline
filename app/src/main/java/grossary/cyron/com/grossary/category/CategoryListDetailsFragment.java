@@ -155,7 +155,7 @@ public class CategoryListDetailsFragment extends Fragment {
                 responseMain = response;
                 if (response.response.responseval) {
 
-                    tvProductName.setText(String.format("%s", response.productName));
+                    tvProductName.setText(String.format("%s", response.productName)+"("+response.storeName+")");
                     tvDesc.setText(String.format("%s", response.subProductQTY));
                     tvSellingPrice.setText("₹" + String.format("%s", response.sellingPrice));
                     tvMrpPrice.setText(String.format("%s", "(₹" + response.mRPPrice + ")"));
@@ -167,8 +167,7 @@ public class CategoryListDetailsFragment extends Fragment {
                             .transition(DrawableTransitionOptions.withCrossFade())
                             .placeholder(R.drawable.logo_long)
                             .error(R.drawable.ic_launcher_background)
-                            .skipMemoryCache(true)
-                            .diskCacheStrategy(DiskCacheStrategy.NONE)
+                            .diskCacheStrategy(DiskCacheStrategy.ALL)
                             .into(imgProduct);
 
 
