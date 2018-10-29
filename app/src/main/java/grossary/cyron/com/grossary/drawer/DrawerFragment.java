@@ -73,8 +73,8 @@ public class DrawerFragment extends Fragment implements OnItemClickListener {
         DrawerItem drawerItem = new DrawerItem();
         drawerItem.setText("Home");
         drawerItem.setTag(MY_HOME);
-        drawerItem.setIcon(R.drawable.home_pink);
-        drawerItem.setIconUnSelect(R.drawable.home_white);
+        drawerItem.setIcon(R.mipmap.home_icon_pink);
+        drawerItem.setIconUnSelect(R.mipmap.home_icon);
         newsList.add(drawerItem);
 
         DrawerItem drawerItem1 = new DrawerItem();
@@ -87,8 +87,8 @@ public class DrawerFragment extends Fragment implements OnItemClickListener {
         DrawerItem drawerItem2 = new DrawerItem();
         drawerItem2.setText("My Orders");
         drawerItem2.setTag(Constant.NAV_DRAWER.MY_ORDER);
-        drawerItem2.setIcon(R.drawable.online_order_pink);
-        drawerItem2.setIconUnSelect(R.drawable.online_order);
+        drawerItem2.setIcon(R.mipmap.online_order_pink);
+        drawerItem2.setIconUnSelect(R.mipmap.online_order);
         newsList.add(drawerItem2);
 
         DrawerItem drawerItem3 = new DrawerItem();
