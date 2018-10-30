@@ -23,6 +23,8 @@ import grossary.cyron.com.grossary.home.HomeModel;
 import grossary.cyron.com.grossary.sellers.SellersListAdapter;
 import grossary.cyron.com.grossary.utility.callback.OnItemClickListener;
 
+import static grossary.cyron.com.grossary.utility.Constant.CATEGORY.ADD_TO_CART;
+import static grossary.cyron.com.grossary.utility.Constant.CATEGORY.ONCLICK;
 import static grossary.cyron.com.grossary.utility.Constant.CURRENT_STATE.BRAND_FRG;
 import static grossary.cyron.com.grossary.utility.Constant.CURRENT_STATE.OFFER_FRG;
 import static grossary.cyron.com.grossary.utility.Constant.KEY_NAME.ACT_HOME_PARAMETER;
@@ -35,7 +37,7 @@ public class BrandsFragment extends Fragment implements OnItemClickListener<Home
 
     private RecyclerView recyclerView;
     private ArrayList<HomeModel.ObjOfferProdListEntity> brandsList = new ArrayList<>();
-    private ArrayList<HomeModel.ObjOfferProdListEntity> objofferprodlist=new ArrayList<>();
+    private ArrayList<HomeModel.ObjOfferProdListEntity> objofferprodlist = new ArrayList<>();
     private BrandsListAdapter adapter;
 
     public BrandsFragment() {
@@ -56,17 +58,16 @@ public class BrandsFragment extends Fragment implements OnItemClickListener<Home
     }
 
 
-
     private void initView(View view) {
         recyclerView = view.findViewById(R.id.recycle_view);
     }
+
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        if(adapter.getItemCount()<=0)
-        {
-            if(((HomeActivity)getActivity()).getHomeModel()!=null)
-                setData(((HomeActivity)getActivity()).getHomeModel().getObjOfferProdList());
+        if (adapter.getItemCount() <= 0) {
+            if (((HomeActivity) getActivity()).getHomeModel() != null)
+                setData(((HomeActivity) getActivity()).getHomeModel().getObjOfferProdList());
 
         }
     }
@@ -77,17 +78,24 @@ public class BrandsFragment extends Fragment implements OnItemClickListener<Home
     }
 
     @Override
-    public void onItemClick(HomeModel.ObjOfferProdListEntity brandsModel, View view, int position,String type) {
+    public void onItemClick(HomeModel.ObjOfferProdListEntity brandsModel, View view, int position, String type) {
 
-        Intent intent=new Intent(getActivity(),CategoryActivity.class);
-        intent.putExtra(CURRENT_FRG,BRAND_FRG);
-        intent.putExtra(ACT_HOME_PARAMETER,new Gson().toJson(brandsModel));
-        startActivity(intent);
+        if (type.equalsIgnoreCase(ONCLICK)) {
+
+            Intent intent = new Intent(getActivity(), CategoryActivity.class);
+            intent.putExtra(CURRENT_FRG, BRAND_FRG);
+            intent.putExtra(ACT_HOME_PARAMETER, new Gson().toJson(brandsModel));
+            startActivity(intent);
+        } else if (type.equalsIgnoreCase(ADD_TO_CART)) {
+
+            ((HomeActivity) getActivity()).callApiAddtoCart("" + brandsModel.getProductDescId(), "" + brandsModel.getProductId(),
+                    brandsModel.getStoreId()+"", brandsModel.getSellingPrice(), "1");
+        }
     }
 
     public void setData(List<HomeModel.ObjOfferProdListEntity> objofferprodlist) {
 
-        if(adapter==null || objofferprodlist==null)
+        if (adapter == null || objofferprodlist == null)
             return;
         if (this.objofferprodlist.size() > 0)
             this.objofferprodlist.clear();

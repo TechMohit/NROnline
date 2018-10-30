@@ -59,6 +59,7 @@ public class Constant {
         String LIST="Category_list";
         String LIST_DETAILS="Category_list_details";
         String ADD="ADD";
+        String ADD_TO_CART="ADD_TO_CART";
         String MIN="MIN";
         String ONCLICK="ONCLICK";
         String DELETE="DELETE";

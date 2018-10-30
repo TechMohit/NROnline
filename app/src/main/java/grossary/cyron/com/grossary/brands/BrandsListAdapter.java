@@ -7,6 +7,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -18,10 +19,12 @@ import java.util.List;
 
 import grossary.cyron.com.grossary.R;
 import grossary.cyron.com.grossary.home.HomeModel;
+import grossary.cyron.com.grossary.offers.OffersListAdapter;
 import grossary.cyron.com.grossary.sellers.SellersListAdapter;
 import grossary.cyron.com.grossary.utility.GlideApp;
 import grossary.cyron.com.grossary.utility.callback.OnItemClickListener;
 
+import static grossary.cyron.com.grossary.utility.Constant.CATEGORY.ADD_TO_CART;
 import static grossary.cyron.com.grossary.utility.Constant.CATEGORY.ONCLICK;
 
 
@@ -40,7 +43,7 @@ public class BrandsListAdapter extends RecyclerView.Adapter {
     public void onBindViewHolder(final RecyclerView.ViewHolder holder, final int listPosition) {
 
         final HomeModel.ObjOfferProdListEntity object = dataSet.get(listPosition);
-        ((ImageTypeViewHolder) holder).tvName.setText(""+object.getProductName());
+        ((ImageTypeViewHolder) holder).tvName.setText(""+object.getProductName()+"("+object.getStoreName()+")");
         ((ImageTypeViewHolder) holder).tvMrpPrice.setText("\u20B9"+object.getMRPPrice());
 
         ((ImageTypeViewHolder) holder).tvMrpPrice.setPaintFlags(((ImageTypeViewHolder) holder).tvMrpPrice.getPaintFlags()
@@ -53,8 +56,7 @@ public class BrandsListAdapter extends RecyclerView.Adapter {
                 .transition(DrawableTransitionOptions.withCrossFade())
                 .placeholder(R.drawable.logo_long)
                 .error(R.drawable.ic_launcher_background)
-                .skipMemoryCache(true)
-                .diskCacheStrategy(DiskCacheStrategy.NONE)
+                .diskCacheStrategy(DiskCacheStrategy.ALL)
                 .into(((ImageTypeViewHolder) holder).imgView);
 
         ((ImageTypeViewHolder) holder).card_parent.setOnClickListener(new View.OnClickListener() {
@@ -64,7 +66,12 @@ public class BrandsListAdapter extends RecyclerView.Adapter {
             }
         });
 
-
+        ((ImageTypeViewHolder) holder).btnAdd.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                clickListener.onItemClick(object, ((ImageTypeViewHolder) holder).card_parent, listPosition,ADD_TO_CART);
+            }
+        });
 
     }
 
@@ -93,7 +100,7 @@ public class BrandsListAdapter extends RecyclerView.Adapter {
         private CardView card_parent;
         private ImageView imgView;
         private TextView tvSellerPrice,tvMrpPrice,tvName;
-
+        private Button btnAdd;
 
         public ImageTypeViewHolder(View itemView) {
             super(itemView);
@@ -102,6 +109,7 @@ public class BrandsListAdapter extends RecyclerView.Adapter {
             this.tvName = itemView.findViewById(R.id.tvName);
             this.tvMrpPrice = itemView.findViewById(R.id.tvMrpPrice);
             this.tvSellerPrice = itemView.findViewById(R.id.tvSellerPrice);
+            this.btnAdd=itemView.findViewById(R.id.btnAdd);
         }
     }
 

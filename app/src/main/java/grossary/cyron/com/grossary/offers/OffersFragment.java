@@ -22,6 +22,8 @@ import grossary.cyron.com.grossary.category.CategoryActivity;
 import grossary.cyron.com.grossary.home.HomeModel;
 import grossary.cyron.com.grossary.utility.callback.OnItemClickListener;
 
+import static grossary.cyron.com.grossary.utility.Constant.CATEGORY.ADD_TO_CART;
+import static grossary.cyron.com.grossary.utility.Constant.CATEGORY.ONCLICK;
 import static grossary.cyron.com.grossary.utility.Constant.CURRENT_STATE.OFFER_FRG;
 import static grossary.cyron.com.grossary.utility.Constant.KEY_NAME.ACT_HOME_PARAMETER;
 import static grossary.cyron.com.grossary.utility.Constant.KEY_NAME.CURRENT_FRG;
@@ -77,10 +79,16 @@ public class OffersFragment extends Fragment implements OnItemClickListener<Home
     @Override
     public void onItemClick(HomeModel.ObjOfferDetailsListEntity OffersModel, View view, int position,String type) {
 
-        Intent intent=new Intent(getActivity(),CategoryActivity.class);
-        intent.putExtra(CURRENT_FRG,OFFER_FRG);
-        intent.putExtra(ACT_HOME_PARAMETER,new Gson().toJson(OffersModel));
-        startActivity(intent);
+        if(type.equalsIgnoreCase(ONCLICK)) {
+            Intent intent = new Intent(getActivity(), CategoryActivity.class);
+            intent.putExtra(CURRENT_FRG, OFFER_FRG);
+            intent.putExtra(ACT_HOME_PARAMETER, new Gson().toJson(OffersModel));
+            startActivity(intent);
+        }else if(type.equalsIgnoreCase(ADD_TO_CART)){
+
+            ((HomeActivity)getActivity()).callApiAddtoCart(""+OffersModel.getProductDescId(),""+OffersModel.getProductId(),
+                    "",OffersModel.getSellingPrice(),"1");
+        }
     }
 
     public void setData(List<HomeModel.ObjOfferDetailsListEntity> offersList) {

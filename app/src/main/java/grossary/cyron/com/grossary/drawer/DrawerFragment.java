@@ -73,50 +73,50 @@ public class DrawerFragment extends Fragment implements OnItemClickListener {
         DrawerItem drawerItem = new DrawerItem();
         drawerItem.setText("Home");
         drawerItem.setTag(MY_HOME);
-        drawerItem.setIcon(R.drawable.home_pink);
-        drawerItem.setIconUnSelect(R.drawable.home_white);
+        drawerItem.setIcon(R.mipmap.home_icon_pink);
+        drawerItem.setIconUnSelect(R.mipmap.home_icon);
         newsList.add(drawerItem);
 
         DrawerItem drawerItem1 = new DrawerItem();
         drawerItem1.setText("My Profile");
         drawerItem1.setTag(Constant.NAV_DRAWER.MY_PROFILE);
-        drawerItem1.setIcon(R.drawable.user_pink);
-        drawerItem1.setIconUnSelect(R.drawable.user);
+        drawerItem1.setIcon(R.mipmap.user_pink);
+        drawerItem1.setIconUnSelect(R.mipmap.user);
         newsList.add(drawerItem1);
 
         DrawerItem drawerItem2 = new DrawerItem();
         drawerItem2.setText("My Orders");
         drawerItem2.setTag(Constant.NAV_DRAWER.MY_ORDER);
-        drawerItem2.setIcon(R.drawable.online_order_pink);
-        drawerItem2.setIconUnSelect(R.drawable.online_order);
+        drawerItem2.setIcon(R.mipmap.online_order_pink);
+        drawerItem2.setIconUnSelect(R.mipmap.online_order);
         newsList.add(drawerItem2);
 
         DrawerItem drawerItem3 = new DrawerItem();
         drawerItem3.setText("Terms & Condition");
         drawerItem3.setTag("TERMS_&_CONDITION");
-        drawerItem3.setIcon(R.drawable.terms_pink);
-        drawerItem3.setIconUnSelect(R.drawable.terms);
+        drawerItem3.setIcon(R.mipmap.terms_pink);
+        drawerItem3.setIconUnSelect(R.mipmap.terms);
         newsList.add(drawerItem3);
 
         DrawerItem drawerItem4 = new DrawerItem();
         drawerItem4.setText("Privacy Policy");
         drawerItem4.setTag(Constant.NAV_DRAWER.PRIVICY);
-        drawerItem4.setIcon(R.drawable.keyhole_pink);
-        drawerItem4.setIconUnSelect(R.drawable.keyhole);
+        drawerItem4.setIcon(R.mipmap.keyhole_pink);
+        drawerItem4.setIconUnSelect(R.mipmap.keyhole);
         newsList.add(drawerItem4);
 
         DrawerItem drawerItem5 = new DrawerItem();
         drawerItem5.setText("About Us");
         drawerItem5.setTag("ABOUT_US");
-        drawerItem5.setIcon(R.drawable.online_shop_pink);
-        drawerItem5.setIconUnSelect(R.drawable.online_shop);
+        drawerItem5.setIcon(R.mipmap.online_shop_pink);
+        drawerItem5.setIconUnSelect(R.mipmap.online_shop);
         newsList.add(drawerItem5);
 
         DrawerItem drawerItem6 = new DrawerItem();
         drawerItem6.setText("Log Out");
         drawerItem6.setTag(Constant.NAV_DRAWER.LOG_OUT);
-        drawerItem6.setIcon(R.drawable.logout);
-        drawerItem6.setIconUnSelect(R.drawable.logout_white);
+        drawerItem6.setIcon(R.mipmap.logout_pink);
+        drawerItem6.setIconUnSelect(R.mipmap.logout);
         newsList.add(drawerItem6);
         
         adapter = new DrawerAdapter(getActivity(), newsList, this);

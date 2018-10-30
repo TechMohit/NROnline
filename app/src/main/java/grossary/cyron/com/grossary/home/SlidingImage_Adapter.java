@@ -58,8 +58,7 @@ public class SlidingImage_Adapter extends PagerAdapter {
                 .transition(DrawableTransitionOptions.withCrossFade())
                 .placeholder(R.drawable.logo_long)
                 .error(R.drawable.ic_launcher_background)
-                .skipMemoryCache(true)
-                .diskCacheStrategy(DiskCacheStrategy.NONE)
+                .diskCacheStrategy(DiskCacheStrategy.ALL)
                 .into(imageView);
 
         view.addView(imageLayout, 0);

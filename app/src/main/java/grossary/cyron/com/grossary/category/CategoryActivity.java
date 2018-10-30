@@ -102,12 +102,20 @@ public class CategoryActivity extends AppCompatActivity implements FragmentManag
 
                 if (txtCheckout.getText().toString().equalsIgnoreCase(CHECKOUT))
                     selectFrag(VIEW_CART, "2", VIEW_CART_FRG);
-                else if (txtCheckout.getText().toString().equalsIgnoreCase(PLACE_YOUR_ORDER))
-                    selectFrag(ADDRESS, "", ADDRESS_FRG);
-                else if(txtCheckout.getText().toString().equalsIgnoreCase(MAKE_PAYMENT)) {
-                    AddressFragment fragment = (AddressFragment) FragmentHelper.getFragment(CategoryActivity.this, ADDRESS);
-                    if(fragment!=null)
-                    fragment.callApiSubmitTransaction();
+                else if (txtCheckout.getText().toString().equalsIgnoreCase(PLACE_YOUR_ORDER)) {
+                    String count = new PreferenceManager(CategoryActivity.this).getCount();
+
+                    if (count.equals("0")) {
+                        Toast.makeText(CategoryActivity.this, "Please Add few Items in cart", Toast.LENGTH_SHORT).show();
+                    } else {
+                        selectFrag(ADDRESS, "", ADDRESS_FRG);
+                    }
+                }else if(txtCheckout.getText().toString().equalsIgnoreCase(MAKE_PAYMENT)) {
+
+                        AddressFragment fragment = (AddressFragment) FragmentHelper.getFragment(CategoryActivity.this, ADDRESS);
+                        if (fragment != null)
+                            fragment.callApiSubmitTransaction();
+
                 }
             }
         });

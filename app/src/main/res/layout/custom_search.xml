@@ -22,7 +22,7 @@
             android:layout_height="25dp"
             android:layout_centerVertical="true"
             android:layout_alignParentLeft="true"
-            android:background="@drawable/back_arrow"/>
+            android:background="@mipmap/back_arrow"/>
 
         <EditText
             android:id="@+id/etSearch"

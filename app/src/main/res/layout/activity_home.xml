@@ -23,7 +23,7 @@
                 android:layout_height="20dp"
                 android:layout_centerVertical="true"
                 android:layout_marginLeft="10dp"
-                android:background="@drawable/ham_logo" />
+                android:background="@drawable/ic_launcher_background" />
 
             <TextView
                 android:id="@+id/tv_toolbar"
@@ -41,11 +41,11 @@
                 android:id="@+id/imgSearch"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_toLeftOf="@+id/img_cart"
                 android:layout_centerVertical="true"
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"
-                android:background="@drawable/search_icon" />
+                android:layout_toLeftOf="@+id/img_cart"
+                android:background="@mipmap/search_icon" />
 
             <ImageView
                 android:id="@+id/img_cart"
@@ -55,16 +55,16 @@
                 android:layout_centerVertical="true"
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="20dp"
-                android:background="@drawable/cart" />
+                android:background="@mipmap/shopping_cart_white" />
 
             <TextView
                 android:id="@+id/tvCartCount"
                 android:layout_width="20dp"
                 android:layout_height="20dp"
                 android:layout_alignParentRight="true"
-                android:layout_marginEnd="8dp"
                 android:layout_marginTop="5dp"
-                android:background="@drawable/red_dot"
+                android:layout_marginEnd="8dp"
+                android:background="@mipmap/oval_pink"
                 android:gravity="center"
                 android:text="0"
                 android:textColor="@android:color/white"
@@ -87,16 +87,17 @@
             android:layout_height="match_parent"
             app:layout_behavior="@string/appbar_scrolling_view_behavior" />
     </LinearLayout>
+
     <FrameLayout
         android:id="@+id/layConnection"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
+
         <include
             layout="@layout/layout_connection_error"
             android:visibility="visible"></include>
 
     </FrameLayout>
-
 
     <FrameLayout
         android:id="@+id/navigation_container"
