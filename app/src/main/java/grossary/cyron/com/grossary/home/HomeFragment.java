@@ -126,7 +126,6 @@ public class HomeFragment extends Fragment implements OnItemClickListener<HomeMo
 
     public void setData(List<HomeModel.ObjCategoryListEntity> data, List<HomeModel.ObjOfferImageListEntity> homeOfferList) {
 
-
         if(adapter==null || data==null || homeOfferList==null)
             return;
         if(this.homeOfferList.size()>0)

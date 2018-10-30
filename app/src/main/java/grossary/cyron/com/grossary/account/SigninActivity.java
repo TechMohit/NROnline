@@ -77,8 +77,9 @@ public class SigninActivity extends AppCompatActivity {
         if (new PreferenceManager(SigninActivity.this).getAutoLogin()) {
             startActivity(new Intent(SigninActivity.this, HomeActivity.class));
             finish();
+        }else {
+            chaeckPermission();
         }
-        chaeckPermission();
     }
 
 
@@ -300,7 +301,7 @@ public class SigninActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
-        chaeckPermission();
+//        chaeckPermission();
 
     }
 

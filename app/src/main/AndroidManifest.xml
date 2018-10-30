@@ -15,18 +15,30 @@
         android:roundIcon="@drawable/logo_icon"
         android:supportsRtl="true"
         android:theme="@style/AppTheme.NoActionBar">
-        <activity android:name=".account.SigninActivity">
+        <activity
+            android:name=".account.SigninActivity"
+            android:configChanges="orientation|screenSize">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".account.SignupActivity" />
-        <activity android:name=".profile.ProfileActivity" />
-        <activity android:name=".HomeActivity" />
-        <activity android:name=".category.CategoryActivity" />
-        <activity android:name=".webview.WebViewActivity"></activity>
+        <activity
+            android:name=".account.SignupActivity"
+            android:configChanges="orientation|screenSize" />
+        <activity
+            android:name=".profile.ProfileActivity"
+            android:configChanges="orientation|screenSize" />
+        <activity
+            android:name=".HomeActivity"
+            android:configChanges="orientation|screenSize" />
+        <activity
+            android:name=".category.CategoryActivity"
+            android:configChanges="orientation|screenSize" />
+        <activity
+            android:name=".webview.WebViewActivity"
+            android:configChanges="orientation|screenSize"></activity>
     </application>
 
 </manifest>

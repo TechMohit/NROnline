@@ -1,10 +1,13 @@
 package grossary.cyron.com.grossary.home;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
 
-public class HomeModel {
+public class HomeModel implements Parcelable {
 
 
     @SerializedName("Response")
@@ -23,6 +26,52 @@ public class HomeModel {
     private List<ObjStoreDetailsListEntity> objStoreDetailsList;
     @SerializedName("objCategoryList")
     private List<ObjCategoryListEntity> objCategoryList;
+
+    public HomeModel(){
+
+    }
+    public HomeModel(Parcel in) {
+        Status = in.readString();
+        Response=in.readParcelable(ResponseEntity.class.getClassLoader());
+        objTotalCartItemCount=in.readParcelable(ObjTotalCartItemCountEntity.class.getClassLoader());
+        objOfferProdList=in.readParcelable(ObjOfferProdListEntity.class.getClassLoader());
+        objOfferImageList=in.readParcelable(ObjOfferImageListEntity.class.getClassLoader());
+        objOfferDetailsList=in.readParcelable(ObjOfferDetailsListEntity.class.getClassLoader());
+        objStoreDetailsList=in.readParcelable(ObjStoreDetailsListEntity.class.getClassLoader());
+        objCategoryList=in.readParcelable(ObjCategoryListEntity.class.getClassLoader());
+
+    }
+
+
+    public  final Creator<HomeModel> CREATOR = new Creator<HomeModel>() {
+        @Override
+        public HomeModel createFromParcel(Parcel in) {
+            return new HomeModel(in);
+        }
+
+        @Override
+        public HomeModel[] newArray(int size) {
+            return new HomeModel[size];
+        }
+    };
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(Status);
+        dest.writeParcelable(Response,flags);
+        dest.writeParcelable(objTotalCartItemCount,flags);
+        dest.writeTypedList( objOfferProdList);
+        dest.writeTypedList(objOfferImageList);
+        dest.writeTypedList(objOfferDetailsList);
+        dest.writeTypedList(objStoreDetailsList);
+        dest.writeTypedList(objCategoryList);
+
+    }
 
     public ResponseEntity getResponse() {
         return Response;
@@ -88,11 +137,30 @@ public class HomeModel {
         this.objCategoryList = objCategoryList;
     }
 
-    public static class ResponseEntity {
+
+
+    public  class ResponseEntity implements Parcelable {
         @SerializedName("Reason")
         private String Reason;
         @SerializedName("ResponseVal")
         private boolean ResponseVal;
+
+        protected ResponseEntity(Parcel in) {
+            Reason = in.readString();
+            ResponseVal = in.readByte() != 0;
+        }
+
+        public  final Creator<ResponseEntity> CREATOR = new Creator<ResponseEntity>() {
+            @Override
+            public ResponseEntity createFromParcel(Parcel in) {
+                return new ResponseEntity(in);
+            }
+
+            @Override
+            public ResponseEntity[] newArray(int size) {
+                return new ResponseEntity[size];
+            }
+        };
 
         public String getReason() {
             return Reason;
@@ -109,11 +177,38 @@ public class HomeModel {
         public void setResponseVal(boolean ResponseVal) {
             this.ResponseVal = ResponseVal;
         }
+
+        @Override
+        public int describeContents() {
+            return 0;
+        }
+
+        @Override
+        public void writeToParcel(Parcel dest, int flags) {
+            dest.writeString(Reason);
+            dest.writeByte((byte) (ResponseVal ? 1 : 0));
+        }
     }
 
-    public static class ObjTotalCartItemCountEntity {
+    public  class ObjTotalCartItemCountEntity implements Parcelable {
         @SerializedName("TotalItemCount")
         private int TotalItemCount;
+
+        protected ObjTotalCartItemCountEntity(Parcel in) {
+            TotalItemCount = in.readInt();
+        }
+
+        public  final Creator<ObjTotalCartItemCountEntity> CREATOR = new Creator<ObjTotalCartItemCountEntity>() {
+            @Override
+            public ObjTotalCartItemCountEntity createFromParcel(Parcel in) {
+                return new ObjTotalCartItemCountEntity(in);
+            }
+
+            @Override
+            public ObjTotalCartItemCountEntity[] newArray(int size) {
+                return new ObjTotalCartItemCountEntity[size];
+            }
+        };
 
         public int getTotalItemCount() {
             return TotalItemCount;
@@ -122,9 +217,19 @@ public class HomeModel {
         public void setTotalItemCount(int TotalItemCount) {
             this.TotalItemCount = TotalItemCount;
         }
+
+        @Override
+        public int describeContents() {
+            return 0;
+        }
+
+        @Override
+        public void writeToParcel(Parcel dest, int flags) {
+            dest.writeInt(TotalItemCount);
+        }
     }
 
-    public static class ObjOfferProdListEntity {
+    public class ObjOfferProdListEntity implements Parcelable {
         @SerializedName("ShippingCharge")
         private String ShippingCharge;
         @SerializedName("SubProductDesc")
@@ -147,6 +252,32 @@ public class HomeModel {
         private int StoreId;
         @SerializedName("ProductId")
         private int ProductId;
+
+        protected ObjOfferProdListEntity(Parcel in) {
+            ShippingCharge = in.readString();
+            SubProductDesc = in.readString();
+            SubProductQTY = in.readString();
+            SellingPrice = in.readString();
+            MRPPrice = in.readString();
+            StoreName = in.readString();
+            ProductImage = in.readString();
+            ProductName = in.readString();
+            ProductDescId = in.readInt();
+            StoreId = in.readInt();
+            ProductId = in.readInt();
+        }
+
+        public final Creator<ObjOfferProdListEntity> CREATOR = new Creator<ObjOfferProdListEntity>() {
+            @Override
+            public ObjOfferProdListEntity createFromParcel(Parcel in) {
+                return new ObjOfferProdListEntity(in);
+            }
+
+            @Override
+            public ObjOfferProdListEntity[] newArray(int size) {
+                return new ObjOfferProdListEntity[size];
+            }
+        };
 
         public String getShippingCharge() {
             return ShippingCharge;
@@ -235,13 +366,50 @@ public class HomeModel {
         public void setProductId(int ProductId) {
             this.ProductId = ProductId;
         }
+
+        @Override
+        public int describeContents() {
+            return 0;
+        }
+
+        @Override
+        public void writeToParcel(Parcel dest, int flags) {
+            dest.writeString(ShippingCharge);
+            dest.writeString(SubProductDesc);
+            dest.writeString(SubProductQTY);
+            dest.writeString(SellingPrice);
+            dest.writeString(MRPPrice);
+            dest.writeString(StoreName);
+            dest.writeString(ProductImage);
+            dest.writeString(ProductName);
+            dest.writeInt(ProductDescId);
+            dest.writeInt(StoreId);
+            dest.writeInt(ProductId);
+        }
     }
 
-    public static class ObjOfferImageListEntity {
+    public  class ObjOfferImageListEntity implements Parcelable{
         @SerializedName("OfferImage")
         private String OfferImage;
         @SerializedName("OfferId")
         private int OfferId;
+
+        protected ObjOfferImageListEntity(Parcel in) {
+            OfferImage = in.readString();
+            OfferId = in.readInt();
+        }
+
+        public  final Creator<ObjOfferImageListEntity> CREATOR = new Creator<ObjOfferImageListEntity>() {
+            @Override
+            public ObjOfferImageListEntity createFromParcel(Parcel in) {
+                return new ObjOfferImageListEntity(in);
+            }
+
+            @Override
+            public ObjOfferImageListEntity[] newArray(int size) {
+                return new ObjOfferImageListEntity[size];
+            }
+        };
 
         public String getOfferImage() {
             return OfferImage;
@@ -258,9 +426,20 @@ public class HomeModel {
         public void setOfferId(int OfferId) {
             this.OfferId = OfferId;
         }
+
+        @Override
+        public int describeContents() {
+            return 0;
+        }
+
+        @Override
+        public void writeToParcel(Parcel dest, int flags) {
+            dest.writeString(OfferImage);
+            dest.writeInt(OfferId);
+        }
     }
 
-    public static class ObjOfferDetailsListEntity {
+    public  class ObjOfferDetailsListEntity implements Parcelable {
         @SerializedName("ProductImage")
         private String ProductImage;
         @SerializedName("SellingPrice")
@@ -273,6 +452,27 @@ public class HomeModel {
         private int ProductId;
         @SerializedName("ProductDescId")
         private int ProductDescId;
+
+        protected ObjOfferDetailsListEntity(Parcel in) {
+            ProductImage = in.readString();
+            SellingPrice = in.readString();
+            MRPPrice = in.readString();
+            ProductName = in.readString();
+            ProductId = in.readInt();
+            ProductDescId = in.readInt();
+        }
+
+        public  final Creator<ObjOfferDetailsListEntity> CREATOR = new Creator<ObjOfferDetailsListEntity>() {
+            @Override
+            public ObjOfferDetailsListEntity createFromParcel(Parcel in) {
+                return new ObjOfferDetailsListEntity(in);
+            }
+
+            @Override
+            public ObjOfferDetailsListEntity[] newArray(int size) {
+                return new ObjOfferDetailsListEntity[size];
+            }
+        };
 
         public String getProductImage() {
             return ProductImage;
@@ -321,15 +521,48 @@ public class HomeModel {
         public void setProductDescId(int ProductDescId) {
             this.ProductDescId = ProductDescId;
         }
+
+        @Override
+        public int describeContents() {
+            return 0;
+        }
+
+        @Override
+        public void writeToParcel(Parcel dest, int flags) {
+            dest.writeString(ProductImage);
+            dest.writeString(SellingPrice);
+            dest.writeString(MRPPrice);
+            dest.writeString(ProductName);
+            dest.writeInt(ProductId);
+            dest.writeInt(ProductDescId);
+        }
     }
 
-    public static class ObjStoreDetailsListEntity {
+    public  class ObjStoreDetailsListEntity implements Parcelable {
         @SerializedName("StoreImage")
         private String StoreImage;
         @SerializedName("StoreName")
         private String StoreName;
         @SerializedName("StoreId")
         private int StoreId;
+
+        protected ObjStoreDetailsListEntity(Parcel in) {
+            StoreImage = in.readString();
+            StoreName = in.readString();
+            StoreId = in.readInt();
+        }
+
+        public  final Creator<ObjStoreDetailsListEntity> CREATOR = new Creator<ObjStoreDetailsListEntity>() {
+            @Override
+            public ObjStoreDetailsListEntity createFromParcel(Parcel in) {
+                return new ObjStoreDetailsListEntity(in);
+            }
+
+            @Override
+            public ObjStoreDetailsListEntity[] newArray(int size) {
+                return new ObjStoreDetailsListEntity[size];
+            }
+        };
 
         public String getStoreImage() {
             return StoreImage;
@@ -354,15 +587,45 @@ public class HomeModel {
         public void setStoreId(int StoreId) {
             this.StoreId = StoreId;
         }
+
+        @Override
+        public int describeContents() {
+            return 0;
+        }
+
+        @Override
+        public void writeToParcel(Parcel dest, int flags) {
+            dest.writeString(StoreImage);
+            dest.writeString(StoreName);
+            dest.writeInt(StoreId);
+        }
     }
 
-    public static class ObjCategoryListEntity {
+    public  class ObjCategoryListEntity implements Parcelable{
         @SerializedName("CatergoryImage")
         private String CatergoryImage;
         @SerializedName("CatergoryName")
         private String CatergoryName;
         @SerializedName("CatergoryId")
         private int CatergoryId;
+
+        protected ObjCategoryListEntity(Parcel in) {
+            CatergoryImage = in.readString();
+            CatergoryName = in.readString();
+            CatergoryId = in.readInt();
+        }
+
+        public  final Creator<ObjCategoryListEntity> CREATOR = new Creator<ObjCategoryListEntity>() {
+            @Override
+            public ObjCategoryListEntity createFromParcel(Parcel in) {
+                return new ObjCategoryListEntity(in);
+            }
+
+            @Override
+            public ObjCategoryListEntity[] newArray(int size) {
+                return new ObjCategoryListEntity[size];
+            }
+        };
 
         public String getCatergoryImage() {
             return CatergoryImage;
@@ -386,6 +649,18 @@ public class HomeModel {
 
         public void setCatergoryId(int CatergoryId) {
             this.CatergoryId = CatergoryId;
+        }
+
+        @Override
+        public int describeContents() {
+            return 0;
+        }
+
+        @Override
+        public void writeToParcel(Parcel dest, int flags) {
+            dest.writeString(CatergoryImage);
+            dest.writeString(CatergoryName);
+            dest.writeInt(CatergoryId);
         }
     }
 }

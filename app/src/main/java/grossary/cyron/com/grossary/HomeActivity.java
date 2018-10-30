@@ -136,7 +136,14 @@ public class HomeActivity extends AppCompatActivity implements FragmentManager.O
             }
         });
 
-        setHome();
+//        if ((savedInstanceState != null)
+//                && (savedInstanceState.getSerializable("HomeActivityStore") != null)) {
+//            homeModel = (HomeModel) savedInstanceState.getSerializable("HomeActivityStore");
+//            setHomeModel(homeModel);
+//
+//        }else{
+            setHome();
+//        }
 
         imgSearch.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -207,7 +214,7 @@ public class HomeActivity extends AppCompatActivity implements FragmentManager.O
         LoginModel res = new PreferenceManager(HomeActivity.this).getLoginModel();
 
         Call<HomeModel> call = RetrofitClient.getAPIInterface().homeDetailsAPI(url,
-                ""+res.getUserid());
+                "" + res.getUserid());
         Request request = new RetrofitRequest<>(call, new ResponseListener<HomeModel>() {
             @Override
             public void onResponse(int code, HomeModel response, Headers headers) {
@@ -465,5 +472,9 @@ public class HomeActivity extends AppCompatActivity implements FragmentManager.O
     }
 
 
-
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+//        outState.putParcelable("HomeActivityStore", homeModel);
+    }
 }
