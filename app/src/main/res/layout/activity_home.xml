@@ -23,7 +23,7 @@
                 android:layout_height="20dp"
                 android:layout_centerVertical="true"
                 android:layout_marginLeft="10dp"
-                android:background="@drawable/ham_logo" />
+                android:background="@drawable/ic_launcher_background" />
 
             <TextView
                 android:id="@+id/tv_toolbar"
@@ -45,7 +45,7 @@
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"
                 android:layout_toLeftOf="@+id/img_cart"
-                android:background="@drawable/search_icon" />
+                android:background="@mipmap/search_icon" />
 
             <ImageView
                 android:id="@+id/img_cart"
@@ -55,7 +55,7 @@
                 android:layout_centerVertical="true"
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="20dp"
-                android:background="@drawable/cart" />
+                android:background="@mipmap/shopping_cart_white" />
 
             <TextView
                 android:id="@+id/tvCartCount"
@@ -64,7 +64,7 @@
                 android:layout_alignParentRight="true"
                 android:layout_marginTop="5dp"
                 android:layout_marginEnd="8dp"
-                android:background="@drawable/red_dot"
+                android:background="@mipmap/oval_pink"
                 android:gravity="center"
                 android:text="0"
                 android:textColor="@android:color/white"

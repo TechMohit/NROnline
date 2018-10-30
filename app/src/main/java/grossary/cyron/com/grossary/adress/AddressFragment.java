@@ -183,6 +183,17 @@ public class AddressFragment extends Fragment {
     }
 
     public void callApiSubmitTransaction() {
+        String fullName = etUserName.getText().toString();
+        String address = etAddress.getText().toString();
+        String city = etCity.getText().toString();
+        String state = etState.getText().toString();
+        String zipcode = etZip.getText().toString();
+        String phone = etPhone.getText().toString();
+        String paymode = MAKE_PAYMENT_ONLINE;
+        String shippinfCharge = new PreferenceManager(getActivity()).getShippingCharges();
+        String totalCharge = new PreferenceManager(getActivity()).getGrandtoal();
+
+
         if (etUserName.getText().toString().equalsIgnoreCase("")) {
             Toast.makeText(context, "Enter Full Name", Toast.LENGTH_SHORT).show();
         } else if (etAddress.getText().toString().equalsIgnoreCase("")) {
@@ -195,19 +206,7 @@ public class AddressFragment extends Fragment {
             Toast.makeText(context, "Enter Zip Code", Toast.LENGTH_SHORT).show();
         } else if (etPhone.getText().toString().equalsIgnoreCase("")) {
             Toast.makeText(context, "Enter Phone", Toast.LENGTH_SHORT).show();
-        }
-        String fullName = etUserName.getText().toString();
-        String address = etAddress.getText().toString();
-        String city = etCity.getText().toString();
-        String state = etState.getText().toString();
-        String zipcode = etZip.getText().toString();
-        String phone = etPhone.getText().toString();
-        String paymode = MAKE_PAYMENT_ONLINE;
-        String shippinfCharge = new PreferenceManager(getActivity()).getShippingCharges();
-        String totalCharge = new PreferenceManager(getActivity()).getGrandtoal();
-
-
-        if (rdCash.isChecked()) {
+        }else if (rdCash.isChecked()) {
 
             load = new LoadingView(getActivity());
             load.setCancalabe(false);

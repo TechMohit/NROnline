@@ -76,10 +76,10 @@ public class HomeActivity extends AppCompatActivity implements FragmentManager.O
     private Dialog dialog;
 
     private int[] tabIcons = {
-            R.drawable.tb_home,
-            R.drawable.tb_offer,
-            R.drawable.tb_seller,
-            R.drawable.tb_brand
+            R.mipmap.home,
+            R.mipmap.offer_icon,
+            R.mipmap.search_icon,
+            R.mipmap.brand_icon
     };
 
     @Override
