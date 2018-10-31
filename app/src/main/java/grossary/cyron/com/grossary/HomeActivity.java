@@ -3,6 +3,7 @@ package grossary.cyron.com.grossary;
 import android.app.Dialog;
 import android.content.Intent;
 import android.graphics.drawable.ColorDrawable;
+import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -11,7 +12,6 @@ import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -30,7 +30,6 @@ import java.util.List;
 
 import grossary.cyron.com.grossary.account.LoginModel;
 import grossary.cyron.com.grossary.account.SigninActivity;
-import grossary.cyron.com.grossary.adress.AddressFragment;
 import grossary.cyron.com.grossary.brands.BrandsFragment;
 import grossary.cyron.com.grossary.category.AddToCartDetailsModel;
 import grossary.cyron.com.grossary.category.CategoryActivity;
@@ -53,7 +52,6 @@ import grossary.cyron.com.grossary.webview.WebViewActivity;
 import okhttp3.Headers;
 import retrofit2.Call;
 
-import static grossary.cyron.com.grossary.utility.Constant.CATEGORY.ADDRESS;
 import static grossary.cyron.com.grossary.utility.Constant.CURRENT_STATE.MY_ORDER_FRG;
 import static grossary.cyron.com.grossary.utility.Constant.CURRENT_STATE.SEARCH_FRG;
 import static grossary.cyron.com.grossary.utility.Constant.CURRENT_STATE.VIEW_CART_FRG;
@@ -136,7 +134,14 @@ public class HomeActivity extends AppCompatActivity implements FragmentManager.O
             }
         });
 
-        setHome();
+//        if ((savedInstanceState != null)
+//                && (savedInstanceState.getSerializable("HomeActivityStore") != null)) {
+//            homeModel = (HomeModel) savedInstanceState.getSerializable("HomeActivityStore");
+//            setHomeModel(homeModel);
+//
+//        }else{
+            setHome();
+//        }
 
         imgSearch.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -207,7 +212,7 @@ public class HomeActivity extends AppCompatActivity implements FragmentManager.O
         LoginModel res = new PreferenceManager(HomeActivity.this).getLoginModel();
 
         Call<HomeModel> call = RetrofitClient.getAPIInterface().homeDetailsAPI(url,
-                ""+res.getUserid());
+                "" + res.getUserid());
         Request request = new RetrofitRequest<>(call, new ResponseListener<HomeModel>() {
             @Override
             public void onResponse(int code, HomeModel response, Headers headers) {
@@ -465,5 +470,9 @@ public class HomeActivity extends AppCompatActivity implements FragmentManager.O
     }
 
 
-
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+//        outState.putParcelable("HomeActivityStore", homeModel);
+    }
 }

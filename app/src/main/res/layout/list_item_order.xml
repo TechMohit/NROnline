@@ -1,22 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:card_view="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@android:color/white"
     android:paddingBottom="20dp">
+
     <View
         android:layout_width="match_parent"
         android:layout_height="0.5sp"
-        android:background="@color/whiteBackground"
-        ></View>
+        android:background="@color/whiteBackground" />
+
     <TextView
         android:id="@+id/tvDatePlaced"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/default_circle_indicator_stroke_color"
+        android:fontFamily="sans-serif-condensed"
         android:gravity="center"
         android:padding="10dp"
         android:text="Place on Thu 04 Oct, 6:00 pm"
@@ -30,20 +30,21 @@
         android:layout_width="match_parent"
         android:layout_height="0.5sp"
         android:background="@color/whiteBackground"
-        app:layout_constraintBottom_toBottomOf="@+id/tvDatePlaced"></View>
+        app:layout_constraintBottom_toBottomOf="@+id/tvDatePlaced" />
 
     <TextView
         android:id="@+id/tvProductName"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
         android:background="@android:color/white"
+        android:fontFamily="sans-serif-condensed"
         android:gravity="center"
         android:padding="5dp"
-        android:layout_marginTop="10dp"
-        android:visibility="gone"
         android:text="Schedule for Sat 06 Oct, 6 am - 10pm "
         android:textColor="@color/whiteBackground"
         android:textSize="15sp"
+        android:visibility="gone"
         app:layout_constraintTop_toBottomOf="@+id/view" />
 
 
@@ -53,8 +54,8 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="10dp"
         android:layout_marginTop="10dp"
-        android:layout_marginRight="10dp"
         android:background="@drawable/btn_round_corner_strip_grey"
+        android:fontFamily="sans-serif-condensed"
         android:padding="10dp"
         android:text="Delivered by Benaka"
         android:textSize="15sp"
@@ -96,36 +97,42 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
+                android:fontFamily="sans-serif-condensed"
+                android:maxLines="2"
+                android:paddingRight="10dp"
                 android:text="Benaka Store - M.G Road sdsdsds"
                 android:textColor="@color/whiteBackground"
-                android:textSize="18sp"
-                android:paddingRight="10dp"
-                android:maxLines="2"
+                android:textSize="15sp"
                 android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/tvMrpPrice"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Delivery Charge"
+                android:fontFamily="sans-serif-condensed"
                 android:paddingTop="5dp"
+                android:text="Delivery Charge"
                 android:textSize="15sp" />
+
             <TextView
                 android:id="@+id/tvOrderId"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Order ID: ODR323142562"
+                android:fontFamily="sans-serif-condensed"
                 android:paddingTop="5dp"
+                android:text="Order ID: ODR323142562"
                 android:textSize="15sp" />
+
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Placed"
-                android:drawablePadding="10dp"
-                android:paddingTop="5dp"
-                android:textColor="@android:color/holo_green_light"
-                android:drawableLeft="@mipmap/checked"
                 android:layout_marginBottom="10dp"
+                android:drawableLeft="@mipmap/checked"
+                android:drawablePadding="10dp"
+                android:fontFamily="sans-serif-condensed"
+                android:paddingTop="5dp"
+                android:text="Placed"
+                android:textColor="@android:color/holo_green_light"
                 android:textSize="15sp" />
         </LinearLayout>
 
@@ -142,6 +149,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="right"
                 android:layout_marginTop="10dp"
+                android:fontFamily="sans-serif-condensed"
                 android:gravity="right"
                 android:text="1,234.00"
                 android:textColor="@color/whiteBackground"
@@ -153,9 +161,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="right"
+                android:fontFamily="sans-serif-condensed"
                 android:gravity="right"
-                android:text="Free"
                 android:paddingTop="5dp"
+                android:text="Free"
                 android:textColor="@android:color/holo_green_light"
                 android:textSize="15sp"
                 android:textStyle="bold" />
@@ -169,10 +178,11 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="5dp"
         android:layout_marginTop="10dp"
+        android:fontFamily="sans-serif-condensed"
         android:maxLines="1"
         android:text="Final Paid Amount"
         android:textColor="@color/whiteBackground"
-        android:textSize="18sp"
+        android:textSize="15sp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="@+id/linr"
         app:layout_constraintTop_toBottomOf="@+id/linr" />
@@ -183,9 +193,10 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
         android:layout_marginEnd="10dp"
+        android:fontFamily="sans-serif-condensed"
         android:maxLines="1"
-        android:text="1,234"
         android:paddingRight="5dp"
+        android:text="1,234"
         android:textColor="@color/whiteBackground"
         android:textSize="18sp"
         android:textStyle="bold"
@@ -199,11 +210,12 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="20dp"
-        android:paddingRight="40dp"
-        android:paddingLeft="40dp"
         android:layout_marginStart="8dp"
         android:layout_marginEnd="8dp"
         android:background="@drawable/btn_round_corner_red"
+        android:fontFamily="sans-serif-condensed"
+        android:paddingLeft="40dp"
+        android:paddingRight="40dp"
         android:text="View Details"
         android:textAllCaps="false"
         android:textColor="@android:color/white"

@@ -22,8 +22,9 @@
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center"
                 android:layout_marginBottom="20dp"
-                android:background="@drawable/logo_long" />
+                android:background="@mipmap/logo_pink" />
 
 
             <android.support.design.widget.TextInputLayout
@@ -39,6 +40,7 @@
                     android:id="@+id/etName"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:fontFamily="sans-serif-condensed"
                     android:inputType="textPersonName"
                     android:textColor="#000000"
                     android:textSize="15sp" />
@@ -58,8 +60,9 @@
                     android:id="@+id/etMobile"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:inputType="phone"
                     android:enabled="false"
+                    android:fontFamily="sans-serif-condensed"
+                    android:inputType="phone"
                     android:maxLength="10"
                     android:textColor="#000000"
                     android:textSize="15sp" />
@@ -78,6 +81,7 @@
                     android:id="@+id/etEmail"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:fontFamily="sans-serif-condensed"
                     android:inputType="textEmailAddress"
                     android:textColor="#000000"
                     android:textSize="15sp" />
@@ -96,6 +100,7 @@
                     android:id="@+id/etAddress"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:fontFamily="sans-serif-condensed"
                     android:inputType="textPostalAddress"
                     android:maxLines="2"
                     android:textColor="#000000"
@@ -116,6 +121,7 @@
                     android:id="@+id/etGst"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:fontFamily="sans-serif-condensed"
                     android:inputType="number"
                     android:textColor="#000000"
                     android:textSize="15sp" />
@@ -130,12 +136,13 @@
                 android:layout_marginTop="20dp"
                 android:layout_marginRight="30dp"
                 android:background="@drawable/btn_round_corner_red"
+                android:fontFamily="sans-serif-condensed"
                 android:padding="10dp"
                 android:text="Update"
                 android:textAlignment="center"
                 android:textAllCaps="false"
                 android:textColor="@android:color/white"
-                android:textSize="15sp"/>
+                android:textSize="15sp" />
 
 
         </LinearLayout>

@@ -2,7 +2,6 @@
 <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:card_view="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/card_parent"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -22,6 +21,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="15dp"
             android:layout_marginTop="10dp"
+            android:fontFamily="sans-serif-condensed"
             android:gravity="center"
             android:text="TextView"
             android:textColor="@color/colorPrimary"
@@ -44,11 +44,11 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
-            android:layout_marginRight="10dp"
+            android:fontFamily="sans-serif-condensed"
             android:text="TextView"
             android:textSize="15sp"
             app:layout_constraintStart_toStartOf="@+id/tvProductName"
-            app:layout_constraintTop_toBottomOf="@+id/tvProductName"></TextView>
+            app:layout_constraintTop_toBottomOf="@+id/tvProductName" />
 
         <Button
             android:id="@+id/btnMin"
@@ -56,6 +56,7 @@
             android:layout_height="30dp"
             android:layout_marginLeft="10dp"
             android:background="@drawable/btn_round_corner_strip_red"
+            android:fontFamily="sans-serif-condensed"
             android:text="-"
             android:textColor="@color/colorPrimary"
             android:textSize="15sp"
@@ -68,6 +69,7 @@
             android:id="@+id/txtCount"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:fontFamily="sans-serif-condensed"
             android:paddingLeft="10dp"
             android:paddingRight="10dp"
             android:text="1"
@@ -83,6 +85,7 @@
             android:layout_width="30dp"
             android:layout_height="30dp"
             android:background="@drawable/btn_round_corner_strip_red"
+            android:fontFamily="sans-serif-condensed"
             android:text="+"
             android:textColor="@color/colorPrimary"
             android:textSize="15sp"
@@ -96,6 +99,7 @@
             android:layout_height="30dp"
             android:layout_marginStart="8dp"
             android:background="@mipmap/delete_button"
+            android:fontFamily="sans-serif-condensed"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toEndOf="@+id/btnAdd"
             app:layout_constraintTop_toBottomOf="@+id/tvPrice" />

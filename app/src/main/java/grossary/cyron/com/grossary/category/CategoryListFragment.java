@@ -2,7 +2,6 @@ package grossary.cyron.com.grossary.category;
 
 
 import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -16,16 +15,9 @@ import android.widget.Toast;
 
 import com.google.gson.Gson;
 
-import grossary.cyron.com.grossary.HomeActivity;
 import grossary.cyron.com.grossary.R;
-import grossary.cyron.com.grossary.account.LoginModel;
-import grossary.cyron.com.grossary.account.SigninActivity;
-import grossary.cyron.com.grossary.account.VerifyRegisterOTPModel;
 import grossary.cyron.com.grossary.home.HomeModel;
-import grossary.cyron.com.grossary.profile.ProfileActivity;
-import grossary.cyron.com.grossary.sellers.SellersListAdapter;
 import grossary.cyron.com.grossary.utility.LoadingView;
-import grossary.cyron.com.grossary.utility.PreferenceManager;
 import grossary.cyron.com.grossary.utility.callback.OnItemClickListener;
 import grossary.cyron.com.grossary.utility.retrofit.RetrofitClient;
 import grossary.cyron.com.grossary.utility.retrofit.RetrofitRequest;
@@ -40,10 +32,8 @@ import static grossary.cyron.com.grossary.utility.Constant.CATEGORY.ONCLICK;
 import static grossary.cyron.com.grossary.utility.Constant.CONSTANT.CHECKOUT;
 import static grossary.cyron.com.grossary.utility.Constant.CURRENT_STATE.CATG_LIST_FRG;
 import static grossary.cyron.com.grossary.utility.Constant.CURRENT_STATE.HOME_FRG;
-import static grossary.cyron.com.grossary.utility.Constant.CURRENT_STATE.OFFER_FRG;
 import static grossary.cyron.com.grossary.utility.Constant.CURRENT_STATE.SEARCH_FRG;
 import static grossary.cyron.com.grossary.utility.Constant.CURRENT_STATE.SELLER_FRG;
-import static grossary.cyron.com.grossary.utility.Constant.KEY_NAME.ACT_HOME_PARAMETER;
 import static grossary.cyron.com.grossary.utility.Constant.KEY_NAME.CURRENT_FRG;
 import static grossary.cyron.com.grossary.utility.Constant.KEY_NAME.FRAG_PARAMETER;
 import static grossary.cyron.com.grossary.utility.Constant.URL.BASE_URL;

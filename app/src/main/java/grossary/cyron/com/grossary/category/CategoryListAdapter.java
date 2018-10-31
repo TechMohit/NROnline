@@ -17,7 +17,6 @@ import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
 import java.util.List;
 
 import grossary.cyron.com.grossary.R;
-import grossary.cyron.com.grossary.offers.OffersListAdapter;
 import grossary.cyron.com.grossary.utility.GlideApp;
 import grossary.cyron.com.grossary.utility.callback.OnItemClickListener;
 
@@ -37,7 +36,7 @@ public class CategoryListAdapter extends RecyclerView.Adapter {
     }
 
     @Override
-    public void onBindViewHolder(final RecyclerView.ViewHolder holder, final int listPosition) {
+    public void onBindViewHolder(final RecyclerView.ViewHolder holder,  int listPosition) {
 
         final CategoryModel.Projectlist object = dataSet.get(listPosition);
         ((ImageTypeViewHolder) holder).tvProductName.setText(String.format("%s", object.productName)+"("+object.storeName+")");
@@ -51,7 +50,7 @@ public class CategoryListAdapter extends RecyclerView.Adapter {
                 .load(object.productImage)
                 .centerInside()
                 .transition(DrawableTransitionOptions.withCrossFade())
-                .placeholder(R.drawable.logo_long)
+                .placeholder(R.mipmap.logo_pink)
                 .error(R.drawable.ic_launcher_background)
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
                 .into(((ImageTypeViewHolder) holder).imgView);
@@ -60,14 +59,14 @@ public class CategoryListAdapter extends RecyclerView.Adapter {
         ((ImageTypeViewHolder) holder).card_parent.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                clickListener.onItemClick(object, ((ImageTypeViewHolder) holder).card_parent, listPosition,ONCLICK);
+                clickListener.onItemClick(object, ((ImageTypeViewHolder) holder).card_parent, holder.getAdapterPosition(),ONCLICK);
             }
         });
 
         ((ImageTypeViewHolder) holder).btnAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                clickListener.onItemClick(object, ((ImageTypeViewHolder) holder).card_parent, listPosition,ADD);
+                clickListener.onItemClick(object, ((ImageTypeViewHolder) holder).card_parent, holder.getAdapterPosition(),ADD);
             }
         });
 

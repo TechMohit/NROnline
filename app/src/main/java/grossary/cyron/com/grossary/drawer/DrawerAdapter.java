@@ -47,7 +47,7 @@ public class DrawerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
     }
 
     @Override
-    public void onBindViewHolder(RecyclerView.ViewHolder holder, final int position) {
+    public void onBindViewHolder(final RecyclerView.ViewHolder holder,  int position) {
         final DrawerItem object = list.get(position);
         if(position==selectedPosition){
             ((ImageTypeViewHolder) holder).linItem.setBackgroundColor(activity.getResources().getColor(R.color.colorAccent));
@@ -66,7 +66,7 @@ public class DrawerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
             @Override
             public void onClick(View view) {
 
-                onItemClickListener.onItemClick(object, view, position,ONCLICK);
+                onItemClickListener.onItemClick(object, view, holder.getAdapterPosition(),ONCLICK);
             }
         });
     }

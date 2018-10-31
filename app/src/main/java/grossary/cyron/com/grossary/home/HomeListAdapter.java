@@ -42,7 +42,7 @@ public class HomeListAdapter extends RecyclerView.Adapter {
                 .load(object.getCatergoryImage())
                 .centerCrop()
                 .transition(DrawableTransitionOptions.withCrossFade())
-                .placeholder(R.drawable.logo_long)
+                .placeholder(R.mipmap.logo_pink)
                 .error(R.drawable.ic_launcher_background)
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
                 .into(((ImageTypeViewHolder) holder).imgView);

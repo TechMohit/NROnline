@@ -20,6 +20,7 @@ import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
 import com.google.gson.Gson;
 
 import grossary.cyron.com.grossary.R;
+import grossary.cyron.com.grossary.brands.OfferProductDescDetailsModel;
 import grossary.cyron.com.grossary.home.HomeModel;
 import grossary.cyron.com.grossary.utility.GlideApp;
 import grossary.cyron.com.grossary.utility.LoadingView;
@@ -33,7 +34,6 @@ import retrofit2.Call;
 import static grossary.cyron.com.grossary.utility.Constant.CONSTANT.CHECKOUT;
 import static grossary.cyron.com.grossary.utility.Constant.CURRENT_STATE.BRAND_FRG;
 import static grossary.cyron.com.grossary.utility.Constant.CURRENT_STATE.CATG_LIST_FRG;
-import static grossary.cyron.com.grossary.utility.Constant.CURRENT_STATE.HOME_FRG;
 import static grossary.cyron.com.grossary.utility.Constant.CURRENT_STATE.OFFER_FRG;
 import static grossary.cyron.com.grossary.utility.Constant.KEY_NAME.CURRENT_FRG;
 import static grossary.cyron.com.grossary.utility.Constant.KEY_NAME.FRAG_PARAMETER;
@@ -52,7 +52,8 @@ public class CategoryListDetailsFragment extends Fragment {
     private Button btnAddCart, btnMin, btnAdd;
     private ImageView imgProduct;
     private ProductdDescDetailsModel responseMain;
-
+    private OfferProductDescDetailsModel responseMainBrand;
+    private String current;
     public CategoryListDetailsFragment() {
         // Required empty public constructor
     }
@@ -93,9 +94,14 @@ public class CategoryListDetailsFragment extends Fragment {
             @Override
             public void onClick(View v) {
 
-                ((CategoryActivity) getActivity()).callApiAddtoCart("" + responseMain.productDescId,
-                        "" + responseMain.productId, "" + responseMain.storeId, ""+responseMain.shippingCharges,""+count);
-
+                if(current.equalsIgnoreCase(BRAND_FRG)){
+                    ((CategoryActivity) getActivity()).callApiAddtoCart("" + responseMainBrand.getProductDescId(),
+                            "" + responseMainBrand.getProductId(), "" + responseMainBrand.getStoreId(),
+                            "" + responseMainBrand.getShippingCharges(), "" + count);
+                }else {
+                    ((CategoryActivity) getActivity()).callApiAddtoCart("" + responseMain.productDescId,
+                            "" + responseMain.productId, "" + responseMain.storeId, "" + responseMain.shippingCharges, "" + count);
+                }
             }
         });
 
@@ -118,8 +124,13 @@ public class CategoryListDetailsFragment extends Fragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        callApi();
 
+         current = (getArguments().getString(CURRENT_FRG));
+        if(current.equalsIgnoreCase(BRAND_FRG)){
+            callApiBrand();
+        }else {
+            callApi();
+        }
     }
 
 
@@ -132,7 +143,6 @@ public class CategoryListDetailsFragment extends Fragment {
         Log.e("URl", "*** " + url);
 
         String value = (getArguments().getString(FRAG_PARAMETER));
-        String current = (getArguments().getString(CURRENT_FRG));
 
         String productId = "0";
 
@@ -165,7 +175,7 @@ public class CategoryListDetailsFragment extends Fragment {
                             .load(response.productImage)
                             .centerInside()
                             .transition(DrawableTransitionOptions.withCrossFade())
-                            .placeholder(R.drawable.logo_long)
+                            .placeholder(R.mipmap.logo_pink)
                             .error(R.drawable.ic_launcher_background)
                             .diskCacheStrategy(DiskCacheStrategy.ALL)
                             .into(imgProduct);
@@ -173,6 +183,66 @@ public class CategoryListDetailsFragment extends Fragment {
 
                 } else {
                     Toast.makeText(getActivity(), "" + response.response.reason, Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onError(int error) {
+                load.dismissLoading();
+
+            }
+
+            @Override
+            public void onFailure(Throwable throwable) {
+                Log.e("respond", "failure ---->");
+                load.dismissLoading();
+            }
+        });
+        request.enqueue();
+
+
+    }
+
+    private void callApiBrand() {
+        load = new LoadingView(getActivity());
+        load.setCancalabe(false);
+        load.showLoading();
+        String url = BASE_URL + "/Home/OfferProductdDescDetails";
+
+        Log.e("URl", "*** " + url);
+
+        String value = (getArguments().getString(FRAG_PARAMETER));
+
+        String productId = "0";
+        HomeModel.ObjOfferProdListEntity product = new Gson().fromJson(value, HomeModel.ObjOfferProdListEntity.class);
+        productId = "" + product.getProductId();
+
+        Call<OfferProductDescDetailsModel> call = RetrofitClient.getAPIInterface().OfferProductdDescDetails(url, "" + productId);
+        Request request = new RetrofitRequest<>(call, new ResponseListener<OfferProductDescDetailsModel>() {
+            @Override
+            public void onResponse(int code, OfferProductDescDetailsModel response, Headers headers) {
+                load.dismissLoading();
+                responseMainBrand = response;
+                if (response.getResponse().getResponseVal()) {
+
+                    tvProductName.setText(String.format("%s", response.getProductName())+"("+response.getStoreName()+")");
+                    tvDesc.setText(String.format("%s", response.getSubProductQTY()));
+                    tvSellingPrice.setText("₹" + String.format("%s", response.getSellingPrice()));
+                    tvMrpPrice.setText(String.format("%s", "(₹" + response.getMRPPrice() + ")"));
+                    tvMrpPrice.setPaintFlags(tvMrpPrice.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
+
+                    GlideApp.with(getActivity())
+                            .load(response.getProductImage())
+                            .centerInside()
+                            .transition(DrawableTransitionOptions.withCrossFade())
+                            .placeholder(R.mipmap.logo_pink)
+                            .error(R.drawable.ic_launcher_background)
+                            .diskCacheStrategy(DiskCacheStrategy.ALL)
+                            .into(imgProduct);
+
+
+                } else {
+                    Toast.makeText(getActivity(), "" + response.getResponse().getReason(), Toast.LENGTH_SHORT).show();
                 }
             }
 

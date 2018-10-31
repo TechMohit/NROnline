@@ -2,11 +2,10 @@ package grossary.cyron.com.grossary.category;
 
 import android.app.Dialog;
 import android.app.FragmentManager;
-import android.content.Intent;
 import android.graphics.drawable.ColorDrawable;
+import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.view.Window;
@@ -17,14 +16,12 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import grossary.cyron.com.grossary.HomeActivity;
 import grossary.cyron.com.grossary.R;
 import grossary.cyron.com.grossary.account.LoginModel;
 import grossary.cyron.com.grossary.adress.AddressFragment;
 import grossary.cyron.com.grossary.cart.ViewCartFragment;
 import grossary.cyron.com.grossary.order.MyOrderDetailFragment;
 import grossary.cyron.com.grossary.order.MyOrdersFragment;
-import grossary.cyron.com.grossary.payment.SubmitTransactionModel;
 import grossary.cyron.com.grossary.utility.FragmentHelper;
 import grossary.cyron.com.grossary.utility.LoadingView;
 import grossary.cyron.com.grossary.utility.PreferenceManager;
@@ -251,7 +248,7 @@ public class CategoryActivity extends AppCompatActivity implements FragmentManag
         }
     }
 
-    public void callApiAddtoCart(String productDescId, String productId, String stroeId, String sellingPrice, String qty) {
+    public void callApiAddtoCart(String productDescId, String productId, String stroeId, String ShippingCharges, String qty) {
 
         load = new LoadingView(CategoryActivity.this);
         load.setCancalabe(false);
@@ -267,7 +264,7 @@ public class CategoryActivity extends AppCompatActivity implements FragmentManag
                 "" + productDescId,
                 "" + productId,
                 "" + stroeId,
-                "" + sellingPrice, "" + qty);
+                "" + ShippingCharges, "" + qty);
         Request request = new RetrofitRequest<>(call, new ResponseListener<AddToCartDetailsModel>() {
             @Override
             public void onResponse(int code, AddToCartDetailsModel response, Headers headers) {

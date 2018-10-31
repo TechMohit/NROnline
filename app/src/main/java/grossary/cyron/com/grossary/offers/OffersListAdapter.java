@@ -41,7 +41,7 @@ public class OffersListAdapter extends RecyclerView.Adapter {
 
         final HomeModel.ObjOfferDetailsListEntity object = dataSet.get(listPosition);
 
-        ((ImageTypeViewHolder) holder).tvName.setText("" + object.getProductName() + "()");
+        ((ImageTypeViewHolder) holder).tvName.setText("" + object.getProductName() + "("+object.getStoreName()+")");
         ((ImageTypeViewHolder) holder).tvMrpPrice.setText("\u20B9" + object.getMRPPrice());
 
         ((ImageTypeViewHolder) holder).tvMrpPrice.setPaintFlags(((ImageTypeViewHolder) holder).tvMrpPrice.getPaintFlags()
@@ -52,7 +52,7 @@ public class OffersListAdapter extends RecyclerView.Adapter {
                 .load(object.getProductImage())
                 .centerCrop()
                 .transition(DrawableTransitionOptions.withCrossFade())
-                .placeholder(R.drawable.logo_long)
+                .placeholder(R.mipmap.logo_pink)
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
                 .error(R.drawable.ic_launcher_background)
                 .into(((ImageTypeViewHolder) holder).imgView);

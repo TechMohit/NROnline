@@ -1,20 +1,14 @@
 package grossary.cyron.com.grossary.adress;
 
 
-import android.annotation.TargetApi;
 import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Context;
-import android.graphics.Bitmap;
 import android.graphics.drawable.ColorDrawable;
-import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TextInputEditText;
 import android.support.v4.app.Fragment;
-import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -31,23 +25,17 @@ import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.RadioButton;
-import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import grossary.cyron.com.grossary.R;
 import grossary.cyron.com.grossary.account.LoginModel;
 import grossary.cyron.com.grossary.category.CategoryActivity;
-import grossary.cyron.com.grossary.order.MyOrdersAdapter;
-import grossary.cyron.com.grossary.order.ViewOrderListModel;
 import grossary.cyron.com.grossary.payment.PaymentGatewayRequestModel;
 import grossary.cyron.com.grossary.payment.SubmitTransactionModel;
 import grossary.cyron.com.grossary.profile.GetUserProfileModel;
-import grossary.cyron.com.grossary.profile.ProfileActivity;
-import grossary.cyron.com.grossary.utility.FragmentHelper;
 import grossary.cyron.com.grossary.utility.LoadingView;
 import grossary.cyron.com.grossary.utility.PreferenceManager;
-import grossary.cyron.com.grossary.utility.callback.OnItemClickListener;
 import grossary.cyron.com.grossary.utility.retrofit.RetrofitClient;
 import grossary.cyron.com.grossary.utility.retrofit.RetrofitRequest;
 import grossary.cyron.com.grossary.utility.retrofit.callbacks.Request;
@@ -57,7 +45,6 @@ import retrofit2.Call;
 
 import static grossary.cyron.com.grossary.utility.Constant.CONSTANT.MAKE_PAYMENT;
 import static grossary.cyron.com.grossary.utility.Constant.CONSTANT.MAKE_PAYMENT_ONLINE;
-import static grossary.cyron.com.grossary.utility.Constant.CONSTANT.PLACE_YOUR_ORDER;
 import static grossary.cyron.com.grossary.utility.Constant.URL.BASE_URL;
 
 /**
@@ -387,7 +374,7 @@ public class AddressFragment extends Fragment {
                 dialog.dismiss();
             }
         });
-        WebView webView = (WebView) dialog.findViewById(R.id.webview);
+        WebView webView = dialog.findViewById(R.id.webview);
         final ProgressDialog progressDialog = ProgressDialog.show(context, "", "Loading...", true);
 
         webView.getSettings().setJavaScriptEnabled(true);

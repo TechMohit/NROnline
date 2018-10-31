@@ -15,13 +15,9 @@ import android.widget.Toast;
 
 import com.google.gson.Gson;
 
-import grossary.cyron.com.grossary.HomeActivity;
 import grossary.cyron.com.grossary.R;
 import grossary.cyron.com.grossary.account.LoginModel;
 import grossary.cyron.com.grossary.category.CategoryActivity;
-import grossary.cyron.com.grossary.category.CategoryListAdapter;
-import grossary.cyron.com.grossary.category.CategoryModel;
-import grossary.cyron.com.grossary.home.HomeModel;
 import grossary.cyron.com.grossary.utility.LoadingView;
 import grossary.cyron.com.grossary.utility.PreferenceManager;
 import grossary.cyron.com.grossary.utility.callback.OnItemClickListener;
@@ -32,16 +28,8 @@ import grossary.cyron.com.grossary.utility.retrofit.callbacks.ResponseListener;
 import okhttp3.Headers;
 import retrofit2.Call;
 
-import static grossary.cyron.com.grossary.utility.Constant.CATEGORY.ADD;
-import static grossary.cyron.com.grossary.utility.Constant.CATEGORY.LIST_DETAILS;
-import static grossary.cyron.com.grossary.utility.Constant.CATEGORY.ONCLICK;
 import static grossary.cyron.com.grossary.utility.Constant.CATEGORY.ORDER_DETAIL;
-import static grossary.cyron.com.grossary.utility.Constant.CURRENT_STATE.CATG_LIST_FRG;
-import static grossary.cyron.com.grossary.utility.Constant.CURRENT_STATE.HOME_FRG;
 import static grossary.cyron.com.grossary.utility.Constant.CURRENT_STATE.MY_ORDER_DETAIL_FRG;
-import static grossary.cyron.com.grossary.utility.Constant.CURRENT_STATE.SELLER_FRG;
-import static grossary.cyron.com.grossary.utility.Constant.KEY_NAME.CURRENT_FRG;
-import static grossary.cyron.com.grossary.utility.Constant.KEY_NAME.FRAG_PARAMETER;
 import static grossary.cyron.com.grossary.utility.Constant.URL.BASE_URL;
 
 /**
@@ -101,7 +89,7 @@ public class MyOrdersFragment extends Fragment implements OnItemClickListener<Vi
                     adapter.setAdapterData(response.getOrderlist());
 
                 }else{
-                    Toast.makeText(getActivity(), ""+response.getResponse().getResponseval() , Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getActivity(), ""+response.getResponse().getReason() , Toast.LENGTH_SHORT).show();
                 }
             }
 

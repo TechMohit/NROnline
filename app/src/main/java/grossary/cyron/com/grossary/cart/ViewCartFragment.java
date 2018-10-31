@@ -185,6 +185,9 @@ public class ViewCartFragment extends Fragment implements OnItemClickListener<Vi
     }
 
     private void callApiDeleteCart(ViewAddtoCartDetailsModel.ObjviewaddcartlistEntity obj) {
+        if(load!=null ){
+            load.dismissLoading();
+        }
         load = new LoadingView(getActivity());
         load.setCancalabe(false);
         load.showLoading();

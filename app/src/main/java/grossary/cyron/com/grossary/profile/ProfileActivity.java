@@ -21,7 +21,6 @@ import okhttp3.Headers;
 import retrofit2.Call;
 
 import static grossary.cyron.com.grossary.utility.Constant.URL.BASE_URL;
-import static grossary.cyron.com.grossary.utility.Util.validatePassword;
 
 public class ProfileActivity extends AppCompatActivity {
 

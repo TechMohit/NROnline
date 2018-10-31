@@ -19,11 +19,11 @@
 
             <ImageView
                 android:id="@+id/tv_hamburger"
-                android:layout_width="20dp"
-                android:layout_height="20dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
                 android:layout_marginLeft="10dp"
-                android:background="@drawable/ic_launcher_background" />
+                android:background="@mipmap/menu_icon" />
 
             <TextView
                 android:id="@+id/tv_toolbar"
@@ -32,7 +32,8 @@
                 android:layout_centerVertical="true"
                 android:layout_marginStart="20dp"
                 android:layout_toEndOf="@+id/tv_hamburger"
-                android:background="@drawable/logo_white"
+                android:background="@mipmap/logo_white"
+                android:fontFamily="sans-serif-condensed"
                 android:text=""
                 android:textSize="15sp"
                 android:textStyle="bold" />
@@ -65,6 +66,7 @@
                 android:layout_marginTop="5dp"
                 android:layout_marginEnd="8dp"
                 android:background="@mipmap/oval_pink"
+                android:fontFamily="sans-serif-condensed"
                 android:gravity="center"
                 android:text="0"
                 android:textColor="@android:color/white"
@@ -95,7 +97,7 @@
 
         <include
             layout="@layout/layout_connection_error"
-            android:visibility="visible"></include>
+            android:visibility="visible" />
 
     </FrameLayout>
 

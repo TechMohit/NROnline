@@ -102,6 +102,7 @@ public class HomeFragment extends Fragment implements OnItemClickListener<HomeMo
 
                     @Override
                     public void run() {
+
                         pager.setCurrentItem((pager.getCurrentItem() + 1) % homeOfferList.size(), true);
                     }
                 });
@@ -126,7 +127,6 @@ public class HomeFragment extends Fragment implements OnItemClickListener<HomeMo
 
     public void setData(List<HomeModel.ObjCategoryListEntity> data, List<HomeModel.ObjOfferImageListEntity> homeOfferList) {
 
-
         if(adapter==null || data==null || homeOfferList==null)
             return;
         if(this.homeOfferList.size()>0)
@@ -138,6 +138,7 @@ public class HomeFragment extends Fragment implements OnItemClickListener<HomeMo
         homeList.addAll(data);
         adapter.setAdapterData(homeList);
 
+        if(this.homeOfferList.size()>0)
         setViewPagerTimer(this.homeOfferList);
 
     }

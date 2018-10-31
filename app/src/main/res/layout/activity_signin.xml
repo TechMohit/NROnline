@@ -1,11 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="20dp"
-    >
+    android:padding="20dp">
 
     <android.support.design.widget.TextInputLayout
         android:id="@+id/etPhoneLay"
@@ -21,6 +19,7 @@
             android:id="@+id/etPhone"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:fontFamily="sans-serif-condensed"
             android:hint="Mobile Number"
             android:inputType="phone"
             android:maxLength="10"
@@ -32,10 +31,11 @@
         android:id="@+id/txt_register"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:fontFamily="sans-serif-condensed"
+        android:padding="20dp"
         android:text="New User Register"
         android:textColor="@color/colorAccent"
         android:textSize="15sp"
-        android:padding="20dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
@@ -44,14 +44,15 @@
         android:id="@+id/btn_login"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/btn_round_corner_red"
-        android:textAllCaps="false"
-        android:text="Login"
-        android:layout_marginRight="30dp"
         android:layout_marginLeft="30dp"
         android:layout_marginTop="30dp"
+        android:layout_marginRight="30dp"
+        android:background="@drawable/btn_round_corner_red"
+        android:fontFamily="sans-serif-condensed"
         android:padding="10dp"
+        android:text="Login"
         android:textAlignment="center"
+        android:textAllCaps="false"
         android:textColor="@android:color/white"
         android:textSize="15sp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -66,7 +67,7 @@
         app:layout_constraintBottom_toTopOf="@+id/etPhoneLay"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:srcCompat="@drawable/logo_long" />
+        app:srcCompat="@mipmap/logo_pink" />
 
 
 </android.support.constraint.ConstraintLayout>
