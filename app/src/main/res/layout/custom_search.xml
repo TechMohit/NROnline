@@ -32,7 +32,9 @@
             android:layout_toRightOf="@+id/imgBack"
             android:fontFamily="sans-serif-condensed"
             android:maxLines="1"
-            android:textColor="@android:color/white" />
+            android:textColor="@android:color/white"
+            android:inputType="textPersonName"
+            android:importantForAutofill="no" />
 
         <TextView
             android:id="@+id/imgSearch"

@@ -102,6 +102,7 @@ public class HomeFragment extends Fragment implements OnItemClickListener<HomeMo
 
                     @Override
                     public void run() {
+
                         pager.setCurrentItem((pager.getCurrentItem() + 1) % homeOfferList.size(), true);
                     }
                 });

@@ -38,7 +38,7 @@
             android:configChanges="orientation|screenSize" />
         <activity
             android:name=".webview.WebViewActivity"
-            android:configChanges="orientation|screenSize"></activity>
+            android:configChanges="orientation|screenSize" />
     </application>
 
 </manifest>

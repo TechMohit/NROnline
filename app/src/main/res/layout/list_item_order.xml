@@ -5,11 +5,11 @@
     android:layout_height="wrap_content"
     android:background="@android:color/white"
     android:paddingBottom="20dp">
+
     <View
         android:layout_width="match_parent"
         android:layout_height="0.5sp"
-        android:background="@color/whiteBackground"
-        ></View>
+        android:background="@color/whiteBackground" />
 
     <TextView
         android:id="@+id/tvDatePlaced"
@@ -30,7 +30,7 @@
         android:layout_width="match_parent"
         android:layout_height="0.5sp"
         android:background="@color/whiteBackground"
-        app:layout_constraintBottom_toBottomOf="@+id/tvDatePlaced"></View>
+        app:layout_constraintBottom_toBottomOf="@+id/tvDatePlaced" />
 
     <TextView
         android:id="@+id/tvProductName"

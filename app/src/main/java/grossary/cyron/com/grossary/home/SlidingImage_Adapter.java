@@ -46,7 +46,7 @@ public class SlidingImage_Adapter extends PagerAdapter {
         View imageLayout = inflater.inflate(R.layout.contact_view_pager_iv, view, false);
 
         assert imageLayout != null;
-        final ImageView imageView = (ImageView) imageLayout
+        final ImageView imageView = imageLayout
                 .findViewById(R.id.image);
 
 

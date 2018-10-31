@@ -125,7 +125,7 @@ public class Util {
         context.startActivity(intent);
     }
 
-    public static void openFile(Context context, String url) throws IOException {
+    public static void openFile(Context context, String url) {
         // Create URI
         File file = null;
         try {

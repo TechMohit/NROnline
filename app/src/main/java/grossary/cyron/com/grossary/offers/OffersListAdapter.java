@@ -41,7 +41,7 @@ public class OffersListAdapter extends RecyclerView.Adapter {
 
         final HomeModel.ObjOfferDetailsListEntity object = dataSet.get(listPosition);
 
-        ((ImageTypeViewHolder) holder).tvName.setText("" + object.getProductName() + "()");
+        ((ImageTypeViewHolder) holder).tvName.setText("" + object.getProductName() + "("+object.getStoreName()+")");
         ((ImageTypeViewHolder) holder).tvMrpPrice.setText("\u20B9" + object.getMRPPrice());
 
         ((ImageTypeViewHolder) holder).tvMrpPrice.setPaintFlags(((ImageTypeViewHolder) holder).tvMrpPrice.getPaintFlags()

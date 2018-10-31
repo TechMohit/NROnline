@@ -374,7 +374,7 @@ public class AddressFragment extends Fragment {
                 dialog.dismiss();
             }
         });
-        WebView webView = (WebView) dialog.findViewById(R.id.webview);
+        WebView webView = dialog.findViewById(R.id.webview);
         final ProgressDialog progressDialog = ProgressDialog.show(context, "", "Loading...", true);
 
         webView.getSettings().setJavaScriptEnabled(true);

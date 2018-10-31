@@ -76,13 +76,14 @@
                     android:textColor="@android:color/white"
                     android:textSize="12dp"
                     android:textStyle="bold" />
+
                 <View
                     android:id="@+id/view_left"
                     android:layout_width="0.5sp"
                     android:layout_height="30dp"
                     android:layout_centerVertical="true"
                     android:layout_toRightOf="@+id/img_cart"
-                    android:background="@color/colorPrimaryDark"></View>
+                    android:background="@color/colorPrimaryDark" />
 
                 <TextView
                     android:id="@+id/tvTotal"
@@ -103,7 +104,7 @@
                     android:layout_centerVertical="true"
                     android:layout_marginRight="10dp"
                     android:layout_toLeftOf="@+id/txtCheckout"
-                    android:background="@color/colorPrimaryDark"></View>
+                    android:background="@color/colorPrimaryDark" />
 
                 <TextView
                     android:id="@+id/txtCheckout"

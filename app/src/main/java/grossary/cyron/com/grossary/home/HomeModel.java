@@ -452,6 +452,8 @@ public class HomeModel implements Parcelable {
         private int ProductId;
         @SerializedName("ProductDescId")
         private int ProductDescId;
+        @SerializedName("StoreName")
+        private String StoreName;
 
         protected ObjOfferDetailsListEntity(Parcel in) {
             ProductImage = in.readString();
@@ -460,6 +462,8 @@ public class HomeModel implements Parcelable {
             ProductName = in.readString();
             ProductId = in.readInt();
             ProductDescId = in.readInt();
+            StoreName = in.readString();
+
         }
 
         public  final Creator<ObjOfferDetailsListEntity> CREATOR = new Creator<ObjOfferDetailsListEntity>() {
@@ -535,6 +539,16 @@ public class HomeModel implements Parcelable {
             dest.writeString(ProductName);
             dest.writeInt(ProductId);
             dest.writeInt(ProductDescId);
+            dest.writeString(StoreName);
+
+        }
+
+        public String getStoreName() {
+            return StoreName;
+        }
+
+        public void setStoreName(String storeName) {
+            StoreName = storeName;
         }
     }
 

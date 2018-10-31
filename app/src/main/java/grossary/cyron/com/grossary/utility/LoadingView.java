@@ -29,7 +29,7 @@ public class LoadingView {
             dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
             dialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
             dialog.setContentView(R.layout.custom_loading);
-            load = (ProgressBar) dialog.findViewById(R.id.progress);
+            load = dialog.findViewById(R.id.progress);
             WindowManager.LayoutParams lp = new WindowManager.LayoutParams();
             Window window = dialog.getWindow();
             lp.copyFrom(window.getAttributes());
