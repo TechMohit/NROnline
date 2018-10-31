@@ -19,12 +19,8 @@ import java.util.ArrayList;
 
 import grossary.cyron.com.grossary.R;
 import grossary.cyron.com.grossary.account.LoginModel;
-import grossary.cyron.com.grossary.cart.DeleteFromCartDetailsModel;
-import grossary.cyron.com.grossary.cart.ViewAddtoCartDetailsModel;
-import grossary.cyron.com.grossary.cart.ViewCartAdapter;
 import grossary.cyron.com.grossary.cart.ViewCartModel;
 import grossary.cyron.com.grossary.category.CategoryActivity;
-import grossary.cyron.com.grossary.home.HomeModel;
 import grossary.cyron.com.grossary.utility.LoadingView;
 import grossary.cyron.com.grossary.utility.PreferenceManager;
 import grossary.cyron.com.grossary.utility.callback.OnItemClickListener;
@@ -35,8 +31,6 @@ import grossary.cyron.com.grossary.utility.retrofit.callbacks.ResponseListener;
 import okhttp3.Headers;
 import retrofit2.Call;
 
-import static grossary.cyron.com.grossary.utility.Constant.CATEGORY.DELETE;
-import static grossary.cyron.com.grossary.utility.Constant.CONSTANT.PLACE_YOUR_ORDER;
 import static grossary.cyron.com.grossary.utility.Constant.KEY_NAME.CURRENT_FRG;
 import static grossary.cyron.com.grossary.utility.Constant.KEY_NAME.FRAG_PARAMETER;
 import static grossary.cyron.com.grossary.utility.Constant.URL.BASE_URL;

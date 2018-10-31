@@ -1,7 +1,6 @@
 package grossary.cyron.com.grossary.drawer;
 
 import android.content.Context;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -16,7 +15,6 @@ import java.util.List;
 
 import grossary.cyron.com.grossary.R;
 import grossary.cyron.com.grossary.account.LoginModel;
-import grossary.cyron.com.grossary.category.CategoryActivity;
 import grossary.cyron.com.grossary.utility.Constant;
 import grossary.cyron.com.grossary.utility.PreferenceManager;
 import grossary.cyron.com.grossary.utility.callback.OnItemClickListener;

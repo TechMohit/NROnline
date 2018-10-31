@@ -2,14 +2,10 @@ package grossary.cyron.com.grossary.utility;
 
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 
 import com.google.gson.Gson;
 
 import grossary.cyron.com.grossary.account.LoginModel;
-
-import static android.support.v4.util.Preconditions.checkNotNull;
 
 
 public class PreferenceManager {

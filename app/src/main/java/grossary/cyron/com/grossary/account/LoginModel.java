@@ -1,6 +1,5 @@
 package grossary.cyron.com.grossary.account;
 
-import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 public class LoginModel {

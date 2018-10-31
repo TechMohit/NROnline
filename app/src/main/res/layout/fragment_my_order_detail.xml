@@ -1,10 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-   >
+    android:layout_height="match_parent">
 
 
     <android.support.v7.widget.RecyclerView
@@ -31,6 +29,7 @@
         android:layout_marginEnd="8dp"
         android:drawableLeft="@mipmap/help_icon"
         android:drawablePadding="10dp"
+        android:fontFamily="sans-serif-condensed"
         android:gravity="center"
         android:text="Need Help ?"
         android:textColor="@android:color/white"

@@ -137,6 +137,7 @@ public class HomeFragment extends Fragment implements OnItemClickListener<HomeMo
         homeList.addAll(data);
         adapter.setAdapterData(homeList);
 
+        if(this.homeOfferList.size()>0)
         setViewPagerTimer(this.homeOfferList);
 
     }

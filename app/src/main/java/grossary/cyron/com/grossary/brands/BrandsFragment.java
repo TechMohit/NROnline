@@ -20,13 +20,11 @@ import grossary.cyron.com.grossary.HomeActivity;
 import grossary.cyron.com.grossary.R;
 import grossary.cyron.com.grossary.category.CategoryActivity;
 import grossary.cyron.com.grossary.home.HomeModel;
-import grossary.cyron.com.grossary.sellers.SellersListAdapter;
 import grossary.cyron.com.grossary.utility.callback.OnItemClickListener;
 
 import static grossary.cyron.com.grossary.utility.Constant.CATEGORY.ADD_TO_CART;
 import static grossary.cyron.com.grossary.utility.Constant.CATEGORY.ONCLICK;
 import static grossary.cyron.com.grossary.utility.Constant.CURRENT_STATE.BRAND_FRG;
-import static grossary.cyron.com.grossary.utility.Constant.CURRENT_STATE.OFFER_FRG;
 import static grossary.cyron.com.grossary.utility.Constant.KEY_NAME.ACT_HOME_PARAMETER;
 import static grossary.cyron.com.grossary.utility.Constant.KEY_NAME.CURRENT_FRG;
 

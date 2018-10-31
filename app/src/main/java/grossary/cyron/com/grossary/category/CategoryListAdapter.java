@@ -17,7 +17,6 @@ import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
 import java.util.List;
 
 import grossary.cyron.com.grossary.R;
-import grossary.cyron.com.grossary.offers.OffersListAdapter;
 import grossary.cyron.com.grossary.utility.GlideApp;
 import grossary.cyron.com.grossary.utility.callback.OnItemClickListener;
 
@@ -51,7 +50,7 @@ public class CategoryListAdapter extends RecyclerView.Adapter {
                 .load(object.productImage)
                 .centerInside()
                 .transition(DrawableTransitionOptions.withCrossFade())
-                .placeholder(R.drawable.logo_long)
+                .placeholder(R.mipmap.logo_pink)
                 .error(R.drawable.ic_launcher_background)
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
                 .into(((ImageTypeViewHolder) holder).imgView);

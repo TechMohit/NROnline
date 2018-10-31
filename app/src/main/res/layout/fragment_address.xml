@@ -2,7 +2,6 @@
 
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     xmlns:card_view="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
@@ -24,6 +23,7 @@
                 android:id="@+id/etUserName"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:fontFamily="sans-serif-condensed"
                 android:inputType="textPersonName"
                 android:maxLength="30"
                 android:textColor="#000000"
@@ -42,6 +42,7 @@
                 android:id="@+id/etAddress"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:fontFamily="sans-serif-condensed"
                 android:inputType="textPostalAddress"
                 android:maxLength="90"
                 android:textColor="#000000"
@@ -60,6 +61,7 @@
                 android:id="@+id/etCity"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:fontFamily="sans-serif-condensed"
                 android:inputType="textPersonName"
                 android:maxLength="40"
                 android:textColor="#000000"
@@ -77,6 +79,7 @@
                 android:id="@+id/etState"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:fontFamily="sans-serif-condensed"
                 android:inputType="textPersonName"
                 android:maxLength="60"
                 android:textColor="#000000"
@@ -95,6 +98,7 @@
                 android:id="@+id/etZip"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:fontFamily="sans-serif-condensed"
                 android:inputType="phone"
                 android:maxLength="8"
                 android:textColor="#000000"
@@ -112,6 +116,7 @@
                 android:id="@+id/etPhone"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:fontFamily="sans-serif-condensed"
                 android:inputType="phone"
                 android:maxLength="10"
                 android:textColor="#000000"
@@ -129,15 +134,17 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
+
                 <RadioButton
                     android:id="@+id/rdCash"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textSize="15sp"
                     android:layout_marginLeft="10dp"
-                    android:padding="10dp"
                     android:checked="true"
-                    android:text="Cash On Delivery"/>
+                    android:fontFamily="sans-serif-condensed"
+                    android:padding="10dp"
+                    android:text="Cash On Delivery"
+                    android:textSize="15sp" />
             </LinearLayout>
         </android.support.v7.widget.CardView>
 
@@ -153,14 +160,16 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
+
                 <RadioButton
                     android:id="@+id/rdOnline"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textSize="15sp"
                     android:layout_marginLeft="10dp"
+                    android:fontFamily="sans-serif-condensed"
                     android:padding="10dp"
-                    android:text="Pay Online"/>
+                    android:text="Pay Online"
+                    android:textSize="15sp" />
             </LinearLayout>
         </android.support.v7.widget.CardView>
 

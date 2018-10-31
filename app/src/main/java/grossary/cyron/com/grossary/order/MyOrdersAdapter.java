@@ -1,27 +1,18 @@
 package grossary.cyron.com.grossary.order;
 
 import android.app.Activity;
-import android.graphics.Paint;
-import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.TextView;
-
-import com.bumptech.glide.load.engine.DiskCacheStrategy;
-import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
 
 import java.util.List;
 
 import grossary.cyron.com.grossary.R;
-import grossary.cyron.com.grossary.category.CategoryModel;
-import grossary.cyron.com.grossary.utility.GlideApp;
 import grossary.cyron.com.grossary.utility.callback.OnItemClickListener;
 
-import static grossary.cyron.com.grossary.utility.Constant.CATEGORY.ADD;
 import static grossary.cyron.com.grossary.utility.Constant.CATEGORY.ONCLICK;
 
 

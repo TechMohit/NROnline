@@ -1,7 +1,5 @@
 package grossary.cyron.com.grossary.utility;
 
-import java.net.URL;
-
 public class Constant {
 
     public static class URL

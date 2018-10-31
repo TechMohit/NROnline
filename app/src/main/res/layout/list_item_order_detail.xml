@@ -2,7 +2,6 @@
 <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:card_view="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/card_parent"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -22,10 +21,11 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="15dp"
             android:layout_marginTop="20dp"
+            android:fontFamily="sans-serif-condensed"
             android:gravity="center"
-            android:textSize="18sp"
-            android:textColor="@color/colorPrimary"
             android:text="TextView"
+            android:textColor="@color/colorPrimary"
+            android:textSize="18sp"
             app:layout_constraintStart_toEndOf="@+id/imgView"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -43,8 +43,9 @@
             android:id="@+id/tvQty"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text=""
             android:layout_marginTop="10dp"
+            android:fontFamily="sans-serif-condensed"
+            android:text=""
             android:textSize="15sp"
             app:layout_constraintStart_toStartOf="@+id/tvProductName"
             app:layout_constraintTop_toBottomOf="@+id/tvProductName" />
@@ -53,13 +54,13 @@
             android:id="@+id/tvPrice"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="0"
             android:layout_marginTop="10dp"
-            android:textSize="15sp"
             android:layout_marginRight="10dp"
+            android:fontFamily="sans-serif-condensed"
+            android:text="0"
+            android:textSize="15sp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tvProductName"
-            />
+            app:layout_constraintTop_toBottomOf="@+id/tvProductName" />
 
     </android.support.constraint.ConstraintLayout>
 </android.support.v7.widget.CardView>

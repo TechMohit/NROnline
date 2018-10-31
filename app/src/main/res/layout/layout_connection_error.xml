@@ -11,6 +11,7 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:fontFamily="sans-serif-condensed"
         android:gravity="center"
         android:text="CONNECTION ERROR"
         android:textAppearance="?android:attr/textAppearanceMedium"
@@ -21,6 +22,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="15dp"
+        android:fontFamily="sans-serif-condensed"
         android:gravity="center"
         android:text="Please check your network connectivity and try again."
         android:textAppearance="?android:attr/textAppearanceSmall" />
@@ -28,13 +30,14 @@
 
     <Button
         android:id="@+id/btnRetry"
-        android:background="@drawable/bg_retry"
-        android:textColor="@color/colorPrimary"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="16dp"
-        android:text="Retry" />
+        android:background="@drawable/bg_retry"
+        android:fontFamily="sans-serif-condensed"
+        android:text="Retry"
+        android:textColor="@color/colorPrimary" />
 
 </LinearLayout>
 

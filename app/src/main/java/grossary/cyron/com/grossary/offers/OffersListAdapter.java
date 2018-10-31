@@ -52,7 +52,7 @@ public class OffersListAdapter extends RecyclerView.Adapter {
                 .load(object.getProductImage())
                 .centerCrop()
                 .transition(DrawableTransitionOptions.withCrossFade())
-                .placeholder(R.drawable.logo_long)
+                .placeholder(R.mipmap.logo_pink)
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
                 .error(R.drawable.ic_launcher_background)
                 .into(((ImageTypeViewHolder) holder).imgView);

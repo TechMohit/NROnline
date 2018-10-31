@@ -11,11 +11,9 @@ import android.widget.ImageView;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import grossary.cyron.com.grossary.R;
-import grossary.cyron.com.grossary.offers.OffersListAdapter;
 import grossary.cyron.com.grossary.utility.GlideApp;
 
 
@@ -56,7 +54,7 @@ public class SlidingImage_Adapter extends PagerAdapter {
                 .load(IMAGES.get(position).getOfferImage())
                 .centerCrop()
                 .transition(DrawableTransitionOptions.withCrossFade())
-                .placeholder(R.drawable.logo_long)
+                .placeholder(R.mipmap.logo_pink)
                 .error(R.drawable.ic_launcher_background)
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
                 .into(imageView);

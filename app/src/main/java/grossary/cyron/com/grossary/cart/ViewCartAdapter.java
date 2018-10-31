@@ -6,28 +6,23 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import grossary.cyron.com.grossary.R;
-import grossary.cyron.com.grossary.home.HomeModel;
 import grossary.cyron.com.grossary.utility.GlideApp;
 import grossary.cyron.com.grossary.utility.callback.OnItemClickListener;
 
 import static grossary.cyron.com.grossary.utility.Constant.CATEGORY.ADD;
 import static grossary.cyron.com.grossary.utility.Constant.CATEGORY.DELETE;
 import static grossary.cyron.com.grossary.utility.Constant.CATEGORY.MIN;
-import static grossary.cyron.com.grossary.utility.Constant.CATEGORY.ONCLICK;
 
 
 public class ViewCartAdapter extends RecyclerView.Adapter {
@@ -62,7 +57,7 @@ public class ViewCartAdapter extends RecyclerView.Adapter {
                     .load(object.getProductimage())
                     .centerCrop()
                     .transition(DrawableTransitionOptions.withCrossFade())
-                    .placeholder(R.drawable.logo_long)
+                    .placeholder(R.mipmap.logo_pink)
                     .error(R.drawable.ic_launcher_background)
                     .diskCacheStrategy(DiskCacheStrategy.ALL)
                     .into(((ImageTypeViewHolder) holder).imgView);
