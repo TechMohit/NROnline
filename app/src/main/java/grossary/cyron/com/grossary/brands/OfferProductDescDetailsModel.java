@@ -4,20 +4,19 @@ import com.google.gson.annotations.SerializedName;
 
 public class OfferProductDescDetailsModel {
 
+
     @SerializedName("Response")
     private ResponseEntity Response;
     @SerializedName("Status")
     private String Status;
-    @SerializedName("StatusMessage")
-    private String StatusMessage;
     @SerializedName("SubProductDesc")
     private String SubProductDesc;
     @SerializedName("SubProductQTY")
-    private int SubProductQTY;
+    private String SubProductQTY;
     @SerializedName("SellingPrice")
-    private int SellingPrice;
+    private String SellingPrice;
     @SerializedName("MRPPrice")
-    private int MRPPrice;
+    private String MRPPrice;
     @SerializedName("ProductImage")
     private String ProductImage;
     @SerializedName("ProductName")
@@ -51,14 +50,6 @@ public class OfferProductDescDetailsModel {
         this.Status = Status;
     }
 
-    public String getStatusMessage() {
-        return StatusMessage;
-    }
-
-    public void setStatusMessage(String StatusMessage) {
-        this.StatusMessage = StatusMessage;
-    }
-
     public String getSubProductDesc() {
         return SubProductDesc;
     }
@@ -67,27 +58,27 @@ public class OfferProductDescDetailsModel {
         this.SubProductDesc = SubProductDesc;
     }
 
-    public int getSubProductQTY() {
+    public String getSubProductQTY() {
         return SubProductQTY;
     }
 
-    public void setSubProductQTY(int SubProductQTY) {
+    public void setSubProductQTY(String SubProductQTY) {
         this.SubProductQTY = SubProductQTY;
     }
 
-    public int getSellingPrice() {
+    public String getSellingPrice() {
         return SellingPrice;
     }
 
-    public void setSellingPrice(int SellingPrice) {
+    public void setSellingPrice(String SellingPrice) {
         this.SellingPrice = SellingPrice;
     }
 
-    public int getMRPPrice() {
+    public String getMRPPrice() {
         return MRPPrice;
     }
 
-    public void setMRPPrice(int MRPPrice) {
+    public void setMRPPrice(String MRPPrice) {
         this.MRPPrice = MRPPrice;
     }
 
