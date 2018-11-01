@@ -133,16 +133,16 @@ public class CategoryListFragment extends Fragment implements OnItemClickListene
         String value=(getArguments().getString(FRAG_PARAMETER));
         String current=(getArguments().getString(CURRENT_FRG));
 
-        String storeId="0",productId="0";
+        String storeId="0",catergoryId="0";
 
         if(current.equalsIgnoreCase(HOME_FRG)) {
             HomeModel.ObjCategoryListEntity product = new Gson().fromJson(value, HomeModel.ObjCategoryListEntity.class);
-            productId=""+product.getCatergoryId();
+            catergoryId=""+product.getCatergoryId();
         }else if(current.equalsIgnoreCase(SELLER_FRG)){
             HomeModel.ObjStoreDetailsListEntity store = new Gson().fromJson(value, HomeModel.ObjStoreDetailsListEntity.class);
             storeId=""+store.getStoreId();
         }
-        Call<CategoryModel> call = RetrofitClient.getAPIInterface().productDetails(url, storeId,productId);
+        Call<CategoryModel> call = RetrofitClient.getAPIInterface().productDetails(url, storeId,catergoryId);
         Request request = new RetrofitRequest<>(call, new ResponseListener<CategoryModel>() {
             @Override
             public void onResponse(int code, CategoryModel response, Headers headers) {

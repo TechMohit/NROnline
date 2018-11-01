@@ -144,20 +144,20 @@ public class CategoryListDetailsFragment extends Fragment {
 
         String value = (getArguments().getString(FRAG_PARAMETER));
 
-        String productId = "0";
+        String productDescId = "0";
 
         if (current.equalsIgnoreCase(CATG_LIST_FRG)) {
             CategoryModel.Projectlist product = new Gson().fromJson(value, CategoryModel.Projectlist.class);
-            productId = "" + product.productDescId;
+            productDescId = "" + product.productDescId;
         } else if (current.equalsIgnoreCase(OFFER_FRG)) {
             HomeModel.ObjOfferDetailsListEntity product = new Gson().fromJson(value, HomeModel.ObjOfferDetailsListEntity.class);
-            productId = "" + product.getProductId();
+            productDescId = "" + product.getProductDescId();
         } else if (current.equalsIgnoreCase(BRAND_FRG)) {
             HomeModel.ObjOfferProdListEntity product = new Gson().fromJson(value, HomeModel.ObjOfferProdListEntity.class);
-            productId = "" + product.getProductId();
+            productDescId = "" + product.getProductDescId();
         }
 
-        Call<ProductdDescDetailsModel> call = RetrofitClient.getAPIInterface().ProductdDescDetails(url, "" + productId);
+        Call<ProductdDescDetailsModel> call = RetrofitClient.getAPIInterface().ProductdDescDetails(url, "" + productDescId);
         Request request = new RetrofitRequest<>(call, new ResponseListener<ProductdDescDetailsModel>() {
             @Override
             public void onResponse(int code, ProductdDescDetailsModel response, Headers headers) {
@@ -213,11 +213,11 @@ public class CategoryListDetailsFragment extends Fragment {
 
         String value = (getArguments().getString(FRAG_PARAMETER));
 
-        String productId = "0";
+        String productDescId = "0";
         HomeModel.ObjOfferProdListEntity product = new Gson().fromJson(value, HomeModel.ObjOfferProdListEntity.class);
-        productId = "" + product.getProductId();
+        productDescId = "" + product.getProductDescId();
 
-        Call<OfferProductDescDetailsModel> call = RetrofitClient.getAPIInterface().OfferProductdDescDetails(url, "" + productId);
+        Call<OfferProductDescDetailsModel> call = RetrofitClient.getAPIInterface().OfferProductdDescDetails(url, "" + productDescId);
         Request request = new RetrofitRequest<>(call, new ResponseListener<OfferProductDescDetailsModel>() {
             @Override
             public void onResponse(int code, OfferProductDescDetailsModel response, Headers headers) {
