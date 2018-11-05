@@ -42,7 +42,6 @@ public class SigninActivity extends AppCompatActivity {
     private SMSReceiver smsReceiver;
     private static final String SMS_ORIGIN_GROSSARY = "PLATRD";
     public static final String OTP_DELIMITER = "OTP is";
-
     private TextView txt_register;
     private Button btn_login;
     private LoadingView load;

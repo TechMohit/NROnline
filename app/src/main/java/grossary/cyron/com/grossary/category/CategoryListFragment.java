@@ -32,7 +32,6 @@ import static grossary.cyron.com.grossary.utility.Constant.CATEGORY.ONCLICK;
 import static grossary.cyron.com.grossary.utility.Constant.CONSTANT.CHECKOUT;
 import static grossary.cyron.com.grossary.utility.Constant.CURRENT_STATE.CATG_LIST_FRG;
 import static grossary.cyron.com.grossary.utility.Constant.CURRENT_STATE.HOME_FRG;
-import static grossary.cyron.com.grossary.utility.Constant.CURRENT_STATE.SEARCH_FRG;
 import static grossary.cyron.com.grossary.utility.Constant.CURRENT_STATE.SELLER_FRG;
 import static grossary.cyron.com.grossary.utility.Constant.KEY_NAME.CURRENT_FRG;
 import static grossary.cyron.com.grossary.utility.Constant.KEY_NAME.FRAG_PARAMETER;
@@ -77,11 +76,11 @@ public class CategoryListFragment extends Fragment implements OnItemClickListene
 
         String value = (getArguments().getString(FRAG_PARAMETER));
         String current = (getArguments().getString(CURRENT_FRG));
-        if(current.equalsIgnoreCase(SEARCH_FRG)){
-            callApiSearch(value);
-        }else {
+//        if(current.equalsIgnoreCase(SEARCH_FRG)){
+//            callApiSearch(value);
+//        }else {
             callApi();
-        }
+//        }
         ((CategoryActivity)getActivity()).callApiCount();
 
     }

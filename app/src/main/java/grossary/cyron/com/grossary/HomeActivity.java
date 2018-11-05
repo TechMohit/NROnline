@@ -12,6 +12,10 @@ import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -24,6 +28,8 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.google.gson.Gson;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -39,11 +45,14 @@ import grossary.cyron.com.grossary.home.HomeFragment;
 import grossary.cyron.com.grossary.home.HomeModel;
 import grossary.cyron.com.grossary.offers.OffersFragment;
 import grossary.cyron.com.grossary.profile.ProfileActivity;
+import grossary.cyron.com.grossary.search.ProductSearchDetailsAdapter;
+import grossary.cyron.com.grossary.search.ProductSearchDetailsModel;
 import grossary.cyron.com.grossary.sellers.SellerFragment;
 import grossary.cyron.com.grossary.utility.Constant;
 import grossary.cyron.com.grossary.utility.FragmentHelper;
 import grossary.cyron.com.grossary.utility.LoadingView;
 import grossary.cyron.com.grossary.utility.PreferenceManager;
+import grossary.cyron.com.grossary.utility.callback.OnItemClickListener;
 import grossary.cyron.com.grossary.utility.retrofit.RetrofitClient;
 import grossary.cyron.com.grossary.utility.retrofit.RetrofitRequest;
 import grossary.cyron.com.grossary.utility.retrofit.callbacks.Request;
@@ -52,6 +61,7 @@ import grossary.cyron.com.grossary.webview.WebViewActivity;
 import okhttp3.Headers;
 import retrofit2.Call;
 
+import static grossary.cyron.com.grossary.utility.Constant.CURRENT_STATE.BRAND_FRG;
 import static grossary.cyron.com.grossary.utility.Constant.CURRENT_STATE.MY_ORDER_FRG;
 import static grossary.cyron.com.grossary.utility.Constant.CURRENT_STATE.SEARCH_FRG;
 import static grossary.cyron.com.grossary.utility.Constant.CURRENT_STATE.VIEW_CART_FRG;
@@ -60,7 +70,10 @@ import static grossary.cyron.com.grossary.utility.Constant.KEY_NAME.CURRENT_FRG;
 import static grossary.cyron.com.grossary.utility.Constant.URL.BASE_URL;
 import static grossary.cyron.com.grossary.utility.Util.openKeyPad;
 
-public class HomeActivity extends AppCompatActivity implements FragmentManager.OnBackStackChangedListener, DrawerFragment.DrawerListener, android.app.FragmentManager.OnBackStackChangedListener {
+public class HomeActivity extends AppCompatActivity implements
+        FragmentManager.OnBackStackChangedListener, DrawerFragment.DrawerListener,
+        android.app.FragmentManager.OnBackStackChangedListener,
+        OnItemClickListener<ProductSearchDetailsModel.ObjproductsearchdetailsEntity> {
 
     private DrawerLayout drawer;
     private TabLayout tabLayout;
@@ -72,6 +85,9 @@ public class HomeActivity extends AppCompatActivity implements FragmentManager.O
     private TextView tvCartCount;
     private ImageView tv_hamburger, img_cart, imgSearch;
     private Dialog dialog;
+
+    private RecyclerView recyclerView;
+    private ProductSearchDetailsAdapter adapter;
 
     private int[] tabIcons = {
             R.mipmap.home,
@@ -163,7 +179,12 @@ public class HomeActivity extends AppCompatActivity implements FragmentManager.O
                 ImageView imgBack = dialog.findViewById(R.id.imgBack);
                 final EditText etSearch = dialog.findViewById(R.id.etSearch);
 
-                openKeyPad(HomeActivity.this, etSearch);
+                recyclerView = dialog.findViewById(R.id.recycle_view);
+
+                recyclerView.setLayoutManager(new LinearLayoutManager(HomeActivity.this));
+                setAdapter();
+
+                openKeyPad(HomeActivity.this,etSearch);
 
                 imgBack.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -171,27 +192,72 @@ public class HomeActivity extends AppCompatActivity implements FragmentManager.O
                         dialog.dismiss();
                     }
                 });
-                imgSearch.setOnClickListener(new View.OnClickListener() {
+
+                etSearch.addTextChangedListener(new TextWatcher() {
                     @Override
-                    public void onClick(View v) {
+                    public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
-                        if (etSearch.getText().toString().equalsIgnoreCase("")) {
-                            Toast.makeText(HomeActivity.this, "Enter Value to Search", Toast.LENGTH_SHORT).show();
-                        } else {
+                    }
 
-                            dialog.dismiss();
-                            Intent intent = new Intent(HomeActivity.this, CategoryActivity.class);
-                            intent.putExtra(CURRENT_FRG, SEARCH_FRG);
-                            intent.putExtra(ACT_HOME_PARAMETER, "" + etSearch.getText().toString());
-                            startActivity(intent);
+                    @Override
+                    public void onTextChanged(CharSequence s, int start, int before, int count) {
 
-                        }
+                        adapter.getFilter().filter(s);
+                    }
+
+                    @Override
+                    public void afterTextChanged(Editable s) {
+
                     }
                 });
+
+                callApiProductSearchDetails();
                 dialog.show();
 
             }
         });
+    }
+
+    private void setAdapter() {
+        adapter = new ProductSearchDetailsAdapter(HomeActivity.this, this);
+        recyclerView.setAdapter(adapter);
+    }
+
+    private void callApiProductSearchDetails() {
+        load = new LoadingView(HomeActivity.this);
+        load.setCancalabe(false);
+        load.showLoading();
+        String url = BASE_URL + "/Home/ProductSearchDetails";
+
+        Log.e("URl", "*** " + url);
+
+        Call<ProductSearchDetailsModel> call = RetrofitClient.getAPIInterface().productSearchDetails(url);
+        Request request = new RetrofitRequest<>(call, new ResponseListener<ProductSearchDetailsModel>() {
+            @Override
+            public void onResponse(int code, ProductSearchDetailsModel response, Headers headers) {
+                load.dismissLoading();
+                if (response.getResponse().getResponseval()) {
+                    adapter.setAdapterData(response.getObjproductsearchdetails());
+
+                }else{
+                    Toast.makeText(HomeActivity.this, ""+response.getResponse().getReason() , Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onError(int error) {
+                load.dismissLoading();
+
+            }
+
+            @Override
+            public void onFailure(Throwable throwable) {
+                Log.e("respond", "failure ---->");
+                load.dismissLoading();
+            }
+        });
+        request.enqueue();
+
     }
 
     private void setHome() {
@@ -291,6 +357,17 @@ public class HomeActivity extends AppCompatActivity implements FragmentManager.O
 
     public HomeModel getHomeModel() {
         return homeModel;
+    }
+
+    @Override
+    public void onItemClick(ProductSearchDetailsModel.ObjproductsearchdetailsEntity objproductsearchdetailsEntity, View view, int position, String type) {
+
+        Intent intent = new Intent(HomeActivity.this, CategoryActivity.class);
+        intent.putExtra(CURRENT_FRG, SEARCH_FRG);
+        intent.putExtra(ACT_HOME_PARAMETER, new Gson().toJson(objproductsearchdetailsEntity));
+        startActivity(intent);
+        if(dialog!=null && dialog.isShowing())
+            dialog.dismiss();
     }
 
     class ViewPagerAdapter extends FragmentPagerAdapter {

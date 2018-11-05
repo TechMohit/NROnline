@@ -80,7 +80,7 @@ public class BrandsFragment extends Fragment implements OnItemClickListener<Home
 
         if (type.equalsIgnoreCase(ONCLICK)) {
 
-            Intent intent = new Intent(getActivity(), CategoryActivity.class);
+           Intent intent = new Intent(getActivity(), CategoryActivity.class);
             intent.putExtra(CURRENT_FRG, BRAND_FRG);
             intent.putExtra(ACT_HOME_PARAMETER, new Gson().toJson(brandsModel));
             startActivity(intent);

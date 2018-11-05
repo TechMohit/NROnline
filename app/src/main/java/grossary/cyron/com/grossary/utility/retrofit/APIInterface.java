@@ -19,6 +19,7 @@ import grossary.cyron.com.grossary.payment.PaymentGatewayRequestModel;
 import grossary.cyron.com.grossary.payment.SubmitTransactionModel;
 import grossary.cyron.com.grossary.profile.GetUserProfileModel;
 import grossary.cyron.com.grossary.profile.GetUserProfileUpdateModel;
+import grossary.cyron.com.grossary.search.ProductSearchDetailsModel;
 import retrofit2.Call;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
@@ -107,6 +108,9 @@ public interface APIInterface {
     @POST()
     @FormUrlEncoded
     Call<CategoryModel> productSearch(@Url String url, @Field("SearchTag") String SearchTag);
+
+    @POST()
+    Call<ProductSearchDetailsModel> productSearchDetails(@Url String url);
 
     @POST()
     @FormUrlEncoded

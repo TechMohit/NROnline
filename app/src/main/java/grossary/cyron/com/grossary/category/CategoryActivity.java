@@ -6,6 +6,11 @@ import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.view.Window;
@@ -16,15 +21,20 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.gson.Gson;
+
 import grossary.cyron.com.grossary.R;
 import grossary.cyron.com.grossary.account.LoginModel;
 import grossary.cyron.com.grossary.adress.AddressFragment;
 import grossary.cyron.com.grossary.cart.ViewCartFragment;
 import grossary.cyron.com.grossary.order.MyOrderDetailFragment;
 import grossary.cyron.com.grossary.order.MyOrdersFragment;
+import grossary.cyron.com.grossary.search.ProductSearchDetailsAdapter;
+import grossary.cyron.com.grossary.search.ProductSearchDetailsModel;
 import grossary.cyron.com.grossary.utility.FragmentHelper;
 import grossary.cyron.com.grossary.utility.LoadingView;
 import grossary.cyron.com.grossary.utility.PreferenceManager;
+import grossary.cyron.com.grossary.utility.callback.OnItemClickListener;
 import grossary.cyron.com.grossary.utility.retrofit.RetrofitClient;
 import grossary.cyron.com.grossary.utility.retrofit.RetrofitRequest;
 import grossary.cyron.com.grossary.utility.retrofit.callbacks.Request;
@@ -55,13 +65,17 @@ import static grossary.cyron.com.grossary.utility.Constant.KEY_NAME.FRAG_PARAMET
 import static grossary.cyron.com.grossary.utility.Constant.URL.BASE_URL;
 import static grossary.cyron.com.grossary.utility.Util.openKeyPad;
 
-public class CategoryActivity extends AppCompatActivity implements FragmentManager.OnBackStackChangedListener {
+public class CategoryActivity extends AppCompatActivity implements FragmentManager.OnBackStackChangedListener,
+        OnItemClickListener<ProductSearchDetailsModel.ObjproductsearchdetailsEntity> {
 
     private LoadingView load;
     private RelativeLayout revBottom;
     public TextView txtCheckout, tvTotal, tvCount;
     private Dialog dialog;
     private ImageView tvBack,img_cart;
+
+    private RecyclerView recyclerView;
+    private ProductSearchDetailsAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -88,7 +102,7 @@ public class CategoryActivity extends AppCompatActivity implements FragmentManag
         } else if (current.equalsIgnoreCase(MY_ORDER_FRG)) {
             selectFrag(ORDER, "", MY_ORDER_FRG);
         } else if (current.equalsIgnoreCase(SEARCH_FRG)) {
-            selectFrag(LIST, getIntent().getStringExtra(ACT_HOME_PARAMETER), current);
+            selectFrag(LIST_DETAILS, getIntent().getStringExtra(ACT_HOME_PARAMETER), current);
 
         }
         getFragmentManager().addOnBackStackChangedListener(this);
@@ -152,6 +166,11 @@ public class CategoryActivity extends AppCompatActivity implements FragmentManag
                 ImageView imgBack = dialog.findViewById(R.id.imgBack);
                 final EditText etSearch = dialog.findViewById(R.id.etSearch);
 
+                recyclerView = dialog.findViewById(R.id.recycle_view);
+
+                recyclerView.setLayoutManager(new LinearLayoutManager(CategoryActivity.this));
+                setAdapter();
+
                 openKeyPad(CategoryActivity.this,etSearch);
 
                 imgBack.setOnClickListener(new View.OnClickListener() {
@@ -160,25 +179,74 @@ public class CategoryActivity extends AppCompatActivity implements FragmentManag
                         dialog.dismiss();
                     }
                 });
-                imgSearch.setOnClickListener(new View.OnClickListener() {
+
+                etSearch.addTextChangedListener(new TextWatcher() {
                     @Override
-                    public void onClick(View v) {
+                    public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
-                        if (etSearch.getText().toString().equalsIgnoreCase("")) {
-                            Toast.makeText(CategoryActivity.this, "Enter Value to Search", Toast.LENGTH_SHORT).show();
-                        } else {
+                    }
 
-                            dialog.dismiss();
-                            selectFrag(LIST, etSearch.getText().toString(), SEARCH_FRG);
+                    @Override
+                    public void onTextChanged(CharSequence s, int start, int before, int count) {
 
-                        }
+                        adapter.getFilter().filter(s);
+                    }
+
+                    @Override
+                    public void afterTextChanged(Editable s) {
+
                     }
                 });
+
+                callApiProductSearchDetails();
                 dialog.show();
 
             }
         });
     }
+
+    private void setAdapter() {
+        adapter = new ProductSearchDetailsAdapter(CategoryActivity.this, this);
+        recyclerView.setAdapter(adapter);
+    }
+
+    private void callApiProductSearchDetails() {
+        load = new LoadingView(CategoryActivity.this);
+        load.setCancalabe(false);
+        load.showLoading();
+        String url = BASE_URL + "/Home/ProductSearchDetails";
+
+        Log.e("URl", "*** " + url);
+
+        Call<ProductSearchDetailsModel> call = RetrofitClient.getAPIInterface().productSearchDetails(url);
+        Request request = new RetrofitRequest<>(call, new ResponseListener<ProductSearchDetailsModel>() {
+            @Override
+            public void onResponse(int code, ProductSearchDetailsModel response, Headers headers) {
+                load.dismissLoading();
+                if (response.getResponse().getResponseval()) {
+                    adapter.setAdapterData(response.getObjproductsearchdetails());
+
+                }else{
+                    Toast.makeText(CategoryActivity.this, ""+response.getResponse().getReason() , Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onError(int error) {
+                load.dismissLoading();
+
+            }
+
+            @Override
+            public void onFailure(Throwable throwable) {
+                Log.e("respond", "failure ---->");
+                load.dismissLoading();
+            }
+        });
+        request.enqueue();
+
+    }
+
 
     public void selectFrag(String tag, String response, String current) {
 
@@ -205,7 +273,8 @@ public class CategoryActivity extends AppCompatActivity implements FragmentManag
                 arguments.putString(CURRENT_FRG, current);
                 arguments.putString(FRAG_PARAMETER, response);
                 fragment.setArguments(arguments);
-                if (current.equalsIgnoreCase(OFFER_FRG)||current.equalsIgnoreCase(BRAND_FRG)) {
+                if (current.equalsIgnoreCase(OFFER_FRG)||current.equalsIgnoreCase(BRAND_FRG)||
+                        current.equalsIgnoreCase(SEARCH_FRG)) {
                     FragmentHelper.replaceFragment(this, R.id.container, fragment, false, tag);
 
                 } else {
@@ -343,4 +412,12 @@ public class CategoryActivity extends AppCompatActivity implements FragmentManag
     }
 
 
+    @Override
+    public void onItemClick(ProductSearchDetailsModel.ObjproductsearchdetailsEntity objproductsearchdetailsEntity, View view, int position, String type) {
+
+        if(dialog!=null && dialog.isShowing())
+            dialog.dismiss();
+        selectFrag(LIST_DETAILS, new Gson().toJson(objproductsearchdetailsEntity), SEARCH_FRG);
+
+    }
 }

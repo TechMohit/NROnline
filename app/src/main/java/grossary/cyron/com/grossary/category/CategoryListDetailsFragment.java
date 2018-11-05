@@ -22,6 +22,7 @@ import com.google.gson.Gson;
 import grossary.cyron.com.grossary.R;
 import grossary.cyron.com.grossary.brands.OfferProductDescDetailsModel;
 import grossary.cyron.com.grossary.home.HomeModel;
+import grossary.cyron.com.grossary.search.ProductSearchDetailsModel;
 import grossary.cyron.com.grossary.utility.GlideApp;
 import grossary.cyron.com.grossary.utility.LoadingView;
 import grossary.cyron.com.grossary.utility.retrofit.RetrofitClient;
@@ -35,6 +36,7 @@ import static grossary.cyron.com.grossary.utility.Constant.CONSTANT.CHECKOUT;
 import static grossary.cyron.com.grossary.utility.Constant.CURRENT_STATE.BRAND_FRG;
 import static grossary.cyron.com.grossary.utility.Constant.CURRENT_STATE.CATG_LIST_FRG;
 import static grossary.cyron.com.grossary.utility.Constant.CURRENT_STATE.OFFER_FRG;
+import static grossary.cyron.com.grossary.utility.Constant.CURRENT_STATE.SEARCH_FRG;
 import static grossary.cyron.com.grossary.utility.Constant.KEY_NAME.CURRENT_FRG;
 import static grossary.cyron.com.grossary.utility.Constant.KEY_NAME.FRAG_PARAMETER;
 import static grossary.cyron.com.grossary.utility.Constant.URL.BASE_URL;
@@ -155,6 +157,9 @@ public class CategoryListDetailsFragment extends Fragment {
         } else if (current.equalsIgnoreCase(BRAND_FRG)) {
             HomeModel.ObjOfferProdListEntity product = new Gson().fromJson(value, HomeModel.ObjOfferProdListEntity.class);
             productDescId = "" + product.getProductDescId();
+        }else if (current.equalsIgnoreCase(SEARCH_FRG)) {
+            ProductSearchDetailsModel.ObjproductsearchdetailsEntity product = new Gson().fromJson(value, ProductSearchDetailsModel.ObjproductsearchdetailsEntity.class);
+            productDescId = "" + product.getProductdescid();
         }
 
         Call<ProductdDescDetailsModel> call = RetrofitClient.getAPIInterface().ProductdDescDetails(url, "" + productDescId);
