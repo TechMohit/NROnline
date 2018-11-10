@@ -84,10 +84,11 @@ public class ProductSearchDetailsAdapter extends RecyclerView.Adapter implements
 
     public void setAdapterData(List<ProductSearchDetailsModel.ObjproductsearchdetailsEntity> sellerList) {
         dataSet = sellerList;
-        dataSetFilter=sellerList;
+//        dataSetFilter=sellerList;
         notifyDataSetChanged();
 
     }
+
 
 
     public static class ImageTypeViewHolder extends RecyclerView.ViewHolder {
@@ -111,21 +112,22 @@ public class ProductSearchDetailsAdapter extends RecyclerView.Adapter implements
             @Override
             protected FilterResults performFiltering(CharSequence charSequence) {
                 String charString = charSequence.toString();
+                List<ProductSearchDetailsModel.ObjproductsearchdetailsEntity> filteredList = new ArrayList<>();
                 if (charString.isEmpty()) {
-                    dataSetFilter = dataSet;
+//                    dataSetFilter = dataSet;
                 } else {
-                    List<ProductSearchDetailsModel.ObjproductsearchdetailsEntity> filteredList = new ArrayList<>();
                     for (ProductSearchDetailsModel.ObjproductsearchdetailsEntity row : dataSet) {
 
                         // name match condition. this might differ depending on your requirement
                         // here we are looking for name or phone number match
-                        if (row.getProductname().toLowerCase().contains(charString.toLowerCase()) || row.getCategoryname().contains(charSequence)) {
+                        if (row.getProductname().toLowerCase().contains(charString.toString().toLowerCase()) ||
+                                row.getCategoryname().toLowerCase().contains(charSequence.toString().toLowerCase())) {
                             filteredList.add(row);
                         }
                     }
 
-                    dataSetFilter = filteredList;
                 }
+                dataSetFilter = filteredList;
 
                 FilterResults filterResults = new FilterResults();
                 filterResults.values = dataSetFilter;
