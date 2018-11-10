@@ -44,7 +44,7 @@ public class ProductSearchDetailsAdapter extends RecyclerView.Adapter implements
     @Override
     public void onBindViewHolder(final RecyclerView.ViewHolder holder,  int listPosition) {
 
-        final ProductSearchDetailsModel.ObjproductsearchdetailsEntity object = dataSet.get(listPosition);
+        final ProductSearchDetailsModel.ObjproductsearchdetailsEntity object = dataSetFilter.get(listPosition);
         ((ImageTypeViewHolder) holder).tvProductName.setText(""+ object.getProductname());
         ((ImageTypeViewHolder) holder).tvCatName.setText(""+object.getCategoryname());
 
